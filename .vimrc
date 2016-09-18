@@ -40,36 +40,9 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#buffer_nr_show = 1
 map <F3> :up<CR>:bp<CR>
 map <F4> :up<CR>:bn<CR>
-"Bundle 'Valloric/YouCompleteMe'
-"縮排可視化
-"Plugin 'Yggdroot/indentLine'
-"let g:indentLine_color_term = 250
-"let g:indentLine_char = '|'
-"let g:indentLine_concealcursor = 'inc'
-"let g:indentLine_conceallevel = 2
-"let g:indentLine_enabled = 0
-" 以下範例用來支持不同格式的插件安裝.
-" 請將安裝插的命令放在vundle#begin和vundle#end之間.
-" Github上的插件
-" 格式為 Plugin '用戶名/插件倉庫名'
-"Plugin 'tpope/vim-fugitive'
-" 來自 http://vim-scripts.org/vim/scripts.html 的插件
-" Plugin '插件名稱' 實際上是 Plugin 'vim-scripts/插件倉庫名'
-"只是此處的用戶名可以省略
-"Plugin 'L9'
-"由Git支持但不再github上的插件倉庫 Plugin 'git clone 後面的地址'
-"Plugin 'git://git.wincent.com/command-t.git'
-" 本地的Git倉庫(例如自己的插件) Plugin 'file:///+本地插件倉庫絕對路徑'
-"Plugin 'file:///home/gmarik/path/to/plugin'
-"Plugin 'file://C:/cygwin64/home/user/.vim/bundle/xterm-color-table.vim-master/plugin'
 "256 色測試
 Plugin 'git://github.com/guns/xterm-color-table.vim.git'
 "https://github.com/guns/xterm-color-table.vim.git
-" 插件在倉庫的子目錄中.
-" 正確指定路徑用以設置runtimepath. 以下範例插件在sparkup/vim目錄下
-"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" 安裝L9，如果已經安裝過這個插件，可利用以下格式避免命名衝突
-"Plugin 'ascenator/L9', {'name': 'newL9'}
 
 " 你的所有插件需要在下面這行之前
 call vundle#end()            " 必須
@@ -88,10 +61,6 @@ filetype plugin indent on    " 必須
 " 查閱 :h vundle 獲取更多細節和wiki以及FAQ
 " 將你自己對非插件片段放在這行之後
 "********************************************************************
-" 將 pathogen 自身也置於獨立目錄中，需指定其路徑 
-"runtime /bundle/pathogen/autoload/pathogen.vim
-" 運行 pathogen
-"execute pathogen#infect()
 "不可見字符可視化
 :set list lcs=tab:\│\ 
 "讓.h不被認為是C++的
@@ -122,9 +91,6 @@ nnoremap <F2> :set nonumber!<CR>
 
 " 禁止折行
 set nowrap
-
-" 設置 gvim 顯示字體
-"set guifont=YaHei\ Consolas\ 17 " Hybrid\ 17
 
 "背景
 "set background=dark
@@ -165,20 +131,15 @@ set gcr=a:block-blinkon0
 "設置歷史紀錄為50條
 set history=50
 
-" 随 vim 自啟動
-"let g:indent_guides_enable_on_vim_startup=1
-" 從第二層開始可視化顯示縮排
-"let g:indent_guides_start_level=2
-" 色塊寬度
-"let g:indent_guides_guide_size=1
-" 快捷鍵 b 開/關縮排可視化
-":nmap <silent> <Leader>b <Plug>IndentGuidesToggle
-
 " 基于縮排或語法進行代碼折叠
 "操作：za，打開或關閉當前折叠；zM，關閉所有折叠；zR，打開所有折叠
 "set foldmethod=indent
 "set foldmethod=syntax
 " 啟動 vim 時關閉折叠代碼
 "set nofoldenable
-:ab _pr printf("");<LEFT><LEFT>
-:ab _main #include <stdio.h><CR><CR>int main(int argc, char *argv[]){<CR><CR>return 0;<CR>}<UP><UP>
+"快捷鍵
+map <F11> <ESC>:up<CR>
+map <F12> <ESC>:up<CR>:q<CR>
+"預設程式
+:iab _pr printf();<LEFT><LEFT>
+:iab _main #include <stdio.h><CR><CR>int main(int argc, char *argv[]){<CR><CR>return 0;<CR>}<UP><UP>
