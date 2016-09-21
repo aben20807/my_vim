@@ -1,18 +1,25 @@
+"快捷鍵
+"儲存
+nmap <F10> <ESC>:q!<CR>
+nmap <F11> <ESC>:up<CR>
+nmap <F12> <ESC>:up<CR>:q<CR>
+"註解
+imap <C-L> <ESC><S-^>i//
+nmap <C-L> <ESC><S-^>i//<ESC>
+imap <C-K> <ESC><S-^><C-V><RIGHT>di
+nmap <C-K> <ESC><S-^><C-V><RIGHT>d
+"預設程式
+:iab _pr printf();<LEFT><LEFT>
+:iab _main #include <stdio.h><CR><CR>int main(int argc, char *argv[]){<CR><CR>return 0;<CR>}<UP><UP>
 "括號引號補全
-":inoremap { {<CR>}<ESC>O
-":inoremap ( ()<ESC>i
-":inoremap [ []<ESC>i
+:inoremap {<CR> {<CR>}<ESC>O
+:inoremap { {}<LEFT>
+:inoremap {} {}<LEFT>
+:inoremap ( ()<LEFT>
+:inoremap () ()<LEFT>
+:inoremap [] []<LEFT>
+:inoremap [ []<LEFT>
 "":inoremap " ""<ESC>i
-"":inoremap { {}<ESC>i		
-
-"自動縮排：即每行的缩排與上一行相等；使用noautoindent取消
-""nnoremap <F3> :set autoindent!<CR>
-"set autoindent
-
-"設置 使用 C/C++ 語言的自動缩排方式：
-""nnoremap <F3> :set cindent!<CR>
-"set cindent
-
 "********************************************************************
 set nocompatible              " 去除VI一致性,必須
 filetype off                  " 必須
@@ -137,9 +144,3 @@ set history=50
 "set foldmethod=syntax
 " 啟動 vim 時關閉折叠代碼
 "set nofoldenable
-"快捷鍵
-map <F11> <ESC>:up<CR>
-map <F12> <ESC>:up<CR>:q<CR>
-"預設程式
-:iab _pr printf();<LEFT><LEFT>
-:iab _main #include <stdio.h><CR><CR>int main(int argc, char *argv[]){<CR><CR>return 0;<CR>}<UP><UP>
