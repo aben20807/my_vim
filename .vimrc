@@ -9,17 +9,61 @@ nmap <C-L> <ESC><S-^>i//<ESC>
 imap <C-K> <ESC><S-^><C-V><RIGHT>di
 nmap <C-K> <ESC><S-^><C-V><RIGHT>d
 "預設程式
-:iab _pr printf();<LEFT><LEFT>
-:iab _main #include <stdio.h><CR><CR>int main(int argc, char *argv[]){<CR><CR>return 0;<CR>}<UP><UP>
-"括號引號補全
-:inoremap {<CR> {<CR>}<ESC>O
-:inoremap { {}<LEFT>
-:inoremap {} {}<LEFT>
-:inoremap ( ()<LEFT>
-:inoremap () ()<LEFT>
-:inoremap [] []<LEFT>
-:inoremap [ []<LEFT>
-"":inoremap " ""<ESC>i
+func Eatchar(pat)
+	let c = nr2char(getchar(0))
+	return (c =~ a:pat)? '': c
+endfunc
+:iab #i #include <><LEFT><C-R>=Eatchar('\m\s\<bar>\r')<CR>
+:iab _pr printf();<LEFT><LEFT><C-R>=Eatchar('\m\s\<bar>\r')<CR>
+ autocmd BufRead,BufNewFile *.h,*.c :iab <buffer> _main #include <stdio.h>
+			\<CR>
+			\<CR>int main(int argc, char *argv[]){
+			\<CR>
+			\<CR>return 0;
+			\}<BS><UP><C-R>=Eatchar('\m\s\<bar>\r')<CR>
+autocmd BufRead,BufNewFile *.hpp,*.cpp :iab <buffer> _main #include <iostream>
+			\<CR>using namespace std;
+			\<CR>
+			\<CR>int main(){
+			\<CR>
+			\<CR>return 0;
+			\}<BS><UP><C-R>=Eatchar('\m\s\<bar>\r')<CR>
+"括號引號補全https://gist.github.com/nemtsov/11064497
+inoremap ( ()<Esc>i
+inoremap [ []<Esc>i
+"inoremap < <><Esc>i
+inoremap {} {}<Esc>i
+inoremap {<CR> {<CR>}<Esc>ko
+inoremap ) <C-R>=ClosePair(')')<CR>
+inoremap ] <C-R>=ClosePair(']')<CR>
+"inoremap > <C-R>=ClosePair('>')<CR>
+inoremap } <C-R>=ClosePair('}')<CR>
+inoremap " <C-R>=QuoteDelim('"')<CR>
+inoremap ' <C-R>=QuoteDelim("'")<CR>
+
+function ClosePair(char)
+	if getline('.')[col('.') - 1] == a:char
+		return "\<Right>"
+	else
+		return a:char
+	endif
+endf
+
+function QuoteDelim(char)
+	let line = getline('.')
+	let col = col('.')
+	if line[col - 2] == "\\"
+		"Inserting a quoted quotation mark into the string
+		return a:char
+	elseif line[col - 1] == a:char
+		"Escaping out of the string
+		return "\<Right>"
+	else
+		"Starting a string
+		return a:char.a:char."\<Esc>i"
+	endif
+endf
+
 "********************************************************************
 set nocompatible              " 去除VI一致性,必須
 filetype off                  " 必須
@@ -27,7 +71,7 @@ filetype off                  " 必須
 " 設置包括vundle和初始化相關的runtime path
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" 另一種選擇, 指定一個vundle安裝插件的路徑
+" 另一種選擇, 指定一個vundle安裝插件的路徑" :BundleInstall
 "call vundle#begin('~/some/path/here')
 
 " 讓vundle管理插件版本,必須
@@ -45,12 +89,13 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 " show buffer number
 let g:airline#extensions#tabline#buffer_nr_show = 1
-map <F3> :up<CR>:bp<CR>
-map <F4> :up<CR>:bn<CR>
+map <F8> :up<CR>:bp<CR>
+map <F9> :up<CR>:bn<CR>
 "256 色測試
-Plugin 'git://github.com/guns/xterm-color-table.vim.git'
+" Plugin 'git://github.com/guns/xterm-color-table.vim.git'
 "https://github.com/guns/xterm-color-table.vim.git
-
+" Plugin 'Valloric/YouCompleteMe' "YouCompleteMe托管在github上，使用vundle安装
+" let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra _conf.py'
 " 你的所有插件需要在下面這行之前
 call vundle#end()            " 必須
 filetype plugin indent on    " 必須
@@ -69,12 +114,31 @@ filetype plugin indent on    " 必須
 " 將你自己對非插件片段放在這行之後
 "********************************************************************
 "不可見字符可視化
-:set list lcs=tab:\│\ 
+set list lcs=tab:\▏\ 
+nnoremap <F3> :set list!<CR>
 "讓.h不被認為是C++的
 augroup project
     autocmd!
-    autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
+    autocmd BufRead,BufNewFile *.h,*.c set filetype=c
+    autocmd BufRead,BufNewFile *.hpp,*.cpp set filetype=cpp
 augroup END
+
+map <F5> :call CompileAndRun()<CR>
+func! CompileAndRun()
+	exec "w"
+	if &filetype == 'c'
+		exec "!gcc -std=c11 % -o /tmp/a.out && /tmp/a.out"
+	elseif &filetype == 'cpp'
+		exec "!g++ -std=c++11 % -o /tmp/a.out && /tmp/a.out"
+	elseif &filetype == 'java'
+		exec "!javac %"
+		exec "!java %<"
+	elseif &filetype == 'sh'
+		:!%
+	elseif &filetype == 'python'
+		exec "!python3 %"
+	endif
+endfunc
 "倒退鍵
 set backspace=2
 set tabstop=4
@@ -100,12 +164,7 @@ nnoremap <F2> :set nonumber!<CR>
 set nowrap
 
 "背景
-"set background=dark
-"colorscheme nightshade
-""colorscheme rcg_gui
-"colorscheme blackboard
 colorscheme special_desert
-"colorscheme jellybeans_modified
 
 "高亮度反白
 set hlsearch
