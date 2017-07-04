@@ -26,8 +26,8 @@ let g:airline_left_sep = '»'
 let g:airline_left_sep = '>'
 let g:airline_right_sep = '«'
 let g:airline_right_sep = '<'
-map <F8> :up<CR>:bp<CR>
-map <F9> :up<CR>:bn<CR>
+map <F6> :up<CR>:bp<CR>
+map <F7> :up<CR>:bn<CR>
 "256 色測試
 " Plugin 'git://github.com/guns/xterm-color-table.vim.git'
 "https://github.com/guns/xterm-color-table.vim.git
@@ -51,7 +51,7 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 
 "http://www.wklken.me/posts/2015/06/07/vim-plugin-multiplecursors.html
 Bundle 'terryma/vim-multiple-cursors'
-let g:multi_cursor_use_default_mapping=2
+let g:multi_cursor_use_default_mapping=1
 " Default mapping
 let g:multi_cursor_next_key='<C-o>' "選中一個
 let g:multi_cursor_prev_key='<C-p>' "放棄一個，回到上一個

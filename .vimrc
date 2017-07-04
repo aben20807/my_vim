@@ -5,15 +5,19 @@ nmap <F10> <ESC>:q!<CR>
 nmap <F11> <ESC>:up<CR>
 nmap <F12> <ESC>:up<CR>:q<CR>
 "註解
-"imap <C-L> <ESC><S-^>i//
-"nmap <C-L> <ESC><S-^>i//<ESC>
-"imap <C-K> <ESC><S-^><C-V><RIGHT>di
-"nmap <C-K> <ESC><S-^><C-V><RIGHT>d
+autocmd FileType python nmap <C-L> <ESC><S-^>i# <ESC>
+autocmd FileType python imap <C-L> <ESC><S-^>i# <ESC>i
+autocmd FileType python vmap <C-L> <S-^><C-v><S-i># <ESC>
+autocmd FileType python nmap <C-K> <ESC><S-^><C-V><RIGHT>d
+autocmd FileType python imap <C-K> <ESC><S-^><C-V><RIGHT>di
+autocmd FileType python vmap <C-K> <C-v><S-^><S-o><S-^><RIGHT>d<ESC>
+autocmd FileType c,cpp nmap <C-L> <ESC><S-^>i// <ESC>
+autocmd FileType c,cpp imap <C-L> <ESC><S-^>i// <ESC>i
+autocmd FileType c,cpp vmap <C-L> <S-^><C-v><S-i>// <ESC>
+autocmd FileType c,cpp nmap <C-K> <ESC><S-^><C-V><RIGHT><RIGHT>d
+autocmd FileType c,cpp imap <C-K> <ESC><S-^><C-V><RIGHT><RIGHT>di
+autocmd FileType c,cpp vmap <C-K> <C-v><S-^><S-o><S-^><RIGHT><RIGHT>d<ESC>
 
-:imap <C-L> <ESC><S-^>i# <ESC>i
-:nmap <C-L> <ESC><S-^>i# <ESC>
-:imap <C-K> <ESC><S-^><C-V><RIGHT>di
-:nmap <C-K> <ESC><S-^><C-V><RIGHT>d
 
 "預設程式
 func Eatchar(pat)
@@ -130,7 +134,7 @@ nnoremap <F2> :set nonumber!<CR>
 
 "直接複製到系統剪貼簿
 ""set clipboard=unnamed
-vnoremap <C-C> "+y 
+vnoremap <C-C> "+y
 vnoremap <C-X> "+d
 "nnoremap <C-V> p
 " 黏貼板
