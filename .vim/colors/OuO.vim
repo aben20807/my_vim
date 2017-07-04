@@ -1,8 +1,8 @@
 " Vim color file
 " Maintainer:	Huang Po-Hsuan <aben20807@gmail.com>
-" Last Change:	$Date: 2017/07/02 18:27:11 $
+" Last Change:	$Date: 2017/07/04 11:42:11 $
 " URL:
-" Version:	$Id: special_desert.vim,v 1.0 fugalh Exp $
+" Version:	$Id: OuO.vim,v 1.0 fugalh Exp $
 
 " cool help screens
 " :he group-name
@@ -71,17 +71,17 @@ hi Todo		guifg=orangered guibg=yellow2
 " color terminal definitions
 if &t_Co > 255
 	hi Comment			ctermfg=238 cterm=italic	"註解
-	
+
 	hi Constant			ctermfg=251					"
 	hi String			ctermfg=251					"字串
 	hi Character		ctermfg=251					"字元
 	hi Number			ctermfg=251					"數字
 	hi Boolean			ctermfg=251					"true or false
 	hi Float			ctermfg=251					"浮點數
-	
+
 	hi Identifier		cterm=NONE ctermfg=251		"print in python, variable
 	hi Function			ctermfg=172					"function in python
-	
+
 	hi Statement		ctermfg=33					"using, for, if, return
 	hi Conditional		ctermfg=33					"if else switch
 	hi Repeat			ctermfg=33					"for while do
@@ -89,33 +89,33 @@ if &t_Co > 255
 	hi Operator			ctermfg=251					"- = ==
 	hi Keyword			ctermfg=green
 	hi Exception		ctermfg=33					"try catch throw
-	
+
 	hi PreProc			ctermfg=33					"#include, #define
     hi Include			ctermfg=33					"#include
 	hi Define			ctermfg=green
 	hi Macro			ctermfg=172					"#define
 	hi PreCondit		ctermfg=33					"#ifdef #endif
-	
+
 	hi Type				ctermfg=172					"型態 int, char
 	hi StorageClass		ctermfg=172					"static const
 	hi Structure		ctermfg=33					"struct, class, typedef, namespace
 	hi Typedef			ctermfg=green
-	
+
 	hi Special			ctermfg=172					"Esc CR
 	hi SpecialChar		cterm=bold ctermfg=160		"\n
 	hi Tag				ctermfg=green
 	hi Delimiter		ctermfg=251					"(), <> for function
 	hi SpecialComment	ctermfg=red
 	hi Debug			ctermfg=green
-	
+
 	hi Underlined		cterm=underline ctermfg=13
-	
+
 	hi Ignore			ctermfg=238
-	
+
 	hi Error			cterm=bold ctermfg=7 ctermbg=1
-	
+
 	hi Todo				cterm=bold ctermfg=135 ctermbg=NONE		"TODO, FIXME, XXX
-	
+
 	hi ColorColumn		cterm=reverse
 	hi Conceal			cterm=reverse
 	hi Cursor			cterm=reverse
