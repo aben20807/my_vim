@@ -1,0 +1,75 @@
+".vimrc.bundles
+" 設置包括vundle和初始化相關的runtime path
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" 另一種選擇, 指定一個vundle安裝插件的路徑" :BundleInstall
+"call vundle#begin('~/some/path/here')
+
+" 讓vundle管理插件版本,必須
+Plugin 'VundleVim/Vundle.vim'
+
+"狀態條
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+set laststatus=2
+let g:airline_theme='murmur'
+" enable tabline
+let g:airline#extensions#tabline#enabled = 1
+" set left separator
+let g:airline#extensions#tabline#left_sep = ' '
+" set left separator which are not editting
+let g:airline#extensions#tabline#left_alt_sep = '|'
+" show buffer number
+let g:airline#extensions#tabline#buffer_nr_show = 1
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '>'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '<'
+map <F8> :up<CR>:bp<CR>
+map <F9> :up<CR>:bn<CR>
+"256 色測試
+" Plugin 'git://github.com/guns/xterm-color-table.vim.git'
+"https://github.com/guns/xterm-color-table.vim.git
+" Plugin 'Valloric/YouCompleteMe' "YouCompleteMe托管在github上，使用vundle安装
+" let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra _conf.py'
+
+" 文件索引樹
+Plugin 'scrooloose/nerdtree'
+" NerdTree配置 control+e打開當前文件目錄樹
+map <C-n> :NERDTreeToggle<CR>
+map <leader>ee :NERDTreeToggle<CR>
+nmap <leader>nt :NERDTreeFind<CR>
+let NERDTreeShowBookmarks=1
+let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '\.exe', '\.o']
+let NERDTreeChDirMode=0
+let NERDTreeQuitOnOpen=1
+let NERDTreeMouseMode=2
+let NERDTreeShowHidden=1
+let NERDTreeKeepTreeInNewTab=1
+let g:nerdtree_tabs_open_on_gui_startup=0
+
+"http://www.wklken.me/posts/2015/06/07/vim-plugin-multiplecursors.html
+Bundle 'terryma/vim-multiple-cursors'
+let g:multi_cursor_use_default_mapping=2
+" Default mapping
+let g:multi_cursor_next_key='<C-o>' "選中一個
+let g:multi_cursor_prev_key='<C-p>' "放棄一個，回到上一個
+let g:multi_cursor_skip_key='<C-x>' "跳過
+let g:multi_cursor_quit_key='<Esc>' "退出
+" 你的所有插件需要在下面這行之前
+call vundle#end()            " 必須
+filetype plugin indent on    " 必須
+"加載vim自帶和插件相應的語法和文件類型相關腳本
+" 忽視插件改變縮進,可以使用以下替代:
+"filetype plugin on
+"
+" 簡要幫助文檔
+" :PluginList       - 列出所有已配置的插件
+" :PluginInstall    - 安裝插件,追加 `!` 用以更新或使用 :PluginUpdate
+" :PluginSearch foo - 搜索 foo ; 追加 `!` 清除本地緩存
+" :PluginClean      - 清除未使用插件,需要確認; 追加 `!`
+"自動批准移除未使用插件
+
+" 查閱 :h vundle 獲取更多細節和wiki以及FAQ
+" 將你自己對非插件片段放在這行之後

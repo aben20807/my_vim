@@ -1,128 +1,82 @@
+".vimrc
 "快捷鍵
 "儲存
 nmap <F10> <ESC>:q!<CR>
 nmap <F11> <ESC>:up<CR>
 nmap <F12> <ESC>:up<CR>:q<CR>
 "註解
-imap <C-L> <ESC><S-^>i//
-nmap <C-L> <ESC><S-^>i//<ESC>
-imap <C-K> <ESC><S-^><C-V><RIGHT>di
-nmap <C-K> <ESC><S-^><C-V><RIGHT>d
+"imap <C-L> <ESC><S-^>i//
+"nmap <C-L> <ESC><S-^>i//<ESC>
+"imap <C-K> <ESC><S-^><C-V><RIGHT>di
+"nmap <C-K> <ESC><S-^><C-V><RIGHT>d
+
+:imap <C-L> <ESC><S-^>i# <ESC>i
+:nmap <C-L> <ESC><S-^>i# <ESC>
+:imap <C-K> <ESC><S-^><C-V><RIGHT>di
+:nmap <C-K> <ESC><S-^><C-V><RIGHT>d
+
 "預設程式
 func Eatchar(pat)
 	let c = nr2char(getchar(0))
 	return (c =~ a:pat)? '': c
 endfunc
+
 :iab #i #include <><LEFT><C-R>=Eatchar('\m\s\<bar>\r')<CR>
 :iab _pr printf();<LEFT><LEFT><C-R>=Eatchar('\m\s\<bar>\r')<CR>
- autocmd BufRead,BufNewFile *.h,*.c :iab <buffer> _main #include <stdio.h>
+autocmd BufRead,BufNewFile *.h,*.c
+			\:iab <buffer> _main #include <stdio.h>
 			\<CR>
 			\<CR>int main(int argc, char *argv[]){
 			\<CR>
 			\<CR>return 0;
 			\}<BS><UP><C-R>=Eatchar('\m\s\<bar>\r')<CR>
-autocmd BufRead,BufNewFile *.hpp,*.cpp :iab <buffer> _main #include <iostream>
+autocmd BufRead,BufNewFile *.hpp,*.cpp
+			\:iab <buffer> _main #include <iostream>
 			\<CR>using namespace std;
 			\<CR>
 			\<CR>int main(){
 			\<CR>
 			\<CR>return 0;
 			\}<BS><UP><C-R>=Eatchar('\m\s\<bar>\r')<CR>
-"括號引號補全https://gist.github.com/nemtsov/11064497
-inoremap ( ()<Esc>i
-inoremap [ []<Esc>i
-"inoremap < <><Esc>i
-inoremap {} {}<Esc>i
-inoremap {<CR> {<CR>}<Esc>ko
-inoremap ) <C-R>=ClosePair(')')<CR>
-inoremap ] <C-R>=ClosePair(']')<CR>
-"inoremap > <C-R>=ClosePair('>')<CR>
-inoremap } <C-R>=ClosePair('}')<CR>
-inoremap " <C-R>=QuoteDelim('"')<CR>
-inoremap ' <C-R>=QuoteDelim("'")<CR>
-
-function ClosePair(char)
-	if getline('.')[col('.') - 1] == a:char
-		return "\<Right>"
-	else
-		return a:char
-	endif
-endf
-
-function QuoteDelim(char)
-	let line = getline('.')
-	let col = col('.')
-	if line[col - 2] == "\\"
-		"Inserting a quoted quotation mark into the string
-		return a:char
-	elseif line[col - 1] == a:char
-		"Escaping out of the string
-		return "\<Right>"
-	else
-		"Starting a string
-		return a:char.a:char."\<Esc>i"
-	endif
-endf
 
 "********************************************************************
 set nocompatible              " 去除VI一致性,必須
 filetype off                  " 必須
 
-" 設置包括vundle和初始化相關的runtime path
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" 另一種選擇, 指定一個vundle安裝插件的路徑" :BundleInstall
-"call vundle#begin('~/some/path/here')
+" key 映射
+let mapleader = ','         " 全局leader設置
+let maplocalleader = '_'    " 本地leader設置
 
-" 讓vundle管理插件版本,必須
-Plugin 'VundleVim/Vundle.vim'
-"狀態條
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-set laststatus=2
-let g:airline_theme='murmur'
-" enable tabline
-let g:airline#extensions#tabline#enabled = 1
-" set left separator
-let g:airline#extensions#tabline#left_sep = ' '
-" set left separator which are not editting
-let g:airline#extensions#tabline#left_alt_sep = '|'
-" show buffer number
-let g:airline#extensions#tabline#buffer_nr_show = 1
-map <F8> :up<CR>:bp<CR>
-map <F9> :up<CR>:bn<CR>
-"256 色測試
-" Plugin 'git://github.com/guns/xterm-color-table.vim.git'
-"https://github.com/guns/xterm-color-table.vim.git
-" Plugin 'Valloric/YouCompleteMe' "YouCompleteMe托管在github上，使用vundle安装
-" let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra _conf.py'
-" 你的所有插件需要在下面這行之前
-call vundle#end()            " 必須
-filetype plugin indent on    " 必須
-"加載vim自帶和插件相應的語法和文件類型相關腳本
-" 忽視插件改變縮進,可以使用以下替代:
-"filetype plugin on
-"
-" 簡要幫助文檔
-" :PluginList       - 列出所有已配置的插件
-" :PluginInstall    - 安裝插件,追加 `!` 用以更新或使用 :PluginUpdate
-" :PluginSearch foo - 搜索 foo ; 追加 `!` 清除本地緩存
-" :PluginClean      - 清除未使用插件,需要確認; 追加 `!`
-"自動批准移除未使用插件
+" 導入vim插件管理
+if filereadable(expand("~/.vimrc.bundles"))
+	source ~/.vimrc.bundles
+endif
 
-" 查閱 :h vundle 獲取更多細節和wiki以及FAQ
-" 將你自己對非插件片段放在這行之後
-"********************************************************************
-"不可見字符可視化
-set list lcs=tab:\▏\ 
+" 導入vim作者說明
+if filereadable(expand("~/.vimrc.author"))
+	source ~/.vimrc.author
+endif
+
+" 導入vim括號補全
+if filereadable(expand("~/.vimrc.brackets"))
+	source ~/.vimrc.brackets
+endif
+
+"不可見字符可視化，按F3切換
+""set list lcs=tab:\│\
+set listchars=tab:│\ ,trail:\ ,extends:>,precedes:<,nbsp:.
+set list
 nnoremap <F3> :set list!<CR>
+
 "讓.h不被認為是C++的
 augroup project
-    autocmd!
-    autocmd BufRead,BufNewFile *.h,*.c set filetype=c
-    autocmd BufRead,BufNewFile *.hpp,*.cpp set filetype=cpp
+	autocmd!
+	autocmd BufRead,BufNewFile *.h,*.c set filetype=c
+	autocmd BufRead,BufNewFile *.hpp,*.cpp set filetype=cpp
+	autocmd BufNewFile,BufRead *.py,*.pyw set filetype=python
 augroup END
 
+"http://www.edbiji.com/doccenter/showdoc/24/nav/284.html
 map <F5> :call CompileAndRun()<CR>
 func! CompileAndRun()
 	exec "w"
@@ -136,9 +90,23 @@ func! CompileAndRun()
 	elseif &filetype == 'sh'
 		:!%
 	elseif &filetype == 'python'
-		exec "!python3 %"
+		exec "!D:/cygwin/bin/python3 %"
 	endif
 endfunc
+
+" Remove trailing whitespace when writing a buffer, but not for diff files.
+" From: Vigil <vim5632@rainslide.net>
+function RemoveTrailingWhitespace()
+	if &ft != "diff"
+		let b:curcol = col(".")
+		let b:curline = line(".")
+		silent! %s/\s\+$//
+		silent! %s/\(\s*\n\)\+\%$//
+		call cursor(b:curline, b:curcol)
+	endif
+endfunction
+autocmd BufWritePre * call RemoveTrailingWhitespace()
+
 "倒退鍵
 set backspace=2
 set tabstop=4
@@ -160,11 +128,25 @@ set showmode
 "顯示行號，按F2切換
 nnoremap <F2> :set nonumber!<CR>
 
+"直接複製到系統剪貼簿
+""set clipboard=unnamed
+vnoremap <C-C> "+y 
+vnoremap <C-X> "+d
+"nnoremap <C-V> p
+" 黏貼板
+""if has('clipboard')
+""	if has('unnamedplus')
+""		set clipboard=unnamedplus
+""	else
+""		set clipboard=unnamed
+""	endif
+""endif
+
 " 禁止折行
 set nowrap
 
 "背景
-colorscheme special_desert
+colorscheme OuO
 
 "高亮度反白
 set hlsearch
@@ -197,6 +179,11 @@ set gcr=a:block-blinkon0
 "設置歷史紀錄為50條
 set history=50
 
+set nobackup      " 不備份
+set nowritebackup " 不寫入備份文件
+set noswapfile    " 關閉交換文件
+set mousehide     " 輸入文件時隱藏鼠標
+set virtualedit=onemore             " 光標可以移到當行最後一個字符之後
 " 基于縮排或語法進行代碼折叠
 "操作：za，打開或關閉當前折叠；zM，關閉所有折叠；zR，打開所有折叠
 "set foldmethod=indent
