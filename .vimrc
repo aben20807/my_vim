@@ -32,27 +32,27 @@ nnoremap <silent> <C-S-Up> <C-w>K
 nnoremap <silent> <C-S-Down> <C-w>J
 "預設程式
 func Eatchar(pat)
-	let c = nr2char(getchar(0))
-	return (c =~ a:pat)? '': c
+    let c = nr2char(getchar(0))
+    return (c =~ a:pat)? '': c
 endfunc
 
 :iab #i #include <><LEFT><C-R>=Eatchar('\m\s\<bar>\r')<CR>
 :iab _pr printf();<LEFT><LEFT><C-R>=Eatchar('\m\s\<bar>\r')<CR>
 autocmd BufRead,BufNewFile *.h,*.c
-			\:iab <buffer> _main #include <stdio.h>
-			\<CR>
-			\<CR>int main(int argc, char *argv[]){
-			\<CR>
-			\<CR>return 0;
-			\}<BS><UP><C-R>=Eatchar('\m\s\<bar>\r')<CR>
+            \:iab <buffer> _main #include <stdio.h>
+            \<CR>
+            \<CR>int main(int argc, char *argv[]){
+            \<CR>
+            \<CR>return 0;
+            \}<BS><UP><C-R>=Eatchar('\m\s\<bar>\r')<CR>
 autocmd BufRead,BufNewFile *.hpp,*.cpp
-			\:iab <buffer> _main #include <iostream>
-			\<CR>using namespace std;
-			\<CR>
-			\<CR>int main(){
-			\<CR>
-			\<CR>return 0;
-			\}<BS><UP><C-R>=Eatchar('\m\s\<bar>\r')<CR>
+            \:iab <buffer> _main #include <iostream>
+            \<CR>using namespace std;
+            \<CR>
+            \<CR>int main(){
+            \<CR>
+            \<CR>return 0;
+            \}<BS><UP><C-R>=Eatchar('\m\s\<bar>\r')<CR>
 
 "********************************************************************
 set nocompatible              " 去除VI一致性,必須
@@ -64,70 +64,69 @@ let maplocalleader = '_'    " 本地leader設置
 
 " 導入vim插件管理
 if filereadable(expand("~/.vimrc.bundles"))
-	source ~/.vimrc.bundles
+    source ~/.vimrc.bundles
 endif
 
 " 導入vim作者說明
 if filereadable(expand("~/.vimrc.author"))
-	source ~/.vimrc.author
+    source ~/.vimrc.author
 endif
 
 " 導入vim括號補全
 if filereadable(expand("~/.vimrc.brackets"))
-	source ~/.vimrc.brackets
+    source ~/.vimrc.brackets
 endif
 
 "不可見字符可視化，按F3切換
-""set list lcs=tab:\│\
-set listchars=tab:│\ ,trail:\ ,extends:>,precedes:<,nbsp:.
-set list
-nnoremap <F3> :set list!<CR>
+""set listchars=tab:│\ ,trail:\ ,extends:>,precedes:<,nbsp:.
+""set list
+""nnoremap <F3> :set list!<CR>
 
 "讓.h不被認為是C++的
 augroup project
-	autocmd!
-	autocmd BufRead,BufNewFile *.h,*.c set filetype=c
-	autocmd BufRead,BufNewFile *.hpp,*.cpp set filetype=cpp
-	autocmd BufNewFile,BufRead *.py,*.pyw set filetype=python
+    autocmd!
+    autocmd BufRead,BufNewFile *.h,*.c set filetype=c
+    autocmd BufRead,BufNewFile *.hpp,*.cpp set filetype=cpp
+    autocmd BufNewFile,BufRead *.py,*.pyw set filetype=python
 augroup END
 
 "http://www.edbiji.com/doccenter/showdoc/24/nav/284.html
 map <F5> :call CompileAndRun()<CR>
 func! CompileAndRun()
-	exec "w"
-	if &filetype == 'c'
-		exec "!gcc -std=c11 % -o /tmp/a.out && /tmp/a.out"
-	elseif &filetype == 'cpp'
-		exec "!g++ -std=c++11 % -o /tmp/a.out && /tmp/a.out"
-	elseif &filetype == 'java'
-		exec "!javac %"
-		exec "!java %<"
-	elseif &filetype == 'sh'
-		:!%
-	elseif &filetype == 'python'
-		exec "!D:/cygwin/bin/python3 %"
-	endif
+    exec "w"
+    if &filetype == 'c'
+        exec "!gcc -std=c11 % -o /tmp/a.out && /tmp/a.out"
+    elseif &filetype == 'cpp'
+        exec "!g++ -std=c++11 % -o /tmp/a.out && /tmp/a.out"
+    elseif &filetype == 'java'
+        exec "!javac %"
+        exec "!java %<"
+    elseif &filetype == 'sh'
+        :!%
+    elseif &filetype == 'python'
+        exec "!D:/cygwin/bin/python3 %"
+    endif
 endfunc
 
 " Remove trailing whitespace when writing a buffer, but not for diff files.
 " From: Vigil <vim5632@rainslide.net>
 function RemoveTrailingWhitespace()
-	if &ft != "diff"
-		let b:curcol = col(".")
-		let b:curline = line(".")
-		silent! %s/\s\+$//
-		silent! %s/\(\s*\n\)\+\%$//
-		call cursor(b:curline, b:curcol)
-	endif
+    if &ft != "diff"
+        let b:curcol = col(".")
+        let b:curline = line(".")
+        silent! %s/\s\+$//
+        silent! %s/\(\s*\n\)\+\%$//
+        call cursor(b:curline, b:curcol)
+    endif
 endfunction
 autocmd BufWritePre * call RemoveTrailingWhitespace()
 
 "倒退鍵
 set backspace=2
 set tabstop=4
-set softtabstop=4
+"":set softtabstop=4
 " 將制表符擴展為空格
-set noexpandtab
+set expandtab
 " 讓 vim 把連續數量的空格視為一個制表符
 set softtabstop=4
 
@@ -150,11 +149,11 @@ vnoremap <C-X> "+d
 "nnoremap <C-V> p
 " 黏貼板
 ""if has('clipboard')
-""	if has('unnamedplus')
-""		set clipboard=unnamedplus
-""	else
-""		set clipboard=unnamed
-""	endif
+""  if has('unnamedplus')
+""      set clipboard=unnamedplus
+""  else
+""      set clipboard=unnamed
+""  endif
 ""endif
 
 " 禁止折行
