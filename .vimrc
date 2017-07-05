@@ -18,7 +18,18 @@ autocmd FileType c,cpp nmap <C-K> <ESC><S-^><C-V><RIGHT><RIGHT>d
 autocmd FileType c,cpp imap <C-K> <ESC><S-^><C-V><RIGHT><RIGHT>di
 autocmd FileType c,cpp vmap <C-K> <C-v><S-^><S-o><S-^><RIGHT><RIGHT>d<ESC>
 
-
+"分屏
+nmap <S-q> <C-w>q
+"分屏間移動
+nnoremap <silent> <C-Right> <C-w>l
+nnoremap <silent> <C-Left> <C-w>h
+nnoremap <silent> <C-Up> <C-w>k
+nnoremap <silent> <C-Down> <C-w>j
+"移動分屏
+nnoremap <silent> <C-S-Right> <C-w>L
+nnoremap <silent> <C-S-Left> <C-w>H
+nnoremap <silent> <C-S-Up> <C-w>K
+nnoremap <silent> <C-S-Down> <C-w>J
 "預設程式
 func Eatchar(pat)
 	let c = nr2char(getchar(0))

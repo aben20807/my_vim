@@ -50,13 +50,26 @@ let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
 
 "http://www.wklken.me/posts/2015/06/07/vim-plugin-multiplecursors.html
-Bundle 'terryma/vim-multiple-cursors'
+Plugin 'terryma/vim-multiple-cursors'
 let g:multi_cursor_use_default_mapping=1
 " Default mapping
 let g:multi_cursor_next_key='<C-o>' "選中一個
 let g:multi_cursor_prev_key='<C-p>' "放棄一個，回到上一個
 let g:multi_cursor_skip_key='<C-x>' "跳過
 let g:multi_cursor_quit_key='<Esc>' "退出
+
+Plugin 'vim-syntastic/syntastic'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_check_on_open=1
+let g:syntastic_check_on_wq=0
+let g:syntastic_python_checkers=['pylint']
+let g:syntastic_c_checkers=['gcc']
+let g:syntastic_cpp_checkers=['gcc']
+
 " 你的所有插件需要在下面這行之前
 call vundle#end()            " 必須
 filetype plugin indent on    " 必須
