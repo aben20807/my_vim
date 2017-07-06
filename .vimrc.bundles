@@ -21,13 +21,16 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 " show buffer number
 let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline_powerline_fonts = 1
 " unicode symbols
 let g:airline_left_sep = '»'
-let g:airline_left_sep = '>'
+"let g:airline_left_sep = '▶'
 let g:airline_right_sep = '«'
-let g:airline_right_sep = '<'
+"let g:airline_right_sep = '◀'
 map <F6> :up<CR>:bp<CR>
 map <F7> :up<CR>:bn<CR>
+
+Plugin 'tpope/vim-fugitive'
 "256 色測試
 " Plugin 'git://github.com/guns/xterm-color-table.vim.git'
 "https://github.com/guns/xterm-color-table.vim.git
@@ -49,6 +52,7 @@ let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
 
+" 多光標
 "http://www.wklken.me/posts/2015/06/07/vim-plugin-multiplecursors.html
 Plugin 'terryma/vim-multiple-cursors'
 let g:multi_cursor_use_default_mapping=1
@@ -58,20 +62,21 @@ let g:multi_cursor_prev_key='<C-p>' "放棄一個，回到上一個
 let g:multi_cursor_skip_key='<C-x>' "跳過
 let g:multi_cursor_quit_key='<Esc>' "退出
 
-"語法檢查
-Plugin 'vim-syntastic/syntastic'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=1
-let g:syntastic_check_on_open=1
-let g:syntastic_check_on_wq=0
-let g:syntastic_python_checkers=['pylint']
-let g:syntastic_c_checkers=['gcc']
-let g:syntastic_cpp_checkers=['gcc']
+" 語法檢查
+""Plugin 'vim-syntastic/syntastic'
+""set statusline+=%#warningmsg#
+""set statusline+=%{SyntasticStatuslineFlag()}
+""set statusline+=%*
+""let g:syntastic_always_populate_loc_list=1
+""let g:syntastic_auto_loc_list=1
+""let g:syntastic_check_on_open=0
+""let g:syntastic_check_on_wq=1
+""let g:syntastic_enable_signs=0
+""let g:syntastic_python_checkers=['pylint']
+""let g:syntastic_c_checkers=['gcc']
+""let g:syntastic_cpp_checkers=['gcc']
 
-"縮排高亮
+" 縮排高亮
 Plugin 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_start_level=2
@@ -82,6 +87,12 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=245
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=238
 nnoremap <F3> :IndentGuidesToggle<CR>
 
+" 打磚塊
+Plugin 'johngrib/vim-game-code-break'
+nnoremap <C-g> :VimGameCodeBreak<CR>
+
+" 括號刪除取代
+Plugin 'tpope/vim-surround'
 
 " 你的所有插件需要在下面這行之前
 call vundle#end()            " 必須

@@ -56,7 +56,7 @@ autocmd BufRead,BufNewFile *.hpp,*.cpp
 
 "********************************************************************
 set nocompatible              " 去除VI一致性,必須
-filetype off                  " 必須
+""filetype off                  " 必須
 
 " key 映射
 let mapleader = ','         " 全局leader設置
@@ -124,7 +124,6 @@ autocmd BufWritePre * call RemoveTrailingWhitespace()
 "倒退鍵
 set backspace=2
 set tabstop=4
-"":set softtabstop=4
 " 將制表符擴展為空格
 set expandtab
 " 讓 vim 把連續數量的空格視為一個制表符
@@ -133,16 +132,24 @@ set softtabstop=4
 "縮排位元數
 set shiftwidth=4
 
+" Tab縮排
+nmap <TAB> v>
+nmap <S-TAB> v<
+vmap <TAB> >gv
+vmap <S-TAB> <gv
+
+map 0 ^
+
 "顯示最後一列
 set ruler
 
 "左下角一列
 set showmode
 
-"顯示行號，按F2切換
+" 顯示行號，按F2切換
 nnoremap <F2> :set nonumber!<CR>
 
-"直接複製到系統剪貼簿
+" 直接複製到系統剪貼簿
 ""set clipboard=unnamed
 vnoremap <C-C> "+y
 vnoremap <C-X> "+d
@@ -159,13 +166,18 @@ vnoremap <C-X> "+d
 " 禁止折行
 set nowrap
 
-"背景
+" 背景主題
 colorscheme OuO
 
-"高亮度反白
+" 高亮搜尋結果
 set hlsearch
 
-"語法高亮
+" 在關鍵字還沒完全輸入完畢前就顯示結果
+set incsearch
+
+set wildignore+=*.o,*.obj,*.pyc
+
+" 語法高亮
 syntax on
 
 " 高亮顯示當前行/列
@@ -180,9 +192,11 @@ set ic
 
 "設定文字編碼
 set enc=utf8
+scriptencoding utf-8
 
-"不套用Vi相容套件
-set nocompatible
+"分頁
+set splitright
+set splitbelow
 
  "最下出現總行數
 set ruler
@@ -190,8 +204,8 @@ set ruler
 "禁止光標閃爍
 set gcr=a:block-blinkon0
 
-"設置歷史紀錄為50條
-set history=50
+"設置歷史紀錄為1000條
+set history=1000
 
 set nobackup      " 不備份
 set nowritebackup " 不寫入備份文件
