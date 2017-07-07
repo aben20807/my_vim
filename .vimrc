@@ -121,11 +121,18 @@ function RemoveTrailingWhitespace()
 endfunction
 autocmd BufWritePre * call RemoveTrailingWhitespace()
 
+:set guioptions-=m  "remove menu bar
+:set guioptions-=T  "remove toolbar
+:set guioptions-=r  "remove right-hand scroll bar
+:set guioptions-=L  "remove left-hand scroll bar
+
 "倒退鍵
 set backspace=2
 set tabstop=4
+
 " 將制表符擴展為空格
 set expandtab
+
 " 讓 vim 把連續數量的空格視為一個制表符
 set softtabstop=4
 
