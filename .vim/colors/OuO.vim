@@ -117,7 +117,7 @@ if &t_Co > 255
     hi Todo             cterm=bold ctermfg=135 ctermbg=NONE     "TODO, FIXME, XXX
 
     hi ColorColumn      cterm=reverse
-    hi Conceal          cterm=reverse
+    hi Conceal          cterm=reverse ctermfg=245 ctermbg=NONE
     hi Cursor           cterm=reverse
     hi CursorIM         cterm=reverse
     hi CursorColumn     cterm=reverse
@@ -162,6 +162,10 @@ if &t_Co > 255
     hi VisualNOS        cterm=bold,underline
     hi WarningMsg       ctermfg=1
     hi WildMenu         ctermfg=0 ctermbg=11
+
+    hi ALEErrorSign     cterm=bold ctermfg=1
+    hi ALEWarningSign   cterm=bold ctermfg=135
+
 
     "":let c_comment_strings = 1
     ""hi c_comment_strings guisp=#FFFFFF

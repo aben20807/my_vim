@@ -25,6 +25,21 @@ let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
+ let g:airline_mode_map = {
+      \ '__' : '-',
+      \ 'n'  : 'N',
+      \ 'i'  : 'I',
+      \ 'R'  : 'R',
+      \ 'c'  : 'C',
+      \ 'v'  : 'V',
+      \ 'V'  : 'V',
+      \ '' : 'V',
+      \ 's'  : 'S',
+      \ 'S'  : 'S',
+      \ '' : 'S',
+      \ }
+let g:airline_section_error = '%{ALEGetStatusLine()}'
+let g:airline#extensions#ale#enabled = 1
 " unicode symbols
 let g:airline_left_sep = '»'
 let g:airline_left_sep = ''
@@ -40,6 +55,7 @@ let g:airline_symbols.linenr = ''
 map <F6> :up<CR>:bp<CR>
 map <F7> :up<CR>:bn<CR>
 
+" airline git symbol
 Plugin 'tpope/vim-fugitive'
 "256 色測試
 " Plugin 'git://github.com/guns/xterm-color-table.vim.git'
@@ -61,6 +77,20 @@ let NERDTreeMouseMode=2
 let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
+"寬度
+let NERDTreeWinSize=25
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+let g:NERDTreeIndicatorMapCustom = {
+            \ "Modified" : "✹",
+            \ "Staged" : "✚",
+            \ "Untracked" : "✭",
+            \ "Renamed" : "➜",
+            \ "Unmerged" : "═",
+            \ "Deleted" : "✖",
+            \ "Dirty" : "✗",
+            \ "Clean" : "✔︎",
+            \ "Unknown" : "?"
+            \ }
 
 " 多光標
 "http://www.wklken.me/posts/2015/06/07/vim-plugin-multiplecursors.html
@@ -72,20 +102,6 @@ let g:multi_cursor_prev_key='<C-p>' "放棄一個，回到上一個
 let g:multi_cursor_skip_key='<C-x>' "跳過
 let g:multi_cursor_quit_key='<Esc>' "退出
 
-" 語法檢查
-""Plugin 'vim-syntastic/syntastic'
-""set statusline+=%#warningmsg#
-""set statusline+=%{SyntasticStatuslineFlag()}
-""set statusline+=%*
-""let g:syntastic_always_populate_loc_list=1
-""let g:syntastic_auto_loc_list=1
-""let g:syntastic_check_on_open=0
-""let g:syntastic_check_on_wq=1
-""let g:syntastic_enable_signs=0
-""let g:syntastic_python_checkers=['pylint']
-""let g:syntastic_c_checkers=['gcc']
-""let g:syntastic_cpp_checkers=['gcc']
-
 " 縮排高亮
 Plugin 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_enable_on_vim_startup=1
@@ -93,16 +109,46 @@ let g:indent_guides_start_level=2
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 let g:indent_guides_guide_size=1
 let g:indent_guides_auto_colors=0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=245
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=238
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=236
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=240
 nnoremap <F3> :IndentGuidesToggle<CR>
 
 " 打磚塊
-Plugin 'johngrib/vim-game-code-break'
-nnoremap <C-g> :VimGameCodeBreak<CR>
+"Plugin 'johngrib/vim-game-code-break'
+"nnoremap <C-g> :VimGameCodeBreak<CR>
 
 " 括號刪除取代
 Plugin 'tpope/vim-surround'
+
+"迷宮遊戲
+Plugin 'vim-scripts/HJKL'
+
+"內部終端機
+Plugin 'wkentaro/conque.vim'
+nnoremap <C-t> :ConqueTermVSplit bash<CR>
+
+"語法檢查
+Plugin 'w0rp/ale'
+let g:ale_sign_column_always = 1
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'c': ['clang'],
+\   'cpp': ['clang'],
+\   'python': ['pylint']
+\}
+let g:ale_statusline_format = ['E:%d', 'W:%d', 'OuO']
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_lint_on_enter = 1
+let g:ale_set_signs = 1
+let g:ale_sign_error = '⊗'
+let g:ale_sign_warning = '⊖'
+" Set this. Airline will handle the rest.
+let g:airline#extensions#ale#enabled = 1
+nnoremap <C-a> :ALEToggle<CR>
+nmap <silent> <leader>w <Plug>(ale_previous_wrap)
+nmap <silent> <leader>s <Plug>(ale_next_wrap)
 
 " 你的所有插件需要在下面這行之前
 call vundle#end()            " 必須

@@ -1,22 +1,27 @@
 ".vimrc
+:command WQ wq
+:command Wq wq
+:command W w
+:command Q q
+:command Q! q!
 "快捷鍵
 "儲存
 nmap <F10> <ESC>:q!<CR>
 nmap <F11> <ESC>:up<CR>
 nmap <F12> <ESC>:up<CR>:q<CR>
 "註解
-autocmd FileType python nmap <C-L> <ESC><S-^>i# <ESC>
-autocmd FileType python imap <C-L> <ESC><S-^>i# <ESC>i
-autocmd FileType python vmap <C-L> <S-^><C-v><S-i># <ESC>
-autocmd FileType python nmap <C-K> <ESC><S-^><C-V><RIGHT>d
-autocmd FileType python imap <C-K> <ESC><S-^><C-V><RIGHT>di
-autocmd FileType python vmap <C-K> <C-v><S-^><S-o><S-^><RIGHT>d<ESC>
-autocmd FileType c,cpp nmap <C-L> <ESC><S-^>i// <ESC>
-autocmd FileType c,cpp imap <C-L> <ESC><S-^>i// <ESC>i
-autocmd FileType c,cpp vmap <C-L> <S-^><C-v><S-i>// <ESC>
-autocmd FileType c,cpp nmap <C-K> <ESC><S-^><C-V><RIGHT><RIGHT>d
-autocmd FileType c,cpp imap <C-K> <ESC><S-^><C-V><RIGHT><RIGHT>di
-autocmd FileType c,cpp vmap <C-K> <C-v><S-^><S-o><S-^><RIGHT><RIGHT>d<ESC>
+autocmd FileType python nmap <C-l> <ESC><S-^>i# <ESC>
+autocmd FileType python imap <C-l> <ESC><S-^>i# <ESC>i
+autocmd FileType python vmap <C-l> <S-^><C-v><S-i># <ESC>
+autocmd FileType python nmap <C-k> <ESC><S-^><C-V>ld
+autocmd FileType python imap <C-k> <ESC><S-^><C-V>ldi
+autocmd FileType python vmap <C-k> <C-v><S-^><S-o><S-^>ld<ESC>
+autocmd FileType c,cpp nmap <C-l> <ESC><S-^>i// <ESC>
+autocmd FileType c,cpp imap <C-l> <ESC><S-^>i// <ESC>i
+autocmd FileType c,cpp vmap <C-l> <S-^><C-v><S-i>// <ESC>
+autocmd FileType c,cpp nmap <C-k> <ESC><S-^><C-V>lld
+autocmd FileType c,cpp imap <C-k> <ESC><S-^><C-V>lldi
+autocmd FileType c,cpp vmap <C-k> <C-v><S-^><S-o><S-^>lld<ESC>
 
 "分屏
 nmap <S-q> <C-w>q
@@ -30,6 +35,24 @@ nnoremap <silent> <C-S-Right> <C-w>L
 nnoremap <silent> <C-S-Left> <C-w>H
 nnoremap <silent> <C-S-Up> <C-w>K
 nnoremap <silent> <C-S-Down> <C-w>J
+
+""inoremap <silent> <C-h> <Left>
+""inoremap <silent> <C-j> <Down>
+""inoremap <silent> <C-k> <Up>
+""inoremap <silent> <C-l> <Right>
+"不用方向鍵
+inoremap  <Up>     <NOP>
+inoremap  <Down>   <NOP>
+inoremap  <Left>   <NOP>
+inoremap  <Right>  <NOP>
+noremap   <Up>     <NOP>
+noremap   <Down>   <NOP>
+noremap   <Left>   <NOP>
+noremap   <Right>  <NOP>
+"在n可用滑鼠
+set mouse=n
+
+
 "預設程式
 func Eatchar(pat)
     let c = nr2char(getchar(0))
@@ -62,7 +85,11 @@ set nocompatible              " 去除VI一致性,必須
 let mapleader = ','         " 全局leader設置
 let maplocalleader = '_'    " 本地leader設置
 
+inoremap <leader>; <ESC>
+
 " 導入vim插件管理
+" load plugins from vundle
+filetype off
 if filereadable(expand("~/.vimrc.bundles"))
     source ~/.vimrc.bundles
 endif
@@ -90,10 +117,13 @@ augroup project
     autocmd BufNewFile,BufRead *.py,*.pyw set filetype=python
 augroup END
 
-"http://www.edbiji.com/doccenter/showdoc/24/nav/284.html
+"編譯並執行http://www.edbiji.com/doccenter/showdoc/24/nav/284.html
 map <F5> :call CompileAndRun()<CR>
+map <leader>r :call CompileAndRun()<CR>
+"save -> close ALE -> execute -> open ALE
 func! CompileAndRun()
     exec "w"
+    exec "ALEDisable"
     if &filetype == 'c'
         exec "!gcc -std=c11 % -o /tmp/a.out && /tmp/a.out"
     elseif &filetype == 'cpp'
@@ -106,6 +136,7 @@ func! CompileAndRun()
     elseif &filetype == 'python'
         exec "!D:/cygwin/bin/python3 %"
     endif
+    exec "ALEEnable"
 endfunc
 
 " Remove trailing whitespace when writing a buffer, but not for diff files.
@@ -145,7 +176,8 @@ nmap <S-TAB> v<
 vmap <TAB> >gv
 vmap <S-TAB> <gv
 
-map 0 ^
+nnoremap 0 ^
+nnoremap ) $
 
 "顯示最後一列
 set ruler
@@ -155,20 +187,22 @@ set showmode
 
 " 顯示行號，按F2切換
 nnoremap <F2> :set nonumber!<CR>
+:set number
+:set relativenumber
 
 " 直接複製到系統剪貼簿
 ""set clipboard=unnamed
 vnoremap <C-C> "+y
 vnoremap <C-X> "+d
-"nnoremap <C-V> p
+inoremap <C-V> <ESC>pi
 " 黏貼板
-""if has('clipboard')
-""  if has('unnamedplus')
-""      set clipboard=unnamedplus
-""  else
-""      set clipboard=unnamed
-""  endif
-""endif
+if has('clipboard')
+    if has('unnamedplus')
+        set clipboard=unnamedplus
+    else
+        set clipboard=unnamed
+    endif
+endif
 
 " 禁止折行
 set nowrap
