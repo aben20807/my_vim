@@ -2,8 +2,9 @@
 " Maintainer:   Huang Po-Hsuan <aben20807@gmail.com>
 " Last Change:  $Date: 2017/07/04 11:42:11 $
 " URL:
-" Version:  $Id: OuO.vim,v 1.0 fugalh Exp $
-
+" Version:  $Id: ouo.vim,v 1.0 fugalh Exp $
+" modified from desert
+"
 " cool help screens
 " :he group-name
 " :he highlight-groups
@@ -18,7 +19,7 @@ if version > 580
     syntax reset
     endif
 endif
-let g:colors_name="OuO"
+let g:colors_name="ouo"
 
 hi Normal   guifg=White guibg=grey20
 
@@ -162,10 +163,6 @@ if &t_Co > 255
     hi VisualNOS        cterm=bold,underline
     hi WarningMsg       ctermfg=1
     hi WildMenu         ctermfg=0 ctermbg=11
-
-    hi ALEErrorSign     cterm=bold ctermfg=1
-    hi ALEWarningSign   cterm=bold ctermfg=135
-
 
     "":let c_comment_strings = 1
     ""hi c_comment_strings guisp=#FFFFFF

@@ -20,16 +20,19 @@ function ClosePair(char)
 endfunction
 
 function QuoteDelim(char)
+    if &filetype == 'vim'
+        " Just use " for comment
+        return a:char
     let line = getline('.')
     let col = col('.')
-    if line[col - 2] == "\\"
-        "Inserting a quoted quotation mark into the string
+    elseif line[col - 2] == "\\"
+        " Inserting a quoted quotation mark into the string
         return a:char
     elseif line[col - 1] == a:char
-        "Escaping out of the string
+        " Escaping out of the string
         return "\<Right>"
     else
-        "Starting a string
+        " Starting a string
         return a:char.a:char."\<Esc>i"
     endif
 endfunction

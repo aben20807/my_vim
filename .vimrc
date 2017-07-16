@@ -1,9 +1,11 @@
 ".vimrc
-:command WQ wq
-:command Wq wq
-:command W w
-:command Q q
-:command Q! q!
+cnoreabbrev WQ wq
+cnoreabbrev Wq wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev db bd
+"let cursor in the middle of screen when entering vim
+autocmd VimEnter * :exec "normal! \zz"
 "快捷鍵
 "儲存
 nmap <F10> <ESC>:q!<CR>
@@ -24,7 +26,6 @@ autocmd FileType c,cpp imap <C-k> <ESC><S-^><C-V>lldi
 autocmd FileType c,cpp vmap <C-k> <C-v><S-^><S-o><S-^>lld<ESC>
 
 "分屏
-nmap <S-q> <C-w>q
 "分屏間移動
 nnoremap <silent> <C-Right> <C-w>l
 nnoremap <silent> <C-Left> <C-w>h
@@ -79,7 +80,6 @@ autocmd BufRead,BufNewFile *.hpp,*.cpp
 
 "********************************************************************
 set nocompatible              " 去除VI一致性,必須
-""filetype off                  " 必須
 
 " key 映射
 let mapleader = ','         " 全局leader設置
@@ -121,20 +121,20 @@ augroup END
 map <F5> :call CompileAndRun()<CR>
 map <leader>r :call CompileAndRun()<CR>
 "save -> close ALE -> execute -> open ALE
-func! CompileAndRun()
-    exec "w"
+function! CompileAndRun()
+    exec "vs"
     exec "ALEDisable"
     if &filetype == 'c'
-        exec "!gcc -std=c11 % -o /tmp/a.out && /tmp/a.out"
+        exec "!gcc -std=c11 % -o /tmp/a.out && time /tmp/a.out"
     elseif &filetype == 'cpp'
-        exec "!g++ -std=c++11 % -o /tmp/a.out && /tmp/a.out"
+        exec "!g++ -std=c++11 % -o /tmp/a.out && time /tmp/a.out"
     elseif &filetype == 'java'
         exec "!javac %"
         exec "!java %<"
     elseif &filetype == 'sh'
         :!%
     elseif &filetype == 'python'
-        exec "!D:/cygwin/bin/python3 %"
+        exec "!time D:/cygwin/bin/python3 %"
     endif
     exec "ALEEnable"
 endfunc
@@ -177,7 +177,7 @@ vmap <TAB> >gv
 vmap <S-TAB> <gv
 
 nnoremap 0 ^
-nnoremap ) $
+nnoremap = $
 
 "顯示最後一列
 set ruler
@@ -208,7 +208,7 @@ endif
 set nowrap
 
 " 背景主題
-colorscheme OuO
+colorscheme ouo
 
 " 高亮搜尋結果
 set hlsearch
