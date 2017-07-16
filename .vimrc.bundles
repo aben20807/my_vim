@@ -25,19 +25,19 @@ let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
- let g:airline_mode_map = {
-      \ '__' : '-',
-      \ 'n'  : 'N',
-      \ 'i'  : 'I',
-      \ 'R'  : 'R',
-      \ 'c'  : 'C',
-      \ 'v'  : 'V',
-      \ 'V'  : 'V',
-      \ '' : 'V',
-      \ 's'  : 'S',
-      \ 'S'  : 'S',
-      \ '' : 'S',
-      \ }
+let g:airline_mode_map = {
+    \ '__' : '-',
+    \ 'n'  : 'N',
+    \ 'i'  : 'I',
+    \ 'R'  : 'R',
+    \ 'c'  : 'C',
+    \ 'v'  : 'V',
+    \ 'V'  : 'V',
+    \ '' : 'V',
+    \ 's'  : 'S',
+    \ 'S'  : 'S',
+    \ '' : 'S',
+    \ }
 "let g:airline_section_warning = '%{ALEGetStatusLine()}'
 let g:airline#extensions#ale#enabled = 1
 let g:airline_section_error = '%{ALEGetError()}'
@@ -84,16 +84,16 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 let NERDTreeWinSize=25
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 let g:NERDTreeIndicatorMapCustom = {
-            \ "Modified" : "✹",
-            \ "Staged" : "✚",
-            \ "Untracked" : "✭",
-            \ "Renamed" : "➜",
-            \ "Unmerged" : "═",
-            \ "Deleted" : "✖",
-            \ "Dirty" : "✗",
-            \ "Clean" : "✔︎",
-            \ "Unknown" : "?"
-            \ }
+    \ "Modified" : "✹",
+    \ "Staged" : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed" : "➜",
+    \ "Unmerged" : "═",
+    \ "Deleted" : "✖",
+    \ "Dirty" : "✗",
+    \ "Clean" : "✔︎",
+    \ "Unknown" : "?"
+    \ }
 
 " 多光標
 "http://www.wklken.me/posts/2015/06/07/vim-plugin-multiplecursors.html

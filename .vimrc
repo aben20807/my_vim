@@ -4,8 +4,10 @@ cnoreabbrev Wq wq
 cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev db bd
-"let cursor in the middle of screen when entering vim
+" let cursor in the middle of screen when entering vim
 autocmd VimEnter * :exec "normal! \zz"
+" Keep 3 lines below and above the cursor
+set scrolloff=3
 "快捷鍵
 "儲存
 nmap <F10> <ESC>:q!<CR>
@@ -37,10 +39,6 @@ nnoremap <silent> <C-S-Left> <C-w>H
 nnoremap <silent> <C-S-Up> <C-w>K
 nnoremap <silent> <C-S-Down> <C-w>J
 
-""inoremap <silent> <C-h> <Left>
-""inoremap <silent> <C-j> <Down>
-""inoremap <silent> <C-k> <Up>
-""inoremap <silent> <C-l> <Right>
 "不用方向鍵
 inoremap  <Up>     <NOP>
 inoremap  <Down>   <NOP>
@@ -63,20 +61,20 @@ endfunc
 :iab #i #include <><LEFT><C-R>=Eatchar('\m\s\<bar>\r')<CR>
 :iab _pr printf();<LEFT><LEFT><C-R>=Eatchar('\m\s\<bar>\r')<CR>
 autocmd BufRead,BufNewFile *.h,*.c
-            \:iab <buffer> _main #include <stdio.h>
-            \<CR>
-            \<CR>int main(int argc, char *argv[]){
-            \<CR>
-            \<CR>return 0;
-            \}<BS><UP><C-R>=Eatchar('\m\s\<bar>\r')<CR>
+    \:iab <buffer> _main #include <stdio.h>
+    \<CR>
+    \<CR>int main(int argc, char *argv[]){
+    \<CR>
+    \<CR>return 0;
+    \}<BS><UP><C-R>=Eatchar('\m\s\<bar>\r')<CR>
 autocmd BufRead,BufNewFile *.hpp,*.cpp
-            \:iab <buffer> _main #include <iostream>
-            \<CR>using namespace std;
-            \<CR>
-            \<CR>int main(){
-            \<CR>
-            \<CR>return 0;
-            \}<BS><UP><C-R>=Eatchar('\m\s\<bar>\r')<CR>
+    \:iab <buffer> _main #include <iostream>
+    \<CR>using namespace std;
+    \<CR>
+    \<CR>int main(){
+    \<CR>
+    \<CR>return 0;
+    \}<BS><UP><C-R>=Eatchar('\m\s\<bar>\r')<CR>
 
 "********************************************************************
 set nocompatible              " 去除VI一致性,必須
@@ -120,9 +118,8 @@ augroup END
 "編譯並執行http://www.edbiji.com/doccenter/showdoc/24/nav/284.html
 map <F5> :call CompileAndRun()<CR>
 map <leader>r :call CompileAndRun()<CR>
-"save -> close ALE -> execute -> open ALE
+" close ALE -> execute -> open ALE
 function! CompileAndRun()
-    exec "vs"
     exec "ALEDisable"
     if &filetype == 'c'
         exec "!gcc -std=c11 % -o /tmp/a.out && time /tmp/a.out"
@@ -157,7 +154,7 @@ autocmd BufWritePre * call RemoveTrailingWhitespace()
 :set guioptions-=r  "remove right-hand scroll bar
 :set guioptions-=L  "remove left-hand scroll bar
 
-"倒退鍵
+" 倒退鍵
 set backspace=2
 set tabstop=4
 
@@ -167,7 +164,7 @@ set expandtab
 " 讓 vim 把連續數量的空格視為一個制表符
 set softtabstop=4
 
-"縮排位元數
+" 縮排位元數
 set shiftwidth=4
 
 " Tab縮排
@@ -179,10 +176,10 @@ vmap <S-TAB> <gv
 nnoremap 0 ^
 nnoremap = $
 
-"顯示最後一列
+" 顯示最後一列
 set ruler
 
-"左下角一列
+" 左下角一列
 set showmode
 
 " 顯示行號，按F2切換
@@ -191,7 +188,6 @@ nnoremap <F2> :set nonumber!<CR>
 :set relativenumber
 
 " 直接複製到系統剪貼簿
-""set clipboard=unnamed
 vnoremap <C-C> "+y
 vnoremap <C-X> "+d
 inoremap <C-V> <ESC>pi
@@ -225,34 +221,39 @@ syntax on
 set cursorline
 "set cursorcolumn
 
-"在终端下打開256色
+" 在终端下打開256色
 set t_Co=256
 
-"搜尋不分大小寫
+" 搜尋不分大小寫
 set ic
 
-"設定文字編碼
+" 設定文字編碼
 set enc=utf8
 scriptencoding utf-8
 
-"分頁
+" 分頁
 set splitright
 set splitbelow
 
- "最下出現總行數
+" 最下出現總行數
 set ruler
 
-"禁止光標閃爍
+" 禁止光標閃爍
 set gcr=a:block-blinkon0
 
-"設置歷史紀錄為1000條
+" 設置歷史紀錄為1000條
 set history=1000
 
-set nobackup      " 不備份
-set nowritebackup " 不寫入備份文件
-set noswapfile    " 關閉交換文件
-set mousehide     " 輸入文件時隱藏鼠標
-set virtualedit=onemore             " 光標可以移到當行最後一個字符之後
+" 不備份
+set nobackup
+" 不寫入備份文件
+set nowritebackup
+" 關閉交換文件
+set noswapfile
+" 輸入文件時隱藏鼠標
+set mousehide
+" 光標可以移到當行最後一個字符之後
+set virtualedit=onemore
 " 基于縮排或語法進行代碼折叠
 "操作：za，打開或關閉當前折叠；zM，關閉所有折叠；zR，打開所有折叠
 "set foldmethod=indent
