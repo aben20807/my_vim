@@ -20,7 +20,7 @@ function ClosePair(char)
 endfunction
 
 function QuoteDelim(char)
-    if &filetype == 'vim'
+    if &filetype == 'vim' || &filetype == 'sh'
         " Just use " for comment
         return a:char
     let line = getline('.')

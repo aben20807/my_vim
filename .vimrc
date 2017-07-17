@@ -8,51 +8,12 @@ cnoreabbrev db bd
 autocmd VimEnter * :exec "normal! \zz"
 " Keep 3 lines below and above the cursor
 set scrolloff=3
-"快捷鍵
-"儲存
-nmap <F10> <ESC>:q!<CR>
-nmap <F11> <ESC>:up<CR>
-nmap <F12> <ESC>:up<CR>:q<CR>
-"註解
-autocmd FileType python nmap <C-l> <ESC><S-^>i# <ESC>
-autocmd FileType python imap <C-l> <ESC><S-^>i# <ESC>i
-autocmd FileType python vmap <C-l> <S-^><C-v><S-i># <ESC>
-autocmd FileType python nmap <C-k> <ESC><S-^><C-V>ld
-autocmd FileType python imap <C-k> <ESC><S-^><C-V>ldi
-autocmd FileType python vmap <C-k> <C-v><S-^><S-o><S-^>ld<ESC>
-autocmd FileType c,cpp nmap <C-l> <ESC><S-^>i// <ESC>
-autocmd FileType c,cpp imap <C-l> <ESC><S-^>i// <ESC>i
-autocmd FileType c,cpp vmap <C-l> <S-^><C-v><S-i>// <ESC>
-autocmd FileType c,cpp nmap <C-k> <ESC><S-^><C-V>lld
-autocmd FileType c,cpp imap <C-k> <ESC><S-^><C-V>lldi
-autocmd FileType c,cpp vmap <C-k> <C-v><S-^><S-o><S-^>lld<ESC>
+" 快捷鍵
 
-"分屏
-"分屏間移動
-nnoremap <silent> <C-Right> <C-w>l
-nnoremap <silent> <C-Left> <C-w>h
-nnoremap <silent> <C-Up> <C-w>k
-nnoremap <silent> <C-Down> <C-w>j
-"移動分屏
-nnoremap <silent> <C-S-Right> <C-w>L
-nnoremap <silent> <C-S-Left> <C-w>H
-nnoremap <silent> <C-S-Up> <C-w>K
-nnoremap <silent> <C-S-Down> <C-w>J
-
-"不用方向鍵
-inoremap  <Up>     <NOP>
-inoremap  <Down>   <NOP>
-inoremap  <Left>   <NOP>
-inoremap  <Right>  <NOP>
-noremap   <Up>     <NOP>
-noremap   <Down>   <NOP>
-noremap   <Left>   <NOP>
-noremap   <Right>  <NOP>
-"在n可用滑鼠
+" 在n可用滑鼠
 set mouse=n
 
-
-"預設程式
+" 預設程式
 func Eatchar(pat)
     let c = nr2char(getchar(0))
     return (c =~ a:pat)? '': c
@@ -79,11 +40,10 @@ autocmd BufRead,BufNewFile *.hpp,*.cpp
 "********************************************************************
 set nocompatible              " 去除VI一致性,必須
 
-" key 映射
-let mapleader = ','         " 全局leader設置
-let maplocalleader = '_'    " 本地leader設置
-
-inoremap <leader>; <ESC>
+" 導入vim key map
+if filereadable(expand("~/.vimrc.keymap"))
+   source ~/.vimrc.keymap
+endif
 
 " 導入vim插件管理
 " load plugins from vundle
@@ -94,7 +54,7 @@ endif
 
 " 導入vim作者說明
 if filereadable(expand("~/.vimrc.author"))
-    source ~/.vimrc.author
+   source ~/.vimrc.author
 endif
 
 " 導入vim括號補全
@@ -167,15 +127,6 @@ set softtabstop=4
 " 縮排位元數
 set shiftwidth=4
 
-" Tab縮排
-nmap <TAB> v>
-nmap <S-TAB> v<
-vmap <TAB> >gv
-vmap <S-TAB> <gv
-
-nnoremap 0 ^
-nnoremap = $
-
 " 顯示最後一列
 set ruler
 
@@ -183,14 +134,10 @@ set ruler
 set showmode
 
 " 顯示行號，按F2切換
-nnoremap <F2> :set nonumber!<CR>
+nnoremap <F2> :set norelativenumber!<CR>:set nonumber!<CR>
 :set number
 :set relativenumber
 
-" 直接複製到系統剪貼簿
-vnoremap <C-C> "+y
-vnoremap <C-X> "+d
-inoremap <C-V> <ESC>pi
 " 黏貼板
 if has('clipboard')
     if has('unnamedplus')
