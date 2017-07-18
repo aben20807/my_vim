@@ -54,6 +54,23 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
+" Warning and error format
+"let s:cterm_warningbg = 166         " Background for warning blocks
+"let s:gui_warningbg   = '#FF8C00'
+"let s:cterm_warningfg = 15          " Foreground for warning blocks
+"let s:gui_warningfg   = '#FFFFFF'
+"let s:cterm_errorbg   = 160           " Background for error blocks
+"let s:gui_errorbg     = '#D70000'
+"let s:cterm_errorfg   = 15            " Foreground for error blocks
+"let s:gui_errorfg     = '#FFFFFF'
+"let s:cterm_insertbg  = 70          " Background for insert mode and file position blocks
+"let s:gui_insertbg    = '#87AF5F'
+"let s:cterm_insertfg  = 15          " Foreground for insert mode and file position blocks
+"let s:gui_insertfg    = '#FFFFFF'
+"let s:W = [s:gui_warningfg, s:gui_warningbg, s:cterm_warningfg, s:cterm_warningbg, 'bold']
+"let s:E = [s:gui_errorfg, s:gui_errorbg, s:cterm_errorfg, s:cterm_errorbg, 'bold']
+"let s:G = [s:gui_insertfg, s:gui_insertbg, s:cterm_insertfg, s:cterm_insertbg, 'bold']
+"autocmd VimEnter * let g:airline#themes#ouo#palette.normal.airline_warning = s:G
 map <F6> :up<CR>:bp<CR>
 map <F7> :up<CR>:bn<CR>
 
@@ -94,6 +111,12 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Clean" : "✔︎",
     \ "Unknown" : "?"
     \ }
+function! s:ShowFilename()
+    redraw | echohl Debug |
+        \ echom index(["\" Press ? for help", "", ".. (up a dir)"], getline(".")) < 0 ?
+        \ "NERDTree: " . matchstr(getline("."), "[0-9A-Za-z_/].*") : "" | echohl None
+endfunction
+autocmd CursorMoved NERD_tree* :call <SID>ShowFilename()
 
 " 多光標
 "http://www.wklken.me/posts/2015/06/07/vim-plugin-multiplecursors.html
@@ -138,7 +161,8 @@ let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'c': ['clang'],
 \   'cpp': ['clang'],
-\   'python': ['pylint']
+\   'python': ['pylint'],
+\   'vim': []
 \}
 let g:ale_statusline_format = ['E:%d', 'W:%d', 'OuO']
 let g:ale_echo_msg_error_str = 'E'
@@ -159,22 +183,27 @@ autocmd VimEnter,Colorscheme * :hi ALEError         cterm=NONE ctermfg=251 cterm
 autocmd VimEnter,Colorscheme * :hi ALEWarning       cterm=NONE ctermfg=251 ctermbg=166
 " For a more fancy ale statusline
 function! ALEGetError()
+"    let g:airline#themes#ouo#palette.normal.airline_error = s:G
     let l:res = ale#statusline#Status()
     if l:res ==# 'OuO'
+"        let g:airline#themes#ouo#palette.normal.airline_error = s:G
         return ''
     else
         let l:e_w = split(l:res)
         if len(l:e_w) == 2 || match(l:e_w, 'E') > -1
             return 'E' . matchstr(l:e_w[0], '\d\+')
         else
+"            let g:airline#themes#ouo#palette.normal.airline_error = s:G
             return 'E0'
         endif
     endif
 endfunction
 
 function! ALEGetWarning()
+"    let g:airline#themes#ouo#palette.normal.airline_warning = s:G
     let l:res = ale#statusline#Status()
     if l:res ==# 'OuO'
+"        let g:airline#themes#ouo#palette.normal.airline_warning = s:G
         return 'OuO'
     else
         let l:e_w = split(l:res)
@@ -183,6 +212,7 @@ function! ALEGetWarning()
         elseif match(l:e_w, 'W') > -1
             return 'W' . matchstr(l:e_w[0], '\d\+')
         else
+"            let g:airline#themes#ouo#palette.normal.airline_warning = s:G
             return 'W0'
         endif
     endif

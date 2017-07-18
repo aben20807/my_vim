@@ -107,7 +107,7 @@ if &t_Co > 255
     hi Tag              ctermfg=green
     hi Delimiter        ctermfg=251                 "(), <> for function
     hi SpecialComment   ctermfg=red
-    hi Debug            ctermfg=green
+    hi Debug            ctermfg=9                   "echo debug
 
     hi Underlined       cterm=underline ctermfg=13
 

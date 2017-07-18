@@ -8,7 +8,6 @@ cnoreabbrev db bd
 autocmd VimEnter * :exec "normal! \zz"
 " Keep 3 lines below and above the cursor
 set scrolloff=3
-" 快捷鍵
 
 " 在n可用滑鼠
 set mouse=n
@@ -41,6 +40,7 @@ autocmd BufRead,BufNewFile *.hpp,*.cpp
 set nocompatible              " 去除VI一致性,必須
 
 
+" 導入 vim key map
 if filereadable(expand("~/.keymap.vim"))
    source ~/.keymap.vim
 endif
