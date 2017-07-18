@@ -105,11 +105,11 @@ function! Terminal_MetaMode(mode)
         endif
     endfunc
     for i in range(10)
-        call s:metacode(a:mode, nr2char(char2nr('0') + i))
+        " call s:metacode(a:mode, nr2char(char2nr('0') + i))
     endfor
     for i in range(26)
         call s:metacode(a:mode, nr2char(char2nr('a') + i))
-        call s:metacode(a:mode, nr2char(char2nr('A') + i))
+        " call s:metacode(a:mode, nr2char(char2nr('A') + i))
     endfor
     if a:mode != 0
         for c in [',', '.', '/', ';', '[', ']', '{', '}']
@@ -119,12 +119,13 @@ function! Terminal_MetaMode(mode)
             call s:metacode(a:mode, c)
         endfor
     else
-        for c in [',', '.', '/', ';', '{', '}']
+        for c in ['.', '/']
+            " [',', '.', '/', ';', '{', '}']
             call s:metacode(a:mode, c)
         endfor
-        for c in ['?', ':', '-', '_']
-            call s:metacode(a:mode, c)
-        endfor
+        " for c in ['?', ':', '-', '_']
+          "  call s:metacode(a:mode, c)
+        " endfor
     endif
     if &ttimeout == 0
         set ttimeout

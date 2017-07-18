@@ -1,5 +1,6 @@
 ".vimrc.bundles
 " 設置包括vundle和初始化相關的runtime path
+filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " 另一種選擇, 指定一個vundle安裝插件的路徑" :BundleInstall
@@ -54,28 +55,12 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
-" Warning and error format
-"let s:cterm_warningbg = 166         " Background for warning blocks
-"let s:gui_warningbg   = '#FF8C00'
-"let s:cterm_warningfg = 15          " Foreground for warning blocks
-"let s:gui_warningfg   = '#FFFFFF'
-"let s:cterm_errorbg   = 160           " Background for error blocks
-"let s:gui_errorbg     = '#D70000'
-"let s:cterm_errorfg   = 15            " Foreground for error blocks
-"let s:gui_errorfg     = '#FFFFFF'
-"let s:cterm_insertbg  = 70          " Background for insert mode and file position blocks
-"let s:gui_insertbg    = '#87AF5F'
-"let s:cterm_insertfg  = 15          " Foreground for insert mode and file position blocks
-"let s:gui_insertfg    = '#FFFFFF'
-"let s:W = [s:gui_warningfg, s:gui_warningbg, s:cterm_warningfg, s:cterm_warningbg, 'bold']
-"let s:E = [s:gui_errorfg, s:gui_errorbg, s:cterm_errorfg, s:cterm_errorbg, 'bold']
-"let s:G = [s:gui_insertfg, s:gui_insertbg, s:cterm_insertfg, s:cterm_insertbg, 'bold']
-"autocmd VimEnter * let g:airline#themes#ouo#palette.normal.airline_warning = s:G
 map <F6> :up<CR>:bp<CR>
 map <F7> :up<CR>:bn<CR>
 
 " airline git symbol
-Plugin 'tpope/vim-fugitive'
+" let vim slow QuQ
+" Plugin 'tpope/vim-fugitive'
 
 "256 色測試
 " Plugin 'git://github.com/guns/xterm-color-table.vim.git'
@@ -139,16 +124,12 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=236
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=240
 nnoremap <F3> :IndentGuidesToggle<CR>
 
-" 打磚塊
-"Plugin 'johngrib/vim-game-code-break'
-"nnoremap <C-g> :VimGameCodeBreak<CR>
-
 " 括號刪除取代
-Plugin 'tpope/vim-surround'
+" Plugin 'tpope/vim-surround'
 
 "迷宮遊戲
-Plugin 'vim-scripts/HJKL'
-nnoremap <M-g> :HJKL<CR>
+" Plugin 'vim-scripts/HJKL'
+" nnoremap <M-g> :HJKL<CR>
 
 "內部終端機
 Plugin 'wkentaro/conque.vim'
@@ -168,7 +149,7 @@ let g:ale_statusline_format = ['E:%d', 'W:%d', 'OuO']
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_lint_on_enter = 1
+let g:ale_lint_on_enter = 0
 let g:ale_set_signs = 1
 let g:ale_sign_error = '◈'
 let g:ale_sign_warning = '◈'
@@ -183,27 +164,22 @@ autocmd VimEnter,Colorscheme * :hi ALEError         cterm=NONE ctermfg=251 cterm
 autocmd VimEnter,Colorscheme * :hi ALEWarning       cterm=NONE ctermfg=251 ctermbg=166
 " For a more fancy ale statusline
 function! ALEGetError()
-"    let g:airline#themes#ouo#palette.normal.airline_error = s:G
     let l:res = ale#statusline#Status()
     if l:res ==# 'OuO'
-"        let g:airline#themes#ouo#palette.normal.airline_error = s:G
         return ''
     else
         let l:e_w = split(l:res)
         if len(l:e_w) == 2 || match(l:e_w, 'E') > -1
             return 'E' . matchstr(l:e_w[0], '\d\+')
         else
-"            let g:airline#themes#ouo#palette.normal.airline_error = s:G
             return 'E0'
         endif
     endif
 endfunction
 
 function! ALEGetWarning()
-"    let g:airline#themes#ouo#palette.normal.airline_warning = s:G
     let l:res = ale#statusline#Status()
     if l:res ==# 'OuO'
-"        let g:airline#themes#ouo#palette.normal.airline_warning = s:G
         return 'OuO'
     else
         let l:e_w = split(l:res)
@@ -212,7 +188,6 @@ function! ALEGetWarning()
         elseif match(l:e_w, 'W') > -1
             return 'W' . matchstr(l:e_w[0], '\d\+')
         else
-"            let g:airline#themes#ouo#palette.normal.airline_warning = s:G
             return 'W0'
         endif
     endif
