@@ -60,10 +60,12 @@ inoremap <M-j> <Down>
 inoremap <M-k> <Up>
 inoremap <M-l> <Right>
 
+" commend移動
 cnoremap <M-h> <c-left>
 cnoremap <M-l> <c-right>
-cnoremap <M-b> <c-left>
-cnoremap <M-f> <c-right>
+cnoremap <M-k> <c-left>
+cnoremap <M-j> <c-right>
+
 " Tab縮排
 nmap <TAB> v>
 nmap <S-TAB> v<

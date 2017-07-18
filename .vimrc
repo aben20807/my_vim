@@ -40,26 +40,26 @@ autocmd BufRead,BufNewFile *.hpp,*.cpp
 "********************************************************************
 set nocompatible              " 去除VI一致性,必須
 
-" 導入vim key map
-if filereadable(expand("~/.vimrc.keymap"))
-   source ~/.vimrc.keymap
+
+if filereadable(expand("~/.keymap.vim"))
+   source ~/.keymap.vim
 endif
 
 " 導入vim插件管理
 " load plugins from vundle
 filetype off
-if filereadable(expand("~/.vimrc.bundles"))
-    source ~/.vimrc.bundles
+if filereadable(expand("~/.bundles.vim"))
+    source ~/.bundles.vim
 endif
 
 " 導入vim作者說明
-if filereadable(expand("~/.vimrc.author"))
-   source ~/.vimrc.author
+if filereadable(expand("~/.author.vim"))
+   source ~/.author.vim
 endif
 
 " 導入vim括號補全
-if filereadable(expand("~/.vimrc.brackets"))
-    source ~/.vimrc.brackets
+if filereadable(expand("~/.brackets.vim"))
+    source ~/.brackets.vim
 endif
 
 "不可見字符可視化，按F3切換
