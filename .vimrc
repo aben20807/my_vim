@@ -85,12 +85,12 @@ function! CompileAndRun()
     elseif &filetype == 'cpp'
         exec "!g++ -std=c++11 % -o /tmp/a.out && time /tmp/a.out"
     elseif &filetype == 'java'
-        exec "!javac %"
-        exec "!java %<"
+        exec "!javac -encoding utf-8 %"
+        exec "!time java %<"
     elseif &filetype == 'sh'
         :!%
     elseif &filetype == 'python'
-        exec "!time D:/cygwin/bin/python3 %"
+        exec "!time python3 %"
     endif
     exec "ALEEnable"
 endfunc

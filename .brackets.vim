@@ -20,11 +20,11 @@ function ClosePair(char)
 endfunction
 
 function QuoteDelim(char)
+    let line = getline('.')
+    let col = col('.')
     if &filetype == 'vim' || &filetype == 'sh'
         " Just use " for comment
         return a:char
-    let line = getline('.')
-    let col = col('.')
     elseif line[col - 2] == "\\"
         " Inserting a quoted quotation mark into the string
         return a:char
