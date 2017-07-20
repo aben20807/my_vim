@@ -1,4 +1,8 @@
-".vimrc
+" Author: Huang Po-Hsuan <aben20807@gmail.com>
+" Filename: .vimrc
+" Last Modified: 2017-07-20 11:36:08
+" Vim: enc=utf-8
+
 cnoreabbrev WQ wq
 cnoreabbrev Wq wq
 cnoreabbrev W w
@@ -10,7 +14,7 @@ autocmd VimEnter * :exec "normal! \zz"
 set scrolloff=3
 
 " 在n可用滑鼠
-set mouse=nv
+set mouse=""
 
 " 預設程式
 func Eatchar(pat)
@@ -18,27 +22,7 @@ func Eatchar(pat)
     return (c =~ a:pat)? '': c
 endfunc
 
-:iab #i #include <><LEFT><C-R>=Eatchar('\m\s\<bar>\r')<CR>
-:iab _pr printf();<LEFT><LEFT><C-R>=Eatchar('\m\s\<bar>\r')<CR>
-autocmd BufRead,BufNewFile *.h,*.c
-    \ :iab _main #include <stdio.h>
-    \<CR>
-    \<CR>int main(int argc, char *argv[]){
-    \<CR>
-    \<CR>return 0;
-    \}<BS><UP><C-R>=Eatchar('\m\s\<bar>\r')<CR>
-autocmd BufRead,BufNewFile *.hpp,*.cpp
-    \ :iab <buffer> _main #include <iostream>
-    \<CR>using namespace std;
-    \<CR>
-    \<CR>int main(){
-    \<CR>
-    \<CR>return 0;
-    \}<BS><UP><C-R>=Eatchar('\m\s\<bar>\r')<CR>
-
-"********************************************************************
 set nocompatible              " 去除VI一致性,必須
-
 
 " 導入 vim key map
 if filereadable(expand("~/.keymap.vim"))

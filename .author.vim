@@ -1,48 +1,32 @@
+" Author: Huang Po-Hsuan <aben20807@gmail.com>
+" Filename: .author.vim
+" Last Modified: 2017-07-20 11:27:01
+" Vim: enc=utf-8
+
 " http://www.gegugu.com/2016/02/11/17175.html
 " 進行作者說明的設置
 " 添加或更新頭
 map <F4> :call TitleDet()<CR>
-autocmd BufWritePre,VimLeavePre * call TitleDet()
-"autocmd BufNewFile *.py :call TitleDet()
+" autocmd BufWritePre,VimLeavePre * call TitleDet()
 function AddTitle()
-    if &filetype == 'python'
-        call append(0,"# !D:/cygwin/bin/python3")
-        call append(1,"# Version: python3.6")
-        call append(2,"# Vim: enc=utf-8")
-        call append(3,"# Author: Huang Po-Hsuan <aben20807@gmail.com>")
-        call append(4,"# Filename: ".expand("%:t"))
-        call append(5,"# Last modified: ".strftime("%Y-%m-%d %H:%M:%S"))
-        call append(6,"#-*- coding: UTF-8 -*-")
-        call append(7,"")
-    elseif &filetype == 'cpp'
-        call append(0,"// !g++ -std=c++11")
-        call append(1,"// Version: C++11")
-        call append(2,"// Vim: enc=utf-8")
-        call append(3,"// Author: Huang Po-Hsuan <aben20807@gmail.com>")
-        call append(4,"// Filename: ".expand("%:t"))
-        call append(5,"// Last modified: ".strftime("%Y-%m-%d %H:%M:%S"))
-        call append(6,"")
-    elseif &filetype == 'c'
-        call append(0,"// !gcc -std=c11")
-        call append(1,"// Version: C11")
-        call append(2,"// Vim: enc=utf-8")
-        call append(3,"// Author: Huang Po-Hsuan <aben20807@gmail.com>")
-        call append(4,"// Filename: ".expand("%:t"))
-        call append(5,"// Last modified: ".strftime("%Y-%m-%d %H:%M:%S"))
-        call append(6,"")
-    endif
 endfunction
 " 更新最近修改時間和文件名
 function UpdateTitle()
     if &filetype == 'python'
         normal m'
-        execute '/# *Last modified:/s@:.*$@\=strftime(": %Y-%m-%d %H:%M:%S")@'
+        execute '/# *Last Modified:/s@:.*$@\=strftime(": %Y-%m-%d %H:%M:%S")@'
         normal ''
         normal mk
         execute '/# *Filename:/s@:.*$@\=": ".expand("%:t")@'
-    elseif &filetype == 'c' || &filetype == 'cpp'
+    elseif &filetype == 'vim'
         normal m'
-        execute '/\/\/ *Last modified:/s@:.*$@\=strftime(": %Y-%m-%d %H:%M:%S")@'
+        execute '/\" *Last Modified:/s@:.*$@\=strftime(": %Y-%m-%d %H:%M:%S")@'
+        normal ''
+        normal mk
+        execute '/\" *Filename:/s@:.*$@\=": ".expand("%:t")@'
+    elseif &filetype == 'c' || &filetype == 'cpp' || &filetype == 'rust'
+        normal m'
+        execute '/\/\/ *Last Modified:/s@:.*$@\=strftime(": %Y-%m-%d %H:%M:%S")@'
         normal ''
         normal mk
         execute '/\/\/ *Filename:/s@:.*$@\=": ".expand("%:t")@'
@@ -56,9 +40,11 @@ endfunction
 function TitleDet()
     let n=1
     "默認為添加
-    while n < 10
+    while n < 5
         let line = getline(n)
-        if line =~ '^\#\s*\S*Last\smodified:\S*.*$' || line =~ '^\/\/\s*\S*Last\smodified:\S*.*$'
+        if line =~ '^\#\s*\S*Last\smodified:\S*.*$' ||
+          \line =~ '^\/\/\s*\S*Last\smodified:\S*.*$' ||
+          \line =~ '^\"\s*\S*Last\smodified:\S*.*$'
             call UpdateTitle()
             return
         endif

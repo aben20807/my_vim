@@ -1,4 +1,8 @@
-".vimrc.bundles
+" Author: Huang Po-Hsuan <aben20807@gmail.com>
+" Filename: .bundles.vim
+" Last Modified: 2017-07-20 11:35:04
+" Vim: enc=utf-8
+
 " 設置包括vundle和初始化相關的runtime path
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim

@@ -1,3 +1,8 @@
+" Author: Huang Po-Hsuan <aben20807@gmail.com>
+" Filename: .brackets.vim
+" Last Modified: 2017-07-20 11:35:21
+" Vim: enc=utf-8
+
 "括號引號補全https://gist.github.com/nemtsov/11064497
 inoremap ( ()<Esc>i
 inoremap [ []<Esc>i

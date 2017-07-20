@@ -1,32 +1,17 @@
+" Author: Huang Po-Hsuan <aben20807@gmail.com>
+" Filename: .keymap.vim
+" Last Modified: 2017-07-20 11:35:39
+" Vim: enc=utf-8
+
 " key 映射
-let mapleader = ','         " 全局leader設置
-let maplocalleader = '_'    " 本地leader設置
-inoremap <leader>; <ESC>
+" let mapleader = ','         " 全局leader設置
+" let maplocalleader = '_'    " 本地leader設置
+" inoremap <leader>; <ESC>
 
 " 離開vim
 nnoremap <F10> :exec "q!"<CR>
 nnoremap <F11> :exec "w"<CR>
 nnoremap <F12> :exec "wq"<CR>
-
-" 註解Comment
-autocmd FileType python nmap <M-/> <ESC><S-^>i# <ESC>
-autocmd FileType python imap <M-/> <ESC><S-^>i# <ESC><BS>i
-autocmd FileType python vmap <M-/> <S-^><C-v><S-i># <ESC>
-autocmd FileType python nmap <M-.> <ESC><S-^><C-V>ld
-autocmd FileType python imap <M-.> <ESC><S-^><C-V>ldi
-autocmd FileType python vmap <M-.> <C-v><S-^><S-o><S-^>ld<ESC>
-autocmd FileType c,cpp  nmap <M-/> <ESC><S-^>i// <ESC>
-autocmd FileType c,cpp  imap <M-/> <ESC><S-^>i// <ESC><BS>i
-autocmd FileType c,cpp  vmap <M-/> <S-^><C-v><S-i>// <ESC>
-autocmd FileType c,cpp  nmap <M-.> <ESC><S-^><C-V>lld
-autocmd FileType c,cpp  imap <M-.> <ESC><S-^><C-V>lldi
-autocmd FileType c,cpp  vmap <M-.> <C-v><S-^><S-o><S-^>lld<ESC>
-autocmd FileType vim nmap <M-/> <ESC><S-^>i" <ESC>
-autocmd FileType vim imap <M-/> <ESC><S-^>i" <ESC><BS>i
-autocmd FileType vim vmap <M-/> <S-^><C-v><S-i>" <ESC>
-autocmd FileType vim nmap <M-.> <ESC><S-^><C-V>ld
-autocmd FileType vim imap <M-.> <ESC><S-^><C-V>ldi
-autocmd FileType vim vmap <M-.> <C-v><S-^><S-o><S-^>ld<ESC>
 
 " 分屏間移動window
 nnoremap <silent> <C-Right> <C-w>l
