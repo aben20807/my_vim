@@ -41,8 +41,10 @@ let g:airline_mode_map = {
     \ }
 "let g:airline_section_warning = '%{ALEGetStatusLine()}'
 let g:airline#extensions#ale#enabled = 1
-let g:airline_section_error = '%{ALEGetError()}'
-let g:airline_section_warning = '%{ALEGetWarning()}'
+"let g:airline_section_error = '%{ALEGetError()}'
+"let g:airline_section_warning = '%{ALEGetWarning()}'
+let airline#extensions#ale#error_symbol = 'E'
+let airline#extensions#ale#warning_symbol = 'W'
 " unicode symbols
 let g:airline_left_sep = '»'
 let g:airline_left_sep = ''
@@ -54,9 +56,9 @@ let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
-map <F6> :up<CR>:bp<CR>
-map <F7> :up<CR>:bn<CR>
+let g:airline_symbols.linenr = '㉿' " ''
+map <F6> :bp!<CR>
+map <F7> :bn!<CR>
 
 " airline git symbol
 " let vim slow QuQ
@@ -143,9 +145,10 @@ let g:ale_linters = {
 \   'c': ['clang'],
 \   'cpp': ['clang'],
 \   'python': ['pylint'],
-\   'vim': []
+\   'vim': ['vint'],
+\   'rust': ['rustc', 'cargo']
 \}
-let g:ale_statusline_format = ['E:%d', 'W:%d', 'OuO']
+" let g:ale_statusline_format = ['E:%d', 'W:%d', 'OuO']
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
@@ -153,7 +156,8 @@ let g:ale_lint_on_enter = 0
 let g:ale_set_signs = 1
 let g:ale_sign_error = '◈'
 let g:ale_sign_warning = '◈'
-"let g:ale_lint_on_text_changed = 'never'
+" check only after savind
+let g:ale_lint_on_text_changed = 'never'
 nnoremap <M-a> :ALEToggle<CR>
 nmap <M-w> <Plug>(ale_previous_wrap)
 nmap <M-e> <Plug>(ale_next_wrap)
@@ -163,37 +167,39 @@ autocmd VimEnter,Colorscheme * :hi ALEErrorLine     cterm=NONE
 autocmd VimEnter,Colorscheme * :hi ALEError         cterm=NONE ctermfg=251 ctermbg=160
 autocmd VimEnter,Colorscheme * :hi ALEWarning       cterm=NONE ctermfg=251 ctermbg=166
 " For a more fancy ale statusline
-function! ALEGetError()
-    let l:res = ale#statusline#Status()
-    if l:res ==# 'OuO'
-        return ''
-    else
-        let l:e_w = split(l:res)
-        if len(l:e_w) == 2 || match(l:e_w, 'E') > -1
-            return 'E' . matchstr(l:e_w[0], '\d\+')
-        else
-            return 'E0'
-        endif
-    endif
-endfunction
-
-function! ALEGetWarning()
-    let l:res = ale#statusline#Status()
-    if l:res ==# 'OuO'
-        return 'OuO'
-    else
-        let l:e_w = split(l:res)
-        if len(l:e_w) == 2
-            return 'W' . matchstr(l:e_w[1], '\d\+')
-        elseif match(l:e_w, 'W') > -1
-            return 'W' . matchstr(l:e_w[0], '\d\+')
-        else
-            return 'W0'
-        endif
-    endif
-endfunction
+"function! ALEGetError()
+"    let l:res = ale#statusline#Status()
+"    if l:res ==# 'OuO'
+"        return ''
+"    else
+"        let l:e_w = split(l:res)
+"        if len(l:e_w) == 2 || match(l:e_w, 'E') > -1
+"            return 'E' . matchstr(l:e_w[0], '\d\+')
+"        else
+"            return 'E0'
+"        endif
+"    endif
+"endfunction
+"
+"function! ALEGetWarning()
+"    let l:res = ale#statusline#Status()
+"    if l:res ==# 'OuO'
+"        return 'OuO'
+"    else
+"        let l:e_w = split(l:res)
+"        if len(l:e_w) == 2
+"            return 'W' . matchstr(l:e_w[1], '\d\+')
+"        elseif match(l:e_w, 'W') > -1
+"            return 'W' . matchstr(l:e_w[0], '\d\+')
+"        else
+"            return 'W0'
+"        endif
+"    endif
+"endfunction
+Plugin 'rust-lang/rust.vim'
 
 " 你的所有插件需要在下面這行之前
+
 call vundle#end()            " 必須
 filetype plugin indent on    " 必須
 "加載vim自帶和插件相應的語法和文件類型相關腳本

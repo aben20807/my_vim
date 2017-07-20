@@ -81,20 +81,20 @@ if &t_Co > 255
     hi Float            ctermfg=251                 "浮點數
 
     hi Identifier       cterm=NONE ctermfg=251      "print in python, variable
-    hi Function         ctermfg=172                 "function in python
+    hi Function         ctermfg=33                 "function in python, main in rust
 
     hi Statement        ctermfg=33                  "using, for, if, return
     hi Conditional      ctermfg=33                  "if else switch
     hi Repeat           ctermfg=33                  "for while do
     hi Label            ctermfg=33                  "case: default:
     hi Operator         ctermfg=251                 "- = ==
-    hi Keyword          ctermfg=green
+    hi Keyword          ctermfg=33                  "fn in rust
     hi Exception        ctermfg=33                  "try catch throw
 
     hi PreProc          ctermfg=33                  "#include, #define
     hi Include          ctermfg=33                  "#include
     hi Define           ctermfg=green
-    hi Macro            ctermfg=172                 "#define
+    hi Macro            ctermfg=172                 "#define, println! in rust
     hi PreCondit        ctermfg=33                  "#ifdef #endif
 
     hi Type             ctermfg=172                 "型態 int, char

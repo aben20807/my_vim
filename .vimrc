@@ -10,7 +10,7 @@ autocmd VimEnter * :exec "normal! \zz"
 set scrolloff=3
 
 " 在n可用滑鼠
-set mouse=n
+set mouse=nv
 
 " 預設程式
 func Eatchar(pat)
@@ -21,14 +21,14 @@ endfunc
 :iab #i #include <><LEFT><C-R>=Eatchar('\m\s\<bar>\r')<CR>
 :iab _pr printf();<LEFT><LEFT><C-R>=Eatchar('\m\s\<bar>\r')<CR>
 autocmd BufRead,BufNewFile *.h,*.c
-    \:iab <buffer> _main #include <stdio.h>
+    \ :iab _main #include <stdio.h>
     \<CR>
     \<CR>int main(int argc, char *argv[]){
     \<CR>
     \<CR>return 0;
     \}<BS><UP><C-R>=Eatchar('\m\s\<bar>\r')<CR>
 autocmd BufRead,BufNewFile *.hpp,*.cpp
-    \:iab <buffer> _main #include <iostream>
+    \ :iab <buffer> _main #include <iostream>
     \<CR>using namespace std;
     \<CR>
     \<CR>int main(){
@@ -80,7 +80,9 @@ map <leader>r :call CompileAndRun()<CR>
 " close ALE -> execute -> open ALE
 function! CompileAndRun()
     exec "ALEDisable"
-    if &filetype == 'c'
+    if &filetype == 'rust'
+        exec "!rustc % && time ./%<"
+    elseif &filetype == 'c'
         exec "!gcc -std=c11 % -o /tmp/a.out && time /tmp/a.out"
     elseif &filetype == 'cpp'
         exec "!g++ -std=c++11 % -o /tmp/a.out && time /tmp/a.out"

@@ -8,45 +8,53 @@ nnoremap <F10> :exec "q!"<CR>
 nnoremap <F11> :exec "w"<CR>
 nnoremap <F12> :exec "wq"<CR>
 
-" 註解
+" 註解Comment
 autocmd FileType python nmap <M-/> <ESC><S-^>i# <ESC>
-autocmd FileType python imap <M-/> <ESC><S-^>i# <ESC>i
+autocmd FileType python imap <M-/> <ESC><S-^>i# <ESC><BS>i
 autocmd FileType python vmap <M-/> <S-^><C-v><S-i># <ESC>
 autocmd FileType python nmap <M-.> <ESC><S-^><C-V>ld
 autocmd FileType python imap <M-.> <ESC><S-^><C-V>ldi
 autocmd FileType python vmap <M-.> <C-v><S-^><S-o><S-^>ld<ESC>
 autocmd FileType c,cpp  nmap <M-/> <ESC><S-^>i// <ESC>
-autocmd FileType c,cpp  imap <M-/> <ESC><S-^>i// <ESC>i
+autocmd FileType c,cpp  imap <M-/> <ESC><S-^>i// <ESC><BS>i
 autocmd FileType c,cpp  vmap <M-/> <S-^><C-v><S-i>// <ESC>
 autocmd FileType c,cpp  nmap <M-.> <ESC><S-^><C-V>lld
 autocmd FileType c,cpp  imap <M-.> <ESC><S-^><C-V>lldi
 autocmd FileType c,cpp  vmap <M-.> <C-v><S-^><S-o><S-^>lld<ESC>
+autocmd FileType vim nmap <M-/> <ESC><S-^>i" <ESC>
+autocmd FileType vim imap <M-/> <ESC><S-^>i" <ESC><BS>i
+autocmd FileType vim vmap <M-/> <S-^><C-v><S-i>" <ESC>
+autocmd FileType vim nmap <M-.> <ESC><S-^><C-V>ld
+autocmd FileType vim imap <M-.> <ESC><S-^><C-V>ldi
+autocmd FileType vim vmap <M-.> <C-v><S-^><S-o><S-^>ld<ESC>
 
-"分屏間移動
+" 分屏間移動window
 nnoremap <silent> <C-Right> <C-w>l
 nnoremap <silent> <C-Left>  <C-w>h
 nnoremap <silent> <C-Up>    <C-w>k
 nnoremap <silent> <C-Down>  <C-w>j
-nnoremap <silent> <C-l>     <C-w>l
-nnoremap <silent> <C-h>     <C-w>h
-nnoremap <silent> <C-k>     <C-w>k
-nnoremap <silent> <C-j>     <C-w>j
 
-"移動分屏
+" 移動分屏
 nnoremap <silent> <C-S-Right> <C-w>L
 nnoremap <silent> <C-S-Left>  <C-w>H
 nnoremap <silent> <C-S-Up>    <C-w>K
 nnoremap <silent> <C-S-Down>  <C-w>J
 
-"不用方向鍵
-inoremap  <Up>     <NOP>
-inoremap  <Down>   <NOP>
-inoremap  <Left>   <NOP>
-inoremap  <Right>  <NOP>
-noremap   <Up>     <NOP>
-noremap   <Down>   <NOP>
-noremap   <Left>   <NOP>
-noremap   <Right>  <NOP>
+" buffer間移動
+nnoremap <silent> <C-l>     :bn!<CR>
+nnoremap <silent> <C-h>     :bp!<CR>
+nnoremap <silent> <C-k>     :bp!<CR>
+nnoremap <silent> <C-j>     :bn!<CR>
+
+" 不用方向鍵
+"inoremap  <Up>     <NOP>
+"inoremap  <Down>   <NOP>
+"inoremap  <Left>   <NOP>
+"inoremap  <Right>  <NOP>
+"noremap   <Up>     <NOP>
+"noremap   <Down>   <NOP>
+"noremap   <Left>   <NOP>
+"noremap   <Right>  <NOP>
 
 " 快速移動
 nnoremap <M-h> 5h
@@ -97,19 +105,12 @@ function! Terminal_MetaMode(mode)
             exec "set <M-".a:key.">=\e]{0}".a:key."~"
         endif
     endfunc
-    function! s:ctrlcode(mode, key)
-        if a:mode == 0
-            exec "set <C-".a:key.">=\e".a:key
-        else
-            exec "set <C-".a:key.">=\e]{0}".a:key."~"
-        endif
-    endfunc
     for i in range(10)
-        " call s:metacode(a:mode, nr2char(char2nr('0') + i))
+        call s:metacode(a:mode, nr2char(char2nr('0') + i))
     endfor
     for i in range(26)
         call s:metacode(a:mode, nr2char(char2nr('a') + i))
-        " call s:metacode(a:mode, nr2char(char2nr('A') + i))
+        call s:metacode(a:mode, nr2char(char2nr('A') + i))
     endfor
     if a:mode != 0
         for c in [',', '.', '/', ';', '[', ']', '{', '}']
@@ -119,13 +120,12 @@ function! Terminal_MetaMode(mode)
             call s:metacode(a:mode, c)
         endfor
     else
-        for c in ['.', '/']
-            " [',', '.', '/', ';', '{', '}']
+        for c in [',', '.', '/', ';', '{', '}']
             call s:metacode(a:mode, c)
         endfor
-        " for c in ['?', ':', '-', '_']
-          "  call s:metacode(a:mode, c)
-        " endfor
+        for c in ['?', ':', '-', '_']
+            call s:metacode(a:mode, c)
+        endfor
     endif
     if &ttimeout == 0
         set ttimeout
