@@ -1,6 +1,6 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: .vimrc
-" Last Modified: 2017-07-20 11:36:08
+" Last Modified: 2017-07-20 16:20:26
 " Vim: enc=utf-8
 
 cnoreabbrev WQ wq
@@ -13,8 +13,8 @@ autocmd VimEnter * :exec "normal! \zz"
 " Keep 3 lines below and above the cursor
 set scrolloff=3
 
-" 在n可用滑鼠
-set mouse=""
+" 在n, i可用滑鼠選取
+set mouse=v
 
 " 預設程式
 func Eatchar(pat)
@@ -49,6 +49,8 @@ endif
 ""set listchars=tab:│\ ,trail:\ ,extends:>,precedes:<,nbsp:.
 ""set list
 ""nnoremap <F3> :set list!<CR>
+
+set omnifunc=syntaxcomplete#Complete
 
 "讓.h不被認為是C++的
 augroup project
@@ -170,6 +172,12 @@ set gcr=a:block-blinkon0
 
 " 設置歷史紀錄為1000條
 set history=1000
+
+" 從外部修改後自動更新
+set autoread
+
+" 不顯示 -- 插入 --
+" set noshowmode
 
 " 不備份
 set nobackup

@@ -1,6 +1,6 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: .bundles.vim
-" Last Modified: 2017-07-20 11:35:04
+" Last Modified: 2017-07-22 00:01:35
 " Vim: enc=utf-8
 
 " 設置包括vundle和初始化相關的runtime path
@@ -114,10 +114,10 @@ autocmd CursorMoved NERD_tree* :call <SID>ShowFilename()
 Plugin 'terryma/vim-multiple-cursors'
 let g:multi_cursor_use_default_mapping=1
 " Default mapping
-let g:multi_cursor_next_key='<C-o>' "選中一個
-let g:multi_cursor_prev_key='<C-S-o>' "放棄一個，回到上一個
-let g:multi_cursor_skip_key='<C-x>' "跳過
-let g:multi_cursor_quit_key='<Esc>' "退出
+ let g:multi_cursor_next_key='<C-o>' "選中一個
+ let g:multi_cursor_prev_key='<C-p>' "放棄一個，回到上一個
+ let g:multi_cursor_skip_key='<C-x>' "跳過
+ let g:multi_cursor_quit_key='<Esc>' "退出
 
 " 縮排高亮
 Plugin 'nathanaelkane/vim-indent-guides'
@@ -131,7 +131,7 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=240
 nnoremap <F3> :IndentGuidesToggle<CR>
 
 " 括號刪除取代
-" Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-surround'
 
 "迷宮遊戲
 " Plugin 'vim-scripts/HJKL'
@@ -152,7 +152,6 @@ let g:ale_linters = {
 \   'vim': ['vint'],
 \   'rust': ['rustc', 'cargo']
 \}
-" let g:ale_statusline_format = ['E:%d', 'W:%d', 'OuO']
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
@@ -170,37 +169,46 @@ autocmd VimEnter,Colorscheme * :hi ALEWarningSign   cterm=bold ctermfg=166
 autocmd VimEnter,Colorscheme * :hi ALEErrorLine     cterm=NONE
 autocmd VimEnter,Colorscheme * :hi ALEError         cterm=NONE ctermfg=251 ctermbg=160
 autocmd VimEnter,Colorscheme * :hi ALEWarning       cterm=NONE ctermfg=251 ctermbg=166
-" For a more fancy ale statusline
-"function! ALEGetError()
-"    let l:res = ale#statusline#Status()
-"    if l:res ==# 'OuO'
-"        return ''
-"    else
-"        let l:e_w = split(l:res)
-"        if len(l:e_w) == 2 || match(l:e_w, 'E') > -1
-"            return 'E' . matchstr(l:e_w[0], '\d\+')
-"        else
-"            return 'E0'
-"        endif
-"    endif
-"endfunction
-"
-"function! ALEGetWarning()
-"    let l:res = ale#statusline#Status()
-"    if l:res ==# 'OuO'
-"        return 'OuO'
-"    else
-"        let l:e_w = split(l:res)
-"        if len(l:e_w) == 2
-"            return 'W' . matchstr(l:e_w[1], '\d\+')
-"        elseif match(l:e_w, 'W') > -1
-"            return 'W' . matchstr(l:e_w[0], '\d\+')
-"        else
-"            return 'W0'
-"        endif
-"    endif
-"endfunction
+
 Plugin 'rust-lang/rust.vim'
+" Plugin 'racer-rust/vim-racer'
+" set hidden
+" let g:racer_cmd = '/cygdrive/c/users/user/.cargo/bin/racer.exe'
+" " let g:racer_cmd =" "/home/racer"
+" " let $RUST_SRC_PAT"H="/cygdrive/c/Users/user/.multirust/toolchains/stable-x86_64-pc-windows-gnu/lib/rustlib/src/rust/src"
+" " let $RUST_SRC_PAT"H="C:/Users/user/.rustup/toolchains/stable-x86_64-pc-windows-gnu/lib/rustlib/src/rust/src"
+" " let $RUST_SRC_PAT"H="C:/Users/user/.multirust/toolchains/stable-x86_64-pc-windows-gnu/lib/rustlib/src/rust/src"
+" "let $RUST_SRC_PATH"="C:\\Users\\user\\.multirust\\toolchains\\stable-x86_64-pc-windows-gnu\\lib\\rustlib\\src\\rust\\src"
+"                    "        " C:\Users\user\.rustup\toolchains\stable-x86_64-pc-windows-gnu\lib\rustlib\src\rust
+" let g:racer_experimental_completer = 0
+" au FileType rust nmap gd <Plug>(rust-def)
+" au FileType rust nmap gs <Plug>(rust-def-split)
+" au FileType rust nmap gx <Plug>(rust-def-vertical)
+" au FileType rust nmap <leader>gd <Plug>(rust-doc)
+
+" 簡單補全
+Plugin 'maralla/completor.vim'
+let g:completor_racer_binary='/cygdrive/c/users/user/.cargo/bin/racer.exe'
+let g:completor_clang_binary='/cygdrive/d/cygwin/bin/clang'
+let g:completor_completion_delay=0
+let g:completor_auto_trigger=1
+function! CompletorToggle()
+    if g:completor_auto_trigger==0
+        let g:completor_auto_trigger=1
+    else
+        let g:completor_auto_trigger=0
+    endif
+    set noshowmode
+    redraw
+    echohl WarningMsg
+        echo "completor ".((g:completor_auto_trigger==0)? "close": "open")
+    echohl NONE
+endfunction
+inoremap <C-x> <C-\><C-O>:call CompletorToggle()<CR>
+:autocmd CursorMoved,CursorMovedI,InsertChange * :set showmode
+inoremap <expr> <TAB> pumvisible() ?"\<C-n>": "\<TAB>"
+inoremap <expr> <S-TAB> pumvisible() ?"\<C-p>": "\<S-TAB>"
+" inoremap <expr> <CR> pumvisible() ?"\<C-y>\<CR>": "\<CR>"
 
 " 你的所有插件需要在下面這行之前
 
