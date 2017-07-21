@@ -1,6 +1,6 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: .bundles.vim
-" Last Modified: 2017-07-22 00:01:35
+" Last Modified: 2017-07-22 00:03:11
 " Vim: enc=utf-8
 
 " 設置包括vundle和初始化相關的runtime path
@@ -171,20 +171,6 @@ autocmd VimEnter,Colorscheme * :hi ALEError         cterm=NONE ctermfg=251 cterm
 autocmd VimEnter,Colorscheme * :hi ALEWarning       cterm=NONE ctermfg=251 ctermbg=166
 
 Plugin 'rust-lang/rust.vim'
-" Plugin 'racer-rust/vim-racer'
-" set hidden
-" let g:racer_cmd = '/cygdrive/c/users/user/.cargo/bin/racer.exe'
-" " let g:racer_cmd =" "/home/racer"
-" " let $RUST_SRC_PAT"H="/cygdrive/c/Users/user/.multirust/toolchains/stable-x86_64-pc-windows-gnu/lib/rustlib/src/rust/src"
-" " let $RUST_SRC_PAT"H="C:/Users/user/.rustup/toolchains/stable-x86_64-pc-windows-gnu/lib/rustlib/src/rust/src"
-" " let $RUST_SRC_PAT"H="C:/Users/user/.multirust/toolchains/stable-x86_64-pc-windows-gnu/lib/rustlib/src/rust/src"
-" "let $RUST_SRC_PATH"="C:\\Users\\user\\.multirust\\toolchains\\stable-x86_64-pc-windows-gnu\\lib\\rustlib\\src\\rust\\src"
-"                    "        " C:\Users\user\.rustup\toolchains\stable-x86_64-pc-windows-gnu\lib\rustlib\src\rust
-" let g:racer_experimental_completer = 0
-" au FileType rust nmap gd <Plug>(rust-def)
-" au FileType rust nmap gs <Plug>(rust-def-split)
-" au FileType rust nmap gx <Plug>(rust-def-vertical)
-" au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 " 簡單補全
 Plugin 'maralla/completor.vim'
