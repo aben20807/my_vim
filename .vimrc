@@ -10,13 +10,14 @@ cnoreabbrev Q q
 cnoreabbrev db bd
 " let cursor in the middle of screen when entering vim
 autocmd VimEnter * :exec "normal! \zz"
+
 " Keep 3 lines below and above the cursor
 set scrolloff=3
 
 " 在n, i可用滑鼠選取
 set mouse=v
 
-" 預設程式
+" 吃掉預設程式後的字元
 func Eatchar(pat)
     let c = nr2char(getchar(0))
     return (c =~ a:pat)? '': c
@@ -57,6 +58,7 @@ augroup project
     autocmd BufRead,BufNewFile *.hpp,*.cpp set filetype=cpp
     autocmd BufNewFile,BufRead *.py,*.pyw set filetype=python
     autocmd BufNewFile,BufRead *.rs set filetype=rust
+    autocmd BufNewFile,BufRead *.log set filetype=log
 augroup END
 
 "編譯並執行http://www.edbiji.com/doccenter/showdoc/24/nav/284.html
@@ -161,10 +163,10 @@ set t_Co=256
 " 搜尋不分大小寫
 set ic
 
-" 換行不自動註解
+" 換行不自動註解http://vim.wikia.com/wiki/Disable_automatic_comment_insertion
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-" 簡易自動補全
+" 簡易自動補全http://vim.wikia.com/wiki/Omni_completion
 set omnifunc=syntaxcomplete#Complete
 inoremap <M-c> <C-x><C-o>
 inoremap <expr> <TAB> pumvisible() ?"\<C-n>": "\<TAB>"
@@ -195,14 +197,19 @@ set autoread
 
 " 不備份
 set nobackup
+
 " 不寫入備份文件
 set nowritebackup
+
 " 關閉交換文件
 set noswapfile
+
 " 輸入文件時隱藏鼠標
 set mousehide
+
 " 光標可以移到當行最後一個字符之後
 set virtualedit=onemore
+
 " 基于縮排或語法進行代碼折叠
 "操作：za，打開或關閉當前折叠；zM，關閉所有折叠；zR，打開所有折叠
 "set foldmethod=indent

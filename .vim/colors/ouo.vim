@@ -144,7 +144,7 @@ if &t_Co > 255
     hi PmenuSel         cterm=reverse
     hi PmenuSbar        cterm=reverse
     hi PmenuThumb       cterm=reverse
-    hi Question         ctermfg=green
+    hi Question         ctermfg=238                 "Press ENTER or type command to continue
     hi Search           cterm=NONE ctermfg=grey ctermbg=blue
     hi SpecialKey       ctermfg=245                 "對齊符號
     if has("spell")
@@ -161,7 +161,7 @@ if &t_Co > 255
     hi Title            ctermfg=13
     hi Visual           cterm=bold,reverse          "選取
     hi VisualNOS        cterm=bold,underline
-    hi WarningMsg       ctermfg=1
+    hi WarningMsg       cterm=bold ctermfg=1
     hi WildMenu         ctermfg=0 ctermbg=11
 
     "":let c_comment_strings = 1

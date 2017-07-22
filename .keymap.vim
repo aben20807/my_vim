@@ -37,16 +37,6 @@ nnoremap <silent> <C-h>     :bp!<CR>
 nnoremap <silent> <C-k>     :bp!<CR>
 nnoremap <silent> <C-j>     :bn!<CR>
 
-" 不用方向鍵
-"inoremap  <Up>     <NOP>
-"inoremap  <Down>   <NOP>
-"inoremap  <Left>   <NOP>
-"inoremap  <Right>  <NOP>
-"noremap   <Up>     <NOP>
-"noremap   <Down>   <NOP>
-"noremap   <Left>   <NOP>
-"noremap   <Right>  <NOP>
-
 " 快速移動
 nnoremap <M-h> 5h
 nnoremap <M-j> 5j
@@ -84,11 +74,20 @@ inoremap <M-p> <ESC>pi<Right>
 " 關閉搜尋高亮
 noremap <M-n> :noh<CR>
 
-" 時間顯示
+" 加上()[]{}''""https://www.ctolib.com/docs-learn-vim-c-s1cidozt.html
+nnoremap <M-w>" viw<esc>a"<esc>bi"<esc>lel
+nnoremap <M-w>' viw<esc>a'<esc>bi'<esc>lel
+nnoremap <M-w>( viw<esc>a)<esc>bi(<esc>lel
+nnoremap <M-w>[ viw<esc>a]<esc>bi[<esc>lel
+nnoremap <M-w>{ viw<esc>a}<esc>bi{<esc>lel
+
+" 時間顯示http://vim.wikia.com/wiki/Insert_current_date_or_time
 function! DateAndTime()
     redraw
     echohl WarningMsg
-        echo strftime(" ❖  現在時間 %H:%M ❖ ")
+        echo "\n"
+        echo strftime("   ❖  現在時間 %H:%M ❖ ")
+        echo ""
     echohl NONE
 endfunction
 nnoremap <M-t> :call DateAndTime()<CR>
@@ -123,7 +122,7 @@ function! Terminal_MetaMode(mode)
         for c in [',', '.', '/', ';', '{', '}']
             call s:metacode(a:mode, c)
         endfor
-        for c in ['?', ':', '-', '_', '+', '=', '\']
+        for c in ['?', ':', '-', '_', '+', '=']
             call s:metacode(a:mode, c)
         endfor
     endif
