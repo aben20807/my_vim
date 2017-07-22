@@ -7,7 +7,7 @@
 inoremap ( ()<Esc>i
 inoremap [ []<Esc>i
 "inoremap < <><Esc>i
-inoremap {} {}<Esc>i
+inoremap { {}<Esc>i
 inoremap {<CR> {<CR>}<Esc>ko
 inoremap ) <C-R>=ClosePair(')')<CR>
 inoremap ] <C-R>=ClosePair(']')<CR>

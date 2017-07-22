@@ -80,6 +80,27 @@ nnoremap <M-w>' viw<esc>a'<esc>bi'<esc>lel
 nnoremap <M-w>( viw<esc>a)<esc>bi(<esc>lel
 nnoremap <M-w>[ viw<esc>a]<esc>bi[<esc>lel
 nnoremap <M-w>{ viw<esc>a}<esc>bi{<esc>lel
+" nnoremap <expr> v:count==0?":<M-w>( viw<esc>a)<esc>v:count.bi(<esc>lel
+" nnnoremap <M-w> :call Surround('"')<CR>
+function Surround(num, mode)
+    if a:mode != "'" && a:mode != '"' && a:mode != '"' && a:mode != '{' && a:mode != '[' && a:mode != '('
+        redraw
+        echohl WarningMsg
+            echo "   ❖  此字元不支援 ❖ "
+        echohl NONE
+        return
+    endif
+    call feedkeys("viw\<ESC>bi", "n")
+    call feedkeys(a:mode, "t")
+    call feedkeys("\<DEL>\<ESC>", "n")
+    for i in range(a:num)
+        call feedkeys("e", "n")
+    endfor
+    call feedkeys("a", "n")
+    call feedkeys(a:mode, "t")
+    call feedkeys("\<BS>\<ESC>\<RIGHT>", "n")
+endfunction
+command -nargs=+ S call Surround(<f-args>)
 
 " 時間顯示http://vim.wikia.com/wiki/Insert_current_date_or_time
 function! DateAndTime()
