@@ -1,6 +1,6 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: .bundles.vim
-" Last Modified: 2017-07-22 11:33:25
+" Last Modified: 2017-07-22 11:46:47
 " Vim: enc=utf-8
 
 " 設置包括vundle和初始化相關的runtime path
@@ -175,6 +175,14 @@ Plugin 'rust-lang/rust.vim'
 " 簡單補全
 " Plugin 'maralla/completor.vim'
 " racer 尚有錯誤
+
+" c, cpp highlight
+Plugin 'octol/vim-cpp-enhanced-highlight'
+let g:cpp_class_scope_highlight=1
+let g:cpp_member_variable_highlight=1
+let g:cpp_class_decl_highlight=1
+let g:cpp_experimental_simple_template_highlight=1
+let c_no_curly_error=1
 
 " 你的所有插件需要在下面這行之前
 

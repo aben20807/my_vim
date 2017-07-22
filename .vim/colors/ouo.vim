@@ -80,7 +80,7 @@ if &t_Co > 255
     hi Boolean          ctermfg=251                 "true or false
     hi Float            ctermfg=251                 "浮點數
 
-    hi Identifier       cterm=NONE ctermfg=251      "print in python, variable
+    hi Identifier       cterm=NONE ctermfg=251     "print in python, variable
     hi Function         ctermfg=33                 "function in python, main in rust
 
     hi Statement        ctermfg=33                  "using, for, if, return
