@@ -1,6 +1,6 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: .keymap.vim
-" Last Modified: 2017-07-20 11:35:39
+" Last Modified: 2017-07-22 11:33:35
 " Vim: enc=utf-8
 
 " key 映射
@@ -24,6 +24,12 @@ nnoremap <silent> <C-S-Right> <C-w>L
 nnoremap <silent> <C-S-Left>  <C-w>H
 nnoremap <silent> <C-S-Up>    <C-w>K
 nnoremap <silent> <C-S-Down>  <C-w>J
+
+" 分屏大小
+nnoremap <M-+> <C-w>10>
+nnoremap <M--> <C-w>10<
+nnoremap <M-=> <C-w>=
+nnoremap <M-_> <C-w>30><C-w>30+
 
 " buffer間移動
 nnoremap <silent> <C-l>     :bn!<CR>
@@ -78,6 +84,15 @@ inoremap <M-p> <ESC>pi<Right>
 " 關閉搜尋高亮
 noremap <M-n> :noh<CR>
 
+" 時間顯示
+function! DateAndTime()
+    redraw
+    echohl WarningMsg
+        echo strftime(" ❖  現在時間 %H:%M ❖ ")
+    echohl NONE
+endfunction
+nnoremap <M-t> :call DateAndTime()<CR>
+
 " map alt key
 function! Terminal_MetaMode(mode)
     if has('nvim') || has('gui_running')
@@ -108,7 +123,7 @@ function! Terminal_MetaMode(mode)
         for c in [',', '.', '/', ';', '{', '}']
             call s:metacode(a:mode, c)
         endfor
-        for c in ['?', ':', '-', '_']
+        for c in ['?', ':', '-', '_', '+', '=', '\']
             call s:metacode(a:mode, c)
         endfor
     endif

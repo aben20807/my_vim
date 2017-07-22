@@ -1,6 +1,6 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: .bundles.vim
-" Last Modified: 2017-07-22 00:03:11
+" Last Modified: 2017-07-22 11:33:25
 " Vim: enc=utf-8
 
 " 設置包括vundle和初始化相關的runtime path
@@ -173,28 +173,8 @@ autocmd VimEnter,Colorscheme * :hi ALEWarning       cterm=NONE ctermfg=251 cterm
 Plugin 'rust-lang/rust.vim'
 
 " 簡單補全
-Plugin 'maralla/completor.vim'
-let g:completor_racer_binary='/cygdrive/c/users/user/.cargo/bin/racer.exe'
-let g:completor_clang_binary='/cygdrive/d/cygwin/bin/clang'
-let g:completor_completion_delay=0
-let g:completor_auto_trigger=1
-function! CompletorToggle()
-    if g:completor_auto_trigger==0
-        let g:completor_auto_trigger=1
-    else
-        let g:completor_auto_trigger=0
-    endif
-    set noshowmode
-    redraw
-    echohl WarningMsg
-        echo "completor ".((g:completor_auto_trigger==0)? "close": "open")
-    echohl NONE
-endfunction
-inoremap <C-x> <C-\><C-O>:call CompletorToggle()<CR>
-:autocmd CursorMoved,CursorMovedI,InsertChange * :set showmode
-inoremap <expr> <TAB> pumvisible() ?"\<C-n>": "\<TAB>"
-inoremap <expr> <S-TAB> pumvisible() ?"\<C-p>": "\<S-TAB>"
-" inoremap <expr> <CR> pumvisible() ?"\<C-y>\<CR>": "\<CR>"
+" Plugin 'maralla/completor.vim'
+" racer 尚有錯誤
 
 " 你的所有插件需要在下面這行之前
 

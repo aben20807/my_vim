@@ -1,6 +1,6 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: .vimrc
-" Last Modified: 2017-07-20 16:20:26
+" Last Modified: 2017-07-22 11:33:11
 " Vim: enc=utf-8
 
 cnoreabbrev WQ wq
@@ -50,24 +50,24 @@ endif
 ""set list
 ""nnoremap <F3> :set list!<CR>
 
-set omnifunc=syntaxcomplete#Complete
-
 "讓.h不被認為是C++的
 augroup project
     autocmd!
     autocmd BufRead,BufNewFile *.h,*.c set filetype=c
     autocmd BufRead,BufNewFile *.hpp,*.cpp set filetype=cpp
     autocmd BufNewFile,BufRead *.py,*.pyw set filetype=python
+    autocmd BufNewFile,BufRead *.rs set filetype=rust
 augroup END
 
 "編譯並執行http://www.edbiji.com/doccenter/showdoc/24/nav/284.html
 map <F5> :call CompileAndRun()<CR>
-map <leader>r :call CompileAndRun()<CR>
-" close ALE -> execute -> open ALE
+map <M-r> :call CompileAndRun()<CR>
+" save -> close ALE -> execute -> open ALE
 function! CompileAndRun()
+    exec "w"
     exec "ALEDisable"
     if &filetype == 'rust'
-        exec "!rustc % && time ./%<"
+        exec "!rustc % && time ./%< && rm %<"
     elseif &filetype == 'c'
         exec "!gcc -std=c11 % -o /tmp/a.out && time /tmp/a.out"
     elseif &filetype == 'cpp'
@@ -79,6 +79,11 @@ function! CompileAndRun()
         :!%
     elseif &filetype == 'python'
         exec "!time python3 %"
+    else
+        redraw
+        echohl WarningMsg
+            echo strftime(" ❖ 不支援 ❖ ")
+        echohl NONE
     endif
     exec "ALEEnable"
 endfunc
@@ -155,6 +160,15 @@ set t_Co=256
 
 " 搜尋不分大小寫
 set ic
+
+" 換行不自動註解
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" 簡易自動補全
+set omnifunc=syntaxcomplete#Complete
+inoremap <M-c> <C-x><C-o>
+inoremap <expr> <TAB> pumvisible() ?"\<C-n>": "\<TAB>"
+inoremap <expr> <S-TAB> pumvisible() ?"\<C-p>": "\<S-TAB>"
 
 " 設定文字編碼
 set enc=utf8
