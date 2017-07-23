@@ -131,7 +131,7 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=240
 nnoremap <F3> :IndentGuidesToggle<CR>
 
 " 括號刪除取代
-Plugin 'tpope/vim-surround'
+" Plugin 'tpope/vim-surround'
 
 "迷宮遊戲
 " Plugin 'vim-scripts/HJKL'

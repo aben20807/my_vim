@@ -1,8 +1,9 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: vim.vim
-" Last Modified: 2017-07-20 11:28:25
+" Last Modified: 2017-07-23 11:46:11
 " Vim: enc=utf-8
 
+" Comment map
 nmap <M-/> <ESC><S-^>i" <ESC>
 imap <M-/> <ESC><S-^>i" <ESC><BS>i
 vmap <M-/> <S-^><C-v><S-i>" <ESC>
@@ -18,3 +19,20 @@ function! AddTitle()
     call append(3,"\" Vim: enc=utf-8")
     call append(4,"")
 endfunction
+
+" Abbreviations
+:iab function function
+    \<CR>
+    \<CR>endfunction
+    \<UP><TAB>
+    \<UP><ESC>$li <C-R>=Eatchar('\m\s\<bar>\r')<CR>
+:iab if if
+    \<CR>
+    \<CR>endif
+    \<UP><TAB>
+    \<UP><ESC>$li <C-R>=Eatchar('\m\s\<bar>\r')<CR>
+:iab for for
+    \<CR>
+    \<CR>endfor
+    \<UP><TAB>
+    \<UP><ESC>$li <C-R>=Eatchar('\m\s\<bar>\r')<CR>

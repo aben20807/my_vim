@@ -137,7 +137,7 @@ if &t_Co > 255
     hi LineNr           ctermfg=245                 "行號
     hi MatchParen       cterm=NONE ctermfg=0 ctermbg=11 "配對的括號
     hi ModeMsg          cterm=NONE ctermfg=brown
-    hi MoreMsg          ctermfg=green
+    hi MoreMsg          ctermfg=135                 "--尚有--
     hi NonText          cterm=NONE ctermfg=245      "最後一行以下的~
     hi Normal           ctermfg=251                 "其他內容
     hi Pmenu            cterm=reverse

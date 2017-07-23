@@ -30,6 +30,11 @@ if filereadable(expand("~/.keymap.vim"))
    source ~/.keymap.vim
 endif
 
+" 導入 vim surround
+if filereadable(expand("~/.surround.vim"))
+   source ~/.surround.vim
+endif
+
 " 導入vim插件管理
 " load plugins from vundle
 if filereadable(expand("~/.bundles.vim"))
