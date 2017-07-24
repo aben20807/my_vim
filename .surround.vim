@@ -1,6 +1,6 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: .surround.vim
-" Last Modified: 2017-07-23 18:34:38
+" Last Modified: 2017-07-24 23:00:43
 " Vim: enc=utf-8
 
 function s:mapBrackets(pat)
@@ -19,6 +19,19 @@ function s:mapBrackets(pat)
     endif
 endfunction
 
+function s:checkBrackets(pat)
+    if a:pat !=# "'" && a:pat !=# '"' && a:pat !=# '{' &&
+      \a:pat !=# '[' && a:pat !=# '(' && a:pat !=# '<'
+        redraw
+        echohl WarningMsg
+            echo "   ❖  此字元不支援 ❖ "
+        echohl NONE
+        return 0
+    else
+        return 1
+    endif
+endfunction
+
 function s:saveMap(pat)
     let s:save=maparg(a:pat, 'i')
     " exec 'iunmap ' . a:pat if there is no map it will be error
@@ -30,12 +43,7 @@ function s:restoreMap(pat)
 endfunction
 
 function s:surround(num, pat)
-    if a:pat !=# "'" && a:pat !=# '"' && a:pat !=# '{' &&
-      \a:pat !=# '[' && a:pat !=# '(' && a:pat !=# '<'
-        redraw
-        echohl WarningMsg
-            echo "   ❖  此字元不支援 ❖ "
-        echohl NONE
+    if s:checkBrackets(a:pat) ==# 0
         return
     endif
     call s:saveMap(a:pat)
@@ -47,10 +55,23 @@ function s:surround(num, pat)
     call s:restoreMap(a:pat)
 endfunction
 
-function s:surroundNum(num)
+function s:surroundNadd(num)
     let pat = nr2char(getchar())
     call s:surround(a:num, pat)
 endfunction
 
+function s:surroundNdel() " TODO 只有被包圍才刪除
+    let pat = nr2char(getchar())
+    if s:checkBrackets(pat) ==# 0
+        return
+    endif
+    execute "normal F".pat."xf".s:mapBrackets(pat)."x"
+endfunction
+
 command -nargs=+ S call s:surround(<f-args>)
-nnoremap <C-a> :<C-u>execute 'call ' v:count? '<SID>surroundNum(v:count)' : '<SID>surroundNum(1)'<CR>
+nnoremap <M-s> :<C-u>execute 'call '
+    \v:count? '<SID>surroundNadd(v:count)' : '<SID>surroundNadd(1)'<CR>
+nmap ys <M-s>
+
+nnoremap <M-d> :<C-u>call <SID>surroundNdel()<CR>
+nmap ds <M-d>

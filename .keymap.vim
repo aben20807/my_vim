@@ -55,6 +55,11 @@ cnoremap <M-l> <c-right>
 cnoremap <M-k> <c-left>
 cnoremap <M-j> <c-right>
 
+" 上下鍵移動screen
+" https://stackoverflow.com/questions/3458689/how-to-move-screen-without-moving-cursor-in-vim
+noremap <Up> <C-y>
+noremap <Down> <C-e>
+
 " Tab縮排
 nmap <TAB> v>
 nmap <S-TAB> v<

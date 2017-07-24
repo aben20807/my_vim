@@ -1,6 +1,6 @@
 " Vim color file
 " Maintainer:   Huang Po-Hsuan <aben20807@gmail.com>
-" Last Change:  $Date: 2017/07/04 11:42:11 $
+" Last Change:  $Date: 2017/07/24 00:04:11 $
 " URL:
 " Version:  $Id: ouo.vim,v 1.0 fugalh Exp $
 " modified from desert
@@ -124,10 +124,12 @@ if &t_Co > 255
     hi CursorColumn     cterm=reverse
     hi CursorLine       cterm=underline
     hi Directory        ctermfg=172                 "NERDtree 資料夾
-    hi DiffAdd          ctermbg=4
-    hi DiffChange       ctermbg=13
-    hi DiffDelete       cterm=bold ctermfg=4 ctermbg=14
-    hi DiffText         cterm=bold ctermbg=1
+    hi DiffAdd          cterm=NONE ctermbg=235
+    " hi DiffAdded        ctermbg=4
+    hi DiffChange       cterm=NONE ctermbg=235
+    " hi DiffRemoved      cterm=bold ctermfg=196 ctermbg=124
+    hi DiffDelete       cterm=NONE ctermfg=196 ctermbg=88
+    hi DiffText         cterm=NONE ctermbg=29
     hi ErrorMsg         cterm=bold ctermfg=7 ctermbg=1
     hi VertSplit        cterm=reverse
     hi Folded           ctermfg=darkgrey ctermbg=NONE

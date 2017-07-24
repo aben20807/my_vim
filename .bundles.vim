@@ -66,7 +66,7 @@ map <F7> :bn!<CR>
 
 " airline git symbol
 " let vim slow QuQ
-" Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 
 "256 色測試
 " Plugin 'git://github.com/guns/xterm-color-table.vim.git'
