@@ -90,9 +90,7 @@ nnoremap <M-w>{ viw<esc>a}<esc>bi{<esc>lel
 function! DateAndTime()
     redraw
     echohl WarningMsg
-        echo "\n"
         echo strftime("   ❖  現在時間 %H:%M ❖ ")
-        echo ""
     echohl NONE
 endfunction
 nnoremap <M-t> :call DateAndTime()<CR>
