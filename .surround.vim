@@ -3,6 +3,8 @@
 " Last Modified: 2017-07-24 23:00:43
 " Vim: enc=utf-8
 
+let s:list=["'", '"', '(', '[', '{', '<']
+
 function s:mapBrackets(pat)
     if a:pat ==# "'"
         return "'"
@@ -20,16 +22,16 @@ function s:mapBrackets(pat)
 endfunction
 
 function s:checkBrackets(pat)
-    if a:pat !=# "'" && a:pat !=# '"' && a:pat !=# '{' &&
-      \a:pat !=# '[' && a:pat !=# '(' && a:pat !=# '<'
-        redraw
-        echohl WarningMsg
-            echo "   ❖  此字元不支援 ❖ "
-        echohl NONE
-        return 0
-    else
-        return 1
-    endif
+    for c in s:list
+        if a:pat ==# c
+            return 1
+        endif
+    endfor
+    redraw
+    echohl WarningMsg
+        echo "   ❖  此字元不支援 ❖ "
+    echohl NONE
+    return 0
 endfunction
 
 function s:saveMap(pat)
@@ -69,8 +71,9 @@ function s:surroundNdel() " TODO 只有被包圍才刪除
 endfunction
 
 command -nargs=+ S call s:surround(<f-args>)
-nnoremap <M-s> :<C-u>execute 'call '
+nnoremap <silent> <Plug>SurroundNadd :<C-u>execute 'call '
     \v:count? '<SID>surroundNadd(v:count)' : '<SID>surroundNadd(1)'<CR>
+nmap <M-s> <Plug>SurroundNadd
 nmap ys <M-s>
 
 nnoremap <M-d> :<C-u>call <SID>surroundNdel()<CR>

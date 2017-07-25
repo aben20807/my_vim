@@ -11,7 +11,7 @@
 " 離開vim
 nnoremap <F10> :exec "q!"<CR>
 nnoremap <F11> :exec "w"<CR>
-nnoremap <F12> :exec "wq"<CR>
+nnoremap <F12> :exec "x"<CR>
 
 " 分屏間移動window
 nnoremap <silent> <C-Right> <C-w>l

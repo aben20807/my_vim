@@ -173,7 +173,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " 簡易自動補全http://vim.wikia.com/wiki/Omni_completion
 set omnifunc=syntaxcomplete#Complete
-inoremap <M-c> <C-x><C-o>
+inoremap <M-x> <C-x><C-o>
 inoremap <expr> <TAB> pumvisible() ?"\<C-n>": "\<TAB>"
 inoremap <expr> <S-TAB> pumvisible() ?"\<C-p>": "\<S-TAB>"
 
@@ -200,14 +200,15 @@ set autoread
 " 不顯示 -- 插入 --
 " set noshowmode
 
+" backup: nobackup + writebackup = backup current file, deleted afterwards (default)
 " 不備份
 set nobackup
 
-" 不寫入備份文件
-set nowritebackup
+" 寫入備份文件
+set writebackup
 
-" 關閉交換文件
-set noswapfile
+" 開啟交換文件
+set swapfile
 
 " 輸入文件時隱藏鼠標
 set mousehide
