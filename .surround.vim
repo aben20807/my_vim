@@ -1,6 +1,6 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: .surround.vim
-" Last Modified: 2017-07-24 23:00:43
+" Last Modified: 2017-07-25 11:18:22
 " Vim: enc=utf-8
 
 let s:patlist=["'", '"', '(', '[', '{', '<']
@@ -41,7 +41,7 @@ function s:isInSurround(pat)
     let s:nowcol = col(".")
     execute "normal F".a:pat
     if matchstr(getline('.'), '\%' . col('.') . 'c.') !=# a:pat
-        " https://stackoverflow.com/questions/23323747/vim-vimscript-get-exact-character-under-the-cursor
+        " Ref: https://stackoverflow.com/questions/23323747/vim-vimscript-get-exact-character-under-the-cursor
         let nofound = 1
     endif
     let leftcol=col(".")
@@ -81,6 +81,7 @@ endfunction
 
 
 function s:surround(num, pat)
+    " check is can delete
     if s:isBrackets(a:pat) ==# 0
         return
     endif
@@ -104,9 +105,41 @@ function s:surroundNadd(num)
 endfunction
 
 
+function s:surroundVadd(vmode)
+    " Ref: https://stackoverflow.com/questions/29091614/vim-determine-if-function-called-from-visual-block-mode
+    " FIXME v 模式多行最後會多一個字元
+    " FIXME V 模式往上選會把上面當成尾端
+    " FIXME v 模式往前選會括錯
+    let pat = nr2char(getchar())
+    " check is can be added
+    if s:isBrackets(pat) ==# 0
+        return
+    endif
+    let s:nowcol = col(".")
+    call s:saveMap(pat)
+    if a:vmode ==# 'v'
+        execute "normal gvO\<ESC> hi".pat
+        execute "normal gvO\<ESC> a".s:mapBrackets(pat)."\<ESC>"
+    elseif a:vmode ==# 'V'
+        execute "normal gvO\<ESC> I".pat
+        execute "normal gvO\<ESC> A".s:mapBrackets(pat)."\<ESC>"
+    else
+        execute "normal gvOI".pat
+        execute "normal gvlOlA".s:mapBrackets(pat)."\<ESC>"
+    endif
+    call s:restoreMap(pat)
+    redraw
+    echohl WarningMsg
+        echo "   ❖  加入".pat.s:mapBrackets(pat)." ❖ "
+    echohl NONE
+    " recover sorcur position
+    execute "normal 0".(s:nowcol)."lhf".pat
+endfunction
+
+
 function s:surroundNdel()
     let pat = nr2char(getchar())
-    " check is can delete
+    " check is can be deleted
     if s:isBrackets(pat) ==# 0
         return
     endif
@@ -123,8 +156,11 @@ endfunction
 command -nargs=+ S call s:surround(<f-args>)
 nnoremap <silent> <Plug>SurroundNadd :<C-u>execute 'call '
     \v:count? '<SID>surroundNadd(v:count)' : '<SID>surroundNadd(1)'<CR>
+vnoremap <silent> <Plug>SurroundVadd :<C-u>call <SID>surroundVadd(visualmode())<CR>
 nmap <M-s> <Plug>SurroundNadd
+vmap <M-s> <Plug>SurroundVadd
 nmap ys <M-s>
+vmap ys <M-s>
 
 nnoremap <silent> <Plug>SurroundNdel :<C-u>call <SID>surroundNdel()<CR>
 nmap <M-d> <Plug>SurroundNdel
