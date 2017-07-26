@@ -24,9 +24,10 @@ func Eatchar(pat)
 endfunc
 
 " 確認是否可以使用iab (註解、常數、字串不可用)
+" Ref: https://superuser.com/questions/487603/abbreviations-override-in-comments-and-quoted-text
 function! CodeAbbr(abbr,str)
     let syn = synIDattr(synIDtrans(synID(line('.'), col('.') - 1, 1)), 'name')
-    if syn ==? 'Comment' || syn ==? 'Constant' || syn ==? 'String'
+    if syn ==? 'Comment' || syn ==? 'Constant' || syn ==? 'String' || syn ==? 'Special'
         return a:abbr
     else
         return a:str
