@@ -154,13 +154,12 @@ endfunction
 
 
 command -nargs=+ S call s:surround(<f-args>)
-nnoremap <silent> <Plug>SurroundNadd :<C-u>execute 'call '
-    \v:count? '<SID>surroundNadd(v:count)' : '<SID>surroundNadd(1)'<CR>
+nnoremap <silent> <Plug>SurroundNadd :<C-u>call <SID>surroundNadd(v:count1)<CR>
 vnoremap <silent> <Plug>SurroundVadd :<C-u>call <SID>surroundVadd(visualmode())<CR>
 nmap <M-s> <Plug>SurroundNadd
 vmap <M-s> <Plug>SurroundVadd
-nmap ys <M-s>
-vmap ys <M-s>
+nmap gs <M-s>
+vmap gs <M-s>
 
 nnoremap <silent> <Plug>SurroundNdel :<C-u>call <SID>surroundNdel()<CR>
 nmap <M-d> <Plug>SurroundNdel
