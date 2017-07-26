@@ -1,6 +1,6 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: .vimrc
-" Last Modified: 2017-07-22 11:33:11
+" Last Modified: 2017-07-26 22:08:13
 " Vim: enc=utf-8
 
 cnoreabbrev WQ wq
@@ -22,6 +22,23 @@ func Eatchar(pat)
     let c = nr2char(getchar(0))
     return (c =~ a:pat)? '': c
 endfunc
+
+" 確認是否可以使用iab (註解、常數、字串不可用)
+function! CodeAbbr(abbr,str)
+    let syn = synIDattr(synIDtrans(synID(line('.'), col('.') - 1, 1)), 'name')
+    if syn ==? 'Comment' || syn ==? 'Constant' || syn ==? 'String'
+        return a:abbr
+    else
+        return a:str
+    endif
+endfunction
+
+for id in synstack(line("."), col("."))
+    redraw
+    echohl WarningMsg
+       echo synIDattr(id, "name")
+    echohl NONE
+endfor
 
 set nocompatible              " 去除VI一致性,必須
 

@@ -1,6 +1,6 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: vim.vim
-" Last Modified: 2017-07-23 11:46:11
+" Last Modified: 2017-07-26 22:08:21
 " Vim: enc=utf-8
 
 " Comment map
@@ -21,18 +21,21 @@ function! AddTitle()
 endfunction
 
 " Abbreviations
-:iab function function
+:iab <buffer> <expr> function CodeAbbr("function", "function
     \<CR>
     \<CR>endfunction
     \<UP><TAB>
-    \<UP><ESC>$li <C-R>=Eatchar('\m\s\<bar>\r')<CR>
-:iab if if
+    \<UP><ESC>$li <C-R>=Eatchar(\'\\m\\s\\<bar>\\r\')<CR>
+    \")
+:iab <buffer> <expr> if CodeAbbr("if", "if
     \<CR>
     \<CR>endif
     \<UP><TAB>
-    \<UP><ESC>$li <C-R>=Eatchar('\m\s\<bar>\r')<CR>
-:iab for for
+    \<UP><ESC>$li <C-R>=Eatchar(\'\\m\\s\\<bar>\\r\')<CR>
+    \")
+:iab <buffer> <expr> for CodeAbbr("for", "for
     \<CR>
     \<CR>endfor
     \<UP><TAB>
-    \<UP><ESC>$li <C-R>=Eatchar('\m\s\<bar>\r')<CR>
+    \<UP><ESC>$li <C-R>=Eatchar(\'\\m\\s\\<bar>\\r\')<CR>
+    \")
