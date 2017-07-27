@@ -1,6 +1,6 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: .bundles.vim
-" Last Modified: 2017-07-22 11:46:47
+" Last Modified: 2017-07-27 10:53:33
 " Vim: enc=utf-8
 
 " 設置包括vundle和初始化相關的runtime path
@@ -183,6 +183,10 @@ let g:cpp_member_variable_highlight=1
 let g:cpp_class_decl_highlight=1
 let g:cpp_experimental_simple_template_highlight=1
 let c_no_curly_error=1
+
+Plugin 'iamcco/markdown-preview.vim'
+let g:mkdp_path_to_chrome = "cygstart /chrome.lnk"
+let g:mkdp_auto_start = 0
 
 " 你的所有插件需要在下面這行之前
 
