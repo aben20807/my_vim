@@ -1,6 +1,6 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: .vimrc
-" Last Modified: 2017-07-26 22:08:13
+" Last Modified: 2017-07-27 10:56:43
 " Vim: enc=utf-8
 
 cnoreabbrev WQ wq
@@ -34,13 +34,6 @@ function! CodeAbbr(abbr,str)
     endif
 endfunction
 
-for id in synstack(line("."), col("."))
-    redraw
-    echohl WarningMsg
-       echo synIDattr(id, "name")
-    echohl NONE
-endfor
-
 set nocompatible              " 去除VI一致性,必須
 
 " 導入 vim key map
@@ -51,6 +44,11 @@ endif
 " 導入 vim surround
 if filereadable(expand("~/.surround.vim"))
    source ~/.surround.vim
+endif
+
+" 導入 vim comment
+if filereadable(expand("~/.comment.vim"))
+   source ~/.comment.vim
 endif
 
 " 導入vim插件管理
@@ -89,7 +87,8 @@ map <F5> :call CompileAndRun()<CR>
 map <M-r> :call CompileAndRun()<CR>
 " save -> close ALE -> execute -> open ALE
 function! CompileAndRun()
-    exec "w"
+    " save only when changed
+    exec "up"
     exec "ALEDisable"
     if &filetype == 'rust'
         exec "!rustc % && time ./%< && rm %<"
@@ -104,10 +103,13 @@ function! CompileAndRun()
         :!%
     elseif &filetype == 'python'
         exec "!time python3 %"
+    elseif &filetype == 'markdown'
+        " markdown preview
+        exec "MarkdownPreview"
     else
         redraw
         echohl WarningMsg
-            echo strftime(" ❖ 不支援 ❖ ")
+            echo strftime("   ❖  不支援  ❖ ")
         echohl NONE
     endif
     exec "ALEEnable"
@@ -217,6 +219,9 @@ set autoread
 
 " 不顯示 -- 插入 --
 " set noshowmode
+
+" 自動換路徑
+set autochdir
 
 " backup: nobackup + writebackup = backup current file, deleted afterwards (default)
 " 不備份

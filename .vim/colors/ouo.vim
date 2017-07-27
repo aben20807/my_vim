@@ -1,3 +1,8 @@
+" Author: Huang Po-Hsuan <aben20807@gmail.com>
+" Filename: ouo.vim
+" Last Modified: 2017-07-27 08:15:56
+" Vim: enc=utf-8
+
 " Vim color file
 " Maintainer:   Huang Po-Hsuan <aben20807@gmail.com>
 " Last Change:  $Date: 2017/07/24 00:04:11 $
@@ -124,9 +129,9 @@ if &t_Co > 255
     hi CursorColumn     cterm=reverse
     hi CursorLine       cterm=underline
     hi Directory        ctermfg=172                 "NERDtree 資料夾
-    hi DiffAdd          cterm=NONE ctermbg=235
+    hi DiffAdd          cterm=NONE ctermbg=23
     " hi DiffAdded        ctermbg=4
-    hi DiffChange       cterm=NONE ctermbg=235
+    hi DiffChange       cterm=NONE ctermbg=54
     " hi DiffRemoved      cterm=bold ctermfg=196 ctermbg=124
     hi DiffDelete       cterm=NONE ctermfg=196 ctermbg=88
     hi DiffText         cterm=NONE ctermbg=29
@@ -137,6 +142,7 @@ if &t_Co > 255
     hi SignColumn       cterm=NONE ctermbg=NONE     "語法檢查通過行
     hi IncSearch        cterm=NONE ctermfg=yellow ctermbg=green
     hi LineNr           ctermfg=245                 "行號
+    hi CursorLineNr     ctermfg=11                  "目前行號
     hi MatchParen       cterm=NONE ctermfg=0 ctermbg=11 "配對的括號
     hi ModeMsg          cterm=NONE ctermfg=brown
     hi MoreMsg          ctermfg=135                 "--尚有--
@@ -160,7 +166,7 @@ if &t_Co > 255
     hi TabLine          cterm=reverse
     hi TabLineFill      cterm=reverse
     hi TabLineSel       cterm=reverse
-    hi Title            ctermfg=13
+    hi Title            ctermfg=135                 "markdown header
     hi Visual           cterm=bold,reverse          "選取
     hi VisualNOS        cterm=bold,underline
     hi WarningMsg       cterm=bold ctermfg=1

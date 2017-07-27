@@ -1,6 +1,6 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: .keymap.vim
-" Last Modified: 2017-07-23 18:36:02
+" Last Modified: 2017-07-27 09:17:35
 " Vim: enc=utf-8
 
 " key 映射
@@ -10,7 +10,7 @@
 
 " 離開vim
 nnoremap <F10> :exec "q!"<CR>
-nnoremap <F11> :exec "w"<CR>
+nnoremap <F11> :exec "up"<CR>
 nnoremap <F12> :exec "x"<CR>
 
 " 分屏間移動window

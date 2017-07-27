@@ -1,6 +1,6 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: .surround.vim
-" Last Modified: 2017-07-25 11:18:22
+" Last Modified: 2017-07-27 11:30:49
 " Vim: enc=utf-8
 
 let s:patlist=["'", '"', '(', '[', '{', '<']
@@ -30,7 +30,7 @@ function s:isBrackets(pat)
     endfor
     redraw
     echohl WarningMsg
-        echo "   ❖  此字元不支援 ❖ "
+        echo "   ❖  不支援字元".a:pat." ❖ "
     echohl NONE
     return 0
 endfunction
@@ -51,11 +51,6 @@ function s:isInSurround(pat)
     endif
     let rightcol=col(".")
     if nofound ==# 0 && leftcol <= s:nowcol && rightcol >= s:nowcol && leftcol !=# rightcol
-        redraw
-        echohl WarningMsg
-           "  echo s:nowcol." ".leftcol." ".rightcol
-            echo "   ❖  刪除".a:pat.s:mapBrackets(a:pat)." ❖ "
-        echohl NONE
         return 1
     endif
     redraw
@@ -150,6 +145,35 @@ function s:surroundNdel()
     execute "normal F".pat."xf".s:mapBrackets(pat)."x"
     " recover sorcur position
     execute "normal 0".(s:nowcol)."lhh"
+    redraw
+    echohl WarningMsg
+       "  echo s:nowcol." ".leftcol." ".rightcol
+        echo "   ❖  刪除".pat.s:mapBrackets(pat)." ❖ "
+    echohl NONE
+endfunction
+
+
+function s:surroundNrep()
+    let pat1 = nr2char(getchar())
+    let pat2 = nr2char(getchar())
+    " check is can be deleted
+    if s:isBrackets(pat1) ==# 0
+        return
+    endif
+    if s:isBrackets(pat2) ==# 0
+        return
+    endif
+    if s:isInSurround(pat1) ==# 0
+        return
+    endif
+    " replace
+    execute "normal F".pat1."r".pat2."f".s:mapBrackets(pat1)."r".s:mapBrackets(pat2)
+    " recover sorcur position
+    execute "normal 0".(s:nowcol)."lh"
+    echohl WarningMsg
+       "  echo s:nowcol." ".leftcol." ".rightcol
+        echo "   ❖  取代".pat1.s:mapBrackets(pat1)."為".pat2.s:mapBrackets(pat2)." ❖ "
+    echohl NONE
 endfunction
 
 
@@ -164,3 +188,8 @@ vmap gs <M-s>
 nnoremap <silent> <Plug>SurroundNdel :<C-u>call <SID>surroundNdel()<CR>
 nmap <M-d> <Plug>SurroundNdel
 nmap ds <M-d>
+
+
+nnoremap <silent> <Plug>SurroundNrep :<C-u>call <SID>surroundNrep()<CR>
+nmap <M-f> <Plug>SurroundNrep
+nmap df <M-f>
