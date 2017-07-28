@@ -39,3 +39,9 @@ endfunction
     \<UP><TAB>
     \<UP><ESC>$li <C-R>=Eatchar(\'\\m\\s\\<bar>\\r\')<CR>
     \")
+:iab <buffer> <expr> while CodeAbbr("while", "while
+    \<CR>
+    \<CR>endwhile
+    \<UP><TAB>
+    \<UP><ESC>$li <C-R>=Eatchar(\'\\m\\s\\<bar>\\r\')<CR>
+    \")

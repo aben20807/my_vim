@@ -1,15 +1,10 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: cpp.vim
-" Last Modified: 2017-07-20 11:34:05
+" Last Modified: 2017-07-28 10:29:38
 " Vim: enc=utf-8
 
-" Comment map
-nmap <M-/> <ESC><S-^>i// <ESC>
-imap <M-/> <ESC><S-^>i// <ESC><BS>i
-vmap <M-/> <S-^><C-v><S-i>// <ESC>
-nmap <M-.> <ESC><S-^><C-V>lld
-imap <M-.> <ESC><S-^><C-V>lldi
-vmap <M-.> <C-v><S-^><S-o><S-^>lld<ESC>
+" Comment
+call CommentFormat("// ")
 
 " Abbreviations
 :iab #i #include <><LEFT><C-R>=Eatchar('\m\s\<bar>\r')<CR>
