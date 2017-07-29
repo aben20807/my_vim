@@ -1,14 +1,10 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: python.vim
-" Last Modified: 2017-07-20 11:33:50
+" Last Modified: 2017-07-29 14:15:23
 " Vim: enc=utf-8
 
-nmap <M-/> <ESC><S-^>i# <ESC>
-imap <M-/> <ESC><S-^>i# <ESC><BS>i
-vmap <M-/> <S-^><C-v><S-i># <ESC>
-nmap <M-.> <ESC><S-^><C-V>ld
-imap <M-.> <ESC><S-^><C-V>ldi
-vmap <M-.> <C-v><S-^><S-o><S-^>ld<ESC>
+" Comment
+call CommentFormat("# ")
 
 " Title information
 function! AddTitle()

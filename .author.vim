@@ -42,9 +42,9 @@ function TitleDet()
     "默認為添加
     while n < 5
         let line = getline(n)
-        if line =~ '^\#\s*\S*Last\smodified:\S*.*$' ||
-          \line =~ '^\/\/\s*\S*Last\smodified:\S*.*$' ||
-          \line =~ '^\"\s*\S*Last\smodified:\S*.*$'
+        if line =~ '^\#\s*\S*Last\sModified:\S*.*$' ||
+          \line =~ '^\/\/\s*\S*Last\sModified:\S*.*$' ||
+          \line =~ '^\"\s*\S*Last\sModified:\S*.*$'
             call UpdateTitle()
             return
         endif

@@ -51,16 +51,16 @@ function s:isComment()
     let sub = s:subString(col(".")-1, col(".")-1+strlen(s:format))
     execute "normal 0".(s:nowcol)."lh"
     if  sub ==# s:format
-        redraw
-        echohl WarningMsg
-            echo "   ❖  有註解 ❖ "
-        echohl NONE
+        " redraw
+        " echohl WarningMsg
+        "     echo "   ❖  有註解 ❖ "
+        " echohl NONE
         return 1
     else
-        redraw
-        echohl WarningMsg
-            echo "   ❖  無註解 ❖ "
-        echohl NONE
+        " redraw
+        " echohl WarningMsg
+        "     echo "   ❖  無註解 ❖ "
+        " echohl NONE
         return 0
     endif
 endfunction
@@ -122,6 +122,10 @@ endfunction
 " v模式下的加入註解
 function s:commentVAdd()
     execute "normal gv \<C-v>\<S-^>\<S-o>\<S-^>I".s:format."\<ESC>"
+    redraw
+    echohl WarningMsg
+        echo "   ❖  加入註解 ❖ "
+    echohl NONE
 endfunction
 
 
