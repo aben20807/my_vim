@@ -84,7 +84,7 @@ augroup END
 
 "編譯並執行http://www.edbiji.com/doccenter/showdoc/24/nav/284.html
 map <F5> :call CompileAndRun()<CR>
-map <M-r> :call CompileAndRun()<CR>
+" map <M-r> :call CompileAndRun()<CR>
 " save -> close ALE -> execute -> open ALE
 function! CompileAndRun()
     " save only when changed

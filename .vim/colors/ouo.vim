@@ -140,7 +140,7 @@ if &t_Co > 255
     hi Folded           ctermfg=darkgrey ctermbg=NONE
     hi FoldColumn       ctermfg=darkgrey ctermbg=NONE
     hi SignColumn       cterm=NONE ctermbg=NONE     "語法檢查通過行
-    hi IncSearch        cterm=NONE ctermfg=yellow ctermbg=green
+    hi IncSearch        cterm=NONE ctermfg=172 ctermbg=33
     hi LineNr           ctermfg=245                 "行號
     hi CursorLineNr     ctermfg=11                  "目前行號
     hi MatchParen       cterm=NONE ctermfg=0 ctermbg=11 "配對的括號
@@ -153,7 +153,7 @@ if &t_Co > 255
     hi PmenuSbar        cterm=reverse
     hi PmenuThumb       cterm=reverse
     hi Question         ctermfg=238                 "Press ENTER or type command to continue
-    hi Search           cterm=NONE ctermfg=grey ctermbg=blue
+    hi Search           cterm=NONE ctermfg=11 ctermbg=135
     hi SpecialKey       ctermfg=245                 "對齊符號
     if has("spell")
         hi SpellBad    guisp=#FF0000 gui=undercurl
