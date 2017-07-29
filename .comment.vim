@@ -1,8 +1,9 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: .comment.vim
-" Last Modified: 2017-07-29 12:35:33
+" Last Modified: 2017-07-29 14:12:51
 " Vim: enc=utf-8
 
+" Section: 記錄原始key map
 " Comment map
 " nmap <M-/> <ESC><S-^>i// <ESC>
 " imap <M-/> <ESC><S-^>i// <ESC><BS>i
@@ -11,15 +12,24 @@
 " imap <M-.> <ESC><S-^><C-V>lldi
 " vmap <M-.> <C-v><S-^><S-o><S-^>lld<ESC>
 
+" Function: CommentFormat() function
+" 接收註解格式, 請於.vim/after/ftplugin/ouo.vim設定
+" 例如在.vim/after/ftplugin/cpp.vim中打call CommentFormat("// ")
+"
+" Args:
+"   -format:註解格式, 例如cpp是// , python是# ,請以雙引號刮起
 function CommentFormat(format)
-    let g:format = a:format
     let s:format = a:format
 endfunction
 
 
+" Function: s:subString() function
+" 用於提出整行的子字串, 長度根據註解格式長度
+"
+" Return:
+"   -result:裁減完成的子字串
 function s:subString(from, to)
     let currentLine = getline(".")
-	" let list = split(currentLine, '\zs')
     let i = a:from
     let result = ""
     while i < a:to
@@ -30,32 +40,35 @@ function s:subString(from, to)
 endfunction
 
 
+" Function: s:isComment() function
+" 用於判斷游標所在行是否已經註解
+"
+" Return:
+"   -1代表前方有註解符號, 否則回傳0
 function s:isComment()
-    " let s:nowcol = col(".")
+    let s:nowcol = col(".")
     execute "normal \<S-^>"
     let sub = s:subString(col(".")-1, col(".")-1+strlen(s:format))
-    " execute "normal 0".(s:nowcol)."lh"
+    execute "normal 0".(s:nowcol)."lh"
     if  sub ==# s:format
+        redraw
+        echohl WarningMsg
+            echo "   ❖  有註解 ❖ "
+        echohl NONE
         return 1
-        " redraw
-        " echohl WarningMsg
-        "     echo "   ❖  有註解 ❖ "
-        " echohl NONE
     else
+        redraw
+        echohl WarningMsg
+            echo "   ❖  無註解 ❖ "
+        echohl NONE
         return 0
-        " redraw
-        " echohl WarningMsg
-        "     echo "   ❖  無註解 ❖ "
-        " echohl NONE
     endif
-    " echohl WarningMsg
-    "     echo s:format
-    "     echo sub
-    " echohl NONE
-    " recover sorcur position
 endfunction
 
 
+" Function: s:comment() function
+" i, n模式下的註解
+" 先判斷是否已經註解, 原無註解則加上註解, 否則移除註解
 function s:comment()
     let s:nowcol = col(".")
     if s:isComment() ==# 1
@@ -68,6 +81,8 @@ function s:comment()
 endfunction
 
 
+" Function: s:commentAdd() function
+" i, n模式下的加入註解
 function s:commentAdd()
     execute "normal \<S-^>i".s:format."\<ESC>"
     redraw
@@ -77,6 +92,8 @@ function s:commentAdd()
 endfunction
 
 
+" Function: s:commentDel() function
+" i, n模式下的移除註解
 function s:commentDel()
     execute "normal \<S-^>".strlen(s:format)."x"
     redraw
@@ -86,42 +103,32 @@ function s:commentDel()
 endfunctio
 
 
-
+" Function: s:commentV() function
+" v模式下的註解, 可多行同時註解
+" 先判斷是否已經註解, 原無註解則加上註解, 否則移除註解
 function s:commentV()
-    " let s:nowcol = col(".")
-    execute "normal m\`"
+    " FIXME 游標無法回到註解前的位置
+    " FIXME 註解不註解只能以第一行當作判斷
+    " FIXME v-block模式會錯誤
     if s:isComment() ==# 1
         call s:commentVDel()
-        " execute "normal 0".(s:nowcol - strlen(s:format) > 0? (s:nowcol - strlen(s:format)): 0)."lh"
     else
         call s:commentVAdd()
-        " execute "normal 0".(s:nowcol + strlen(s:format))."lh"
     endif
-    execute "normal \`\`"
 endfunction
 
-" function ReturnF()
-"     return s:format
-" endfunction
-" function s:commentVAddx()
-"     " execute "normal gv:'<,'>s/^/".s:format."/"
-"     execute "normal gv"
-"     let g:format = "\/\/"
-"     " let command = "'<,'>s/^\s*/"."g"."/" "OK
-"     let command = "'<,'>s#^\s*#"."g"."#"
-"     " let command = "'<,'>s#^\S#".s:format."##"
-"     execute command
-"     redraw
-"     echohl WarningMsg
-"         echo "   ❖  加入註解 ❖ "
-"     echohl NONE
-" endfunction
+
+" Function: s:commentVAdd() function
+" v模式下的加入註解
 function s:commentVAdd()
     execute "normal gv \<C-v>\<S-^>\<S-o>\<S-^>I".s:format."\<ESC>"
 endfunction
 
 
+" Function: s:commentVDel() function
+" v模式下的移除註解
 function s:commentVDel()
+    " FIXME 遇到非註解開頭的仍會刪掉
     execute "normal gv \<C-v>\<S-^>\<S-o>\<S-^>".(strlen(s:format)-1)."lx\<ESC>"
     redraw
     echohl WarningMsg
@@ -130,8 +137,7 @@ function s:commentVDel()
 endfunctio
 
 
-" call CommentFormat("jj ")
-
+" Section: key map設定
 nnoremap <silent> <Plug>Comment :<C-u>call <SID>comment()<CR>
 nmap <M-/> <Plug>Comment
 inoremap <silent> <Plug>Comment :<C-u>call <SID>comment()<CR>

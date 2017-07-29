@@ -61,8 +61,8 @@ noremap <Up> <C-y>
 noremap <Down> <C-e>
 
 " Tab縮排
-nmap <TAB> v>
-nmap <S-TAB> v<
+" nmap <TAB> v>
+" nmap <S-TAB> v<
 vmap <TAB> >gv
 vmap <S-TAB> <gv
 
