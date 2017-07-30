@@ -186,6 +186,7 @@ let c_no_curly_error=1
 
 Plugin 'iamcco/markdown-preview.vim'
 let g:mkdp_path_to_chrome = "cygstart /chrome.lnk"
+let g:mkdp_auto_close = 0
 let g:mkdp_auto_start = 0
 
 " 你的所有插件需要在下面這行之前

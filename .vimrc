@@ -1,6 +1,6 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: .vimrc
-" Last Modified: 2017-07-27 10:56:43
+" Last Modified: 2017-07-30 09:55:22
 " Vim: enc=utf-8
 
 cnoreabbrev WQ wq
@@ -91,21 +91,26 @@ function! CompileAndRun()
     exec "up"
     exec "ALEDisable"
     if &filetype == 'rust'
-        exec "!rustc % && time ./%< && rm %<"
+        execute "!rustc % && time ./%< && rm %<"
     elseif &filetype == 'c'
-        exec "!gcc -std=c11 % -o /tmp/a.out && time /tmp/a.out"
+        execute "!gcc -std=c11 % -o /tmp/a.out && time /tmp/a.out"
     elseif &filetype == 'cpp'
-        exec "!g++ -std=c++11 % -o /tmp/a.out && time /tmp/a.out"
+        execute "!g++ -std=c++11 % -o /tmp/a.out && time /tmp/a.out"
     elseif &filetype == 'java'
-        exec "!javac -encoding utf-8 %"
-        exec "!time java %<"
+        execute "!javac -encoding utf-8 %"
+        execute "!time java %<"
     elseif &filetype == 'sh'
         :!%
     elseif &filetype == 'python'
-        exec "!time python3 %"
+        execute "!time python3 %"
     elseif &filetype == 'markdown'
         " markdown preview
-        exec "MarkdownPreview"
+        try
+            " Stop before starting and handle exception
+            execute "MarkdownPreviewStop"
+        catch /^Vim:E492:/
+        endtry
+        execute "MarkdownPreview"
     else
         redraw
         echohl WarningMsg
