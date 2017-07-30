@@ -1,11 +1,6 @@
-" Author: Huang Po-Hsuan <aben20807@gmail.com>
-" Filename: ouo.vim
-" Last Modified: 2017-07-27 08:15:56
-" Vim: enc=utf-8
-
 " Vim color file
 " Maintainer:   Huang Po-Hsuan <aben20807@gmail.com>
-" Last Change:  $Date: 2017/07/24 00:04:11 $
+" Last Change:  $Date: 2017/07/30 12:08:11 $
 " URL:
 " Version:  $Id: ouo.vim,v 1.0 fugalh Exp $
 " modified from desert
@@ -140,7 +135,7 @@ if &t_Co > 255
     hi Folded           ctermfg=darkgrey ctermbg=NONE
     hi FoldColumn       ctermfg=darkgrey ctermbg=NONE
     hi SignColumn       cterm=NONE ctermbg=NONE     "語法檢查通過行
-    hi IncSearch        cterm=NONE ctermfg=172 ctermbg=33
+    hi IncSearch        cterm=NONE ctermfg=0 ctermbg=172
     hi LineNr           ctermfg=245                 "行號
     hi CursorLineNr     ctermfg=11                  "目前行號
     hi MatchParen       cterm=NONE ctermfg=0 ctermbg=11 "配對的括號
@@ -153,7 +148,7 @@ if &t_Co > 255
     hi PmenuSbar        cterm=reverse
     hi PmenuThumb       cterm=reverse
     hi Question         ctermfg=238                 "Press ENTER or type command to continue
-    hi Search           cterm=NONE ctermfg=11 ctermbg=135
+    hi Search           cterm=NONE ctermfg=0 ctermbg=11
     hi SpecialKey       ctermfg=245                 "對齊符號
     if has("spell")
         hi SpellBad    guisp=#FF0000 gui=undercurl
