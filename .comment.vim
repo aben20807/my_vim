@@ -1,6 +1,6 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: .comment.vim
-" Last Modified: 2017-07-29 14:12:51
+" Last Modified: 2017-08-02 10:35:34
 " Vim: enc=utf-8
 
 " Section: 記錄原始key map
@@ -44,8 +44,15 @@ endfunction
 " 用於判斷游標所在行是否已經註解
 "
 " Return:
-"   -1代表前方有註解符號, 否則回傳0
+"   -1代表前方有註解符號, 否則回傳0, -1代表沒有設定則不給註解
 function s:isComment()
+    if !exists("s:format")
+        redraw
+        echohl WarningMsg
+            echo "   ❖  無設定註解格式 ❖ "
+        echohl NONE
+        return -1
+    endif
     let s:nowcol = col(".")
     execute "normal \<S-^>"
     let sub = s:subString(col(".")-1, col(".")-1+strlen(s:format))
@@ -74,7 +81,7 @@ function s:comment()
     if s:isComment() ==# 1
         call s:commentDel()
         execute "normal 0".(s:nowcol - strlen(s:format) > 0? (s:nowcol - strlen(s:format)): 0)."lh"
-    else
+    elseif s:isComment() ==# 0
         call s:commentAdd()
         execute "normal 0".(s:nowcol + strlen(s:format))."lh"
     endif
@@ -112,7 +119,7 @@ function s:commentV()
     " FIXME v-block模式會錯誤
     if s:isComment() ==# 1
         call s:commentVDel()
-    else
+    elseif s:isComment() ==# 0
         call s:commentVAdd()
     endif
 endfunction
