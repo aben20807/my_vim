@@ -69,6 +69,10 @@ vmap <S-TAB> <gv
 " 讓=移到最後再後
 nnoremap = $l
 
+" normal下新增行
+nnoremap t o<ESC>
+nnoremap T O<ESC>
+
 " 直接複製到系統剪貼簿
 " vnoremap <C-C> "+y
 " vnoremap <C-X> "+d

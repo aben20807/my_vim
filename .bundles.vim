@@ -60,7 +60,9 @@ let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = '㉿' " ''
+let g:airline_symbols.notexists = ' Φ'
+let g:airline_symbols.linenr = '' " '㉿'  ''
+let g:airline_symbols.maxlinenr = '' " '㉿'  ''
 map <F6> :bp!<CR>
 map <F7> :bn!<CR>
 
@@ -73,6 +75,9 @@ Plugin 'tpope/vim-fugitive'
 "https://github.com/guns/xterm-color-table.vim.git
 " Plugin 'Valloric/YouCompleteMe' "YouCompleteMe托管在github上，使用vundle安装
 " let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra _conf.py'
+" let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+" let g:ycm_rust_src_path = '/usr/local/rust/rustc-1.18.0/src'
+" nnoremap gd :YcmCompleter GoToDeclaration<CR>
 
 " 文件索引樹
 Plugin 'scrooloose/nerdtree'
@@ -171,10 +176,43 @@ autocmd VimEnter,Colorscheme * :hi ALEError         cterm=NONE ctermfg=251 cterm
 autocmd VimEnter,Colorscheme * :hi ALEWarning       cterm=NONE ctermfg=251 ctermbg=166
 
 Plugin 'rust-lang/rust.vim'
+" Plugin 'racer-rust/vim-racer'
+" set hidden
+" let RUST_SRC_PATH="C:\\Users\\user\\.rustup\\toolchains\\stable-x86_64-pc-windows-gnu\\lib\\rustlib\\src\\rust\\src"
+" let $RUST_SRC_PATH="C:\\Users\\user\\.rustup\\toolchains\\stable-x86_64-pc-windows-gnu\\lib\\rustlib\\src\\rust\\src"
+" let g:racer_cmd = "/bin/racer.exe"
+" let g:racer_experimental_completer = 1
+" au FileType rust nmap <buffer> gd <Plug>(rust-def)
+" au FileType rust nmap <buffer> gs <Plug>(rust-def-split)
+" au FileType rust nmap <buffer> gx <Plug>(rust-def-vertical)
+" au FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
 
 " 簡單補全
-" Plugin 'maralla/completor.vim'
-" racer 尚有錯誤
+Plugin 'maralla/completor.vim'
+" " racer 尚有錯誤
+" " let g:completor_racer_binary='/cygdrive/c/users/user/.cargo/bin/racer'
+let g:completor_racer_binary='/bin/racer.exe'
+let g:completor_completion_delay=0
+let g:completor_auto_close_doc=0
+let g:completor_auto_trigger=1
+let g:completor_min_chars=2
+let g:completor_filesize_limit=4096
+" function! CompletorToggle()
+"     if g:completor_auto_trigger==0
+"         let g:completor_auto_trigger=1
+"     else
+"         let g:completor_auto_trigger=0
+"     endif
+"     " set noshowmode
+"     " redraw
+"     " echohl WarningMsg
+"     "     echo "completor ".((g:completor_auto_trigger==0)? "close": "open")
+"     " echohl NONE
+" endfunction
+" inoremap <C-x> <C-\><C-O>:call CompletorToggle()<CR>
+" :autocmd CursorMoved,CursorMovedI,InsertChange * :set showmode
+inoremap <expr> <TAB> pumvisible() ?"\<C-n>": "\<TAB>"
+inoremap <expr> <S-TAB> pumvisible() ?"\<C-p>": "\<S-TAB>"
 
 " c, cpp highlight
 Plugin 'octol/vim-cpp-enhanced-highlight'

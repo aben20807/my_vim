@@ -77,9 +77,9 @@ augroup project
     autocmd!
     autocmd BufRead,BufNewFile *.h,*.c set filetype=c
     autocmd BufRead,BufNewFile *.hpp,*.cpp set filetype=cpp
-    autocmd BufNewFile,BufRead *.py,*.pyw set filetype=python
-    autocmd BufNewFile,BufRead *.rs set filetype=rust
-    autocmd BufNewFile,BufRead *.log set filetype=log
+    autocmd BufRead,BufNewFile *.py,*.pyw set filetype=python
+    autocmd BufRead,BufNewFile *.rs set filetype=rust
+    autocmd BufRead,BufNewFile *.log set filetype=log
 augroup END
 
 "編譯並執行http://www.edbiji.com/doccenter/showdoc/24/nav/284.html
