@@ -118,7 +118,7 @@ if &t_Co > 255
     hi Todo             cterm=bold ctermfg=135 ctermbg=NONE     "TODO, FIXME, XXX
 
     hi ColorColumn      cterm=reverse
-    hi Conceal          cterm=reverse ctermfg=245 ctermbg=NONE
+    hi Conceal          ctermfg=2 ctermbg=NONE
     hi Cursor           cterm=reverse
     hi CursorIM         cterm=reverse
     hi CursorColumn     cterm=reverse

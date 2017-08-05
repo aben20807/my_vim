@@ -1,6 +1,6 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: .bundles.vim
-" Last Modified: 2017-08-05 21:55:50
+" Last Modified: 2017-08-05 23:40:02
 " Vim: enc=utf-8
 
 " 設置包括vundle和初始化相關的runtime path
@@ -125,15 +125,10 @@ let g:multi_cursor_use_default_mapping=1
  let g:multi_cursor_quit_key='<Esc>' "退出
 
 " 縮排高亮
-Plugin 'nathanaelkane/vim-indent-guides'
-let g:indent_guides_enable_on_vim_startup=1
-let g:indent_guides_start_level=2
-let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'log']
-let g:indent_guides_guide_size=1
-let g:indent_guides_auto_colors=0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=236
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=240
-nnoremap <F3> :IndentGuidesToggle<CR>
+Plugin 'Yggdroot/indentLine'
+let g:indentLine_setColors = 0
+let g:indentLine_char = '┊'
+nnoremap <F3> :IndentLinesToggle<CR>
 
 " 括號刪除取代
 " Plugin 'tpope/vim-surround'

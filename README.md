@@ -115,18 +115,14 @@ endfunc
 
 ## Indent highlight (Plugin)
 - File: .bundles.vim
-- Plugin: [nathanaelkane/vim-indent-guides](https://github.com/nathanaelkane/vim-indent-guides)
+- Plugin: [Yggdroot/indentLine](https://github.com/Yggdroot/indentLine)
 - Press `<F3>` to toggle enable or not
 
 ```vim
-let g:indent_guides_enable_on_vim_startup=1
-let g:indent_guides_start_level=2
-let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'log']
-let g:indent_guides_guide_size=1
-let g:indent_guides_auto_colors=0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=236
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=240
-nnoremap <F3> :IndentGuidesToggle<CR>
+Plugin 'Yggdroot/indentLine'
+let g:indentLine_setColors = 0
+let g:indentLine_char = '┊'
+nnoremap <F3> :IndentLinesToggle<CR>
 ```
 
 ## Line number
