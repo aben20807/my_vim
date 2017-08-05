@@ -30,7 +30,7 @@ let g:airline#themes#ouo#palette.normal.airline_error = s:E
 ## Alt key map
 - File: .keymap.vim
 - Blogger: [106.07.19 vim map alt(meta) key](http://aben20807.blogspot.tw/2017/07/1060719-vim-map-altmeta-key.html)
-- After configurating, can use `<M-x>` to map key, x = a~z, A~Z, 0~9, some symbols like . and /
+- After configurating, can use `<M-x>` to map key, x = a\~z, A\~Z, 0\~9, some symbols like . and /
 
 ## Author Information
 - File: .author.vim, .vim/after/ftplugin/\*.vim
@@ -106,6 +106,12 @@ function! CompileAndRun()
     exec "ALEEnable"
 endfunc
 ```
+
+## Completion (Plugin)
+- File: .bundles.vim
+- Plugin: [maralla/completor.vim](https://github.com/maralla/completor.vim)
+- Plugin(forked): [aben20807/completor.vim](https://github.com/aben20807/completor.vim)
+- Press `<F7>` in insert mode to toggle
 
 ## Indent highlight (Plugin)
 - File: .bundles.vim
