@@ -1,6 +1,6 @@
 " Vim color file
 " Maintainer:   Huang Po-Hsuan <aben20807@gmail.com>
-" Last Change:  $Date: 2017/07/30 12:08:11 $
+" Last Change:  $Date: 2017/08/05 00:03:11 $
 " URL:
 " Version:  $Id: ouo.vim,v 1.0 fugalh Exp $
 " modified from desert
@@ -100,7 +100,7 @@ if &t_Co > 255
     hi Type             ctermfg=172                 "型態 int, char
     hi StorageClass     ctermfg=172                 "static const
     hi Structure        ctermfg=172                 "struct, class, typedef, namespace
-    hi Typedef          ctermfg=green
+    hi Typedef          ctermfg=172                 "vector, string
 
     hi Special          ctermfg=172                 "Esc CR
     hi SpecialChar      cterm=bold ctermfg=160      "\n
@@ -143,10 +143,10 @@ if &t_Co > 255
     hi MoreMsg          ctermfg=135                 "--尚有--
     hi NonText          cterm=NONE ctermfg=245      "最後一行以下的~
     hi Normal           ctermfg=251                 "其他內容
-    hi Pmenu            cterm=reverse
-    hi PmenuSel         cterm=reverse
-    hi PmenuSbar        cterm=reverse
-    hi PmenuThumb       cterm=reverse
+    hi Pmenu            cterm=NONE ctermfg=233 ctermbg=240
+    hi PmenuSel         cterm=NONE ctermfg=251 ctermbg=236
+    hi PmenuSbar        cterm=NONE ctermbg=240
+    hi PmenuThumb       ctermfg=green
     hi Question         ctermfg=238                 "Press ENTER or type command to continue
     hi Search           cterm=NONE ctermfg=0 ctermbg=11
     hi SpecialKey       ctermfg=245                 "對齊符號
