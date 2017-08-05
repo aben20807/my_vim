@@ -1,6 +1,6 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: .bundles.vim
-" Last Modified: 2017-07-27 10:53:33
+" Last Modified: 2017-08-05 21:55:50
 " Vim: enc=utf-8
 
 " 設置包括vundle和初始化相關的runtime path
@@ -188,29 +188,29 @@ Plugin 'rust-lang/rust.vim'
 " au FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
 
 " 簡單補全
-Plugin 'maralla/completor.vim'
+" Plugin 'maralla/completor.vim'
+Plugin 'aben20807/completor.vim'
 " " racer 尚有錯誤
-" " let g:completor_racer_binary='/cygdrive/c/users/user/.cargo/bin/racer'
-let g:completor_racer_binary='/bin/racer.exe'
-let g:completor_completion_delay=0
+let g:completor_completion_delay=40
 let g:completor_auto_close_doc=0
 let g:completor_auto_trigger=1
-let g:completor_min_chars=2
+let g:completor_min_chars=1
 let g:completor_filesize_limit=4096
-" function! CompletorToggle()
-"     if g:completor_auto_trigger==0
-"         let g:completor_auto_trigger=1
-"     else
-"         let g:completor_auto_trigger=0
-"     endif
-"     " set noshowmode
-"     " redraw
-"     " echohl WarningMsg
-"     "     echo "completor ".((g:completor_auto_trigger==0)? "close": "open")
-"     " echohl NONE
-" endfunction
-" inoremap <C-x> <C-\><C-O>:call CompletorToggle()<CR>
-" :autocmd CursorMoved,CursorMovedI,InsertChange * :set showmode
+function! CompletorToggle()
+    if g:completor_auto_trigger==0
+        let g:completor_auto_trigger=1
+    else
+        let g:completor_auto_trigger=0
+    endif
+    set noshowmode
+    redraw
+    echohl WarningMsg
+        echo "   ❖  completor ".((g:completor_auto_trigger==0)? "關閉": "開啟")." ❖ "
+        echo ""
+    echohl NONE
+    set showmode
+endfunction
+inoremap <F7> <C-\><C-O>:call CompletorToggle()<CR>
 inoremap <expr> <TAB> pumvisible() ?"\<C-n>": "\<TAB>"
 inoremap <expr> <S-TAB> pumvisible() ?"\<C-p>": "\<S-TAB>"
 
