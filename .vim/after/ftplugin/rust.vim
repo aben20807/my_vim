@@ -1,6 +1,6 @@
 " Author: Huang Po-Hsuan <aben20807@gmail.com>
 " Filename: rust.vim
-" Last Modified: 2017-07-29 14:15:45
+" Last Modified: 2017-08-05 22:48:29
 " Vim: enc=utf-8
 
 " Comment
@@ -11,7 +11,7 @@ function! AddTitle()
     call append(1,"// Filename: ".expand("%:t"))
     call append(2,"// Last Modified: ".strftime("%Y-%m-%d %H:%M:%S"))
     call append(3,"// Vim: enc=utf-8")
-    call append(4,"// Rust Version: 1.18.0")
+    call append(4,"// Rust Version: 1.19.0")
     call append(5,"// !rustc")
     call append(6,"")
 endfunction
