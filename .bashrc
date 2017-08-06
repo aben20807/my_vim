@@ -199,30 +199,19 @@
 # alias cd=cd_func
 alias vrc='vim ~/.vimrc'
 alias cmd='cygstart "cmd"'
-alias r='python3 ~/.ranger/ranger.py'
-alias m='cygstart /cygdrive/d/hsuan/hsuan/音樂/a.xspf'
-alias music=m
 alias gg='vim -R ~/.git_push'
-alias ls='ls -F --color=tty --show-control-chars'
-alias la='ls -la -F --color=tty --show-control-chars'
+alias ranger='python3 ~/.ranger/ranger.py'
+alias r=ranger
+alias music='cygstart /cygdrive/d/hsuan/hsuan/音樂/a.xspf'
+alias m=music
+alias new='cygstart /cygdrive/c/ProgramData/Microsoft/Windows/Start\ Menu/Programs/Cygwin/Cygwin64\ Terminal.lnk'
+alias n=new
+# path
 alias ct='cd ~/pro/test/'
 alias cl='cd ~/pro/selfpro/learn_rust'
+# list
+alias ls='ls -F --color=tty --show-control-chars'
+alias la='ls -la -F --color=tty --show-control-chars'
 
 # Environment variable
 # echo $PATH to check whole path
-# JAVA_HOME='/cygdrive/c/Program Files/Java/jdk1.8.0_121'
-# export JAVA_HOME
-# export PATH=$PATH:$JAVA_HOME/bin
-# RUST_HOME='/cygdrive/c/Users/user/.cargo'
-# export RUST_HOME
-# export PATH=$PATH:$RUST_HOME/bin
-
-# RUST_SRC_PATH='/cygdrive/c/Users/user/.rustup/toolchains/stable-x86_64-pc-windows-gnu/lib/rustlib/src'
-# RUST_SRC_PATH='C:/Users/user/.multirust/toolchains/stable-x86_64-pc-windows-gnu/lib/rustlib/src/rust/src'
-# export RUST_SRC_PATH
-# export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
-# export RUST_SRC_PATH="C:/Users/user/.rustup/toolchains/stable-x86_64-pc-windows-gnu/lib/rustlib/src/rust/src"
-# # export RUST_SRC_PATH="C:\\Users\\user\\.rustup\\toolchains\\stable-x86_64-pc-windows-gnu\\lib\\rustlib\\src\\rust\\src"
-# EXTERNAL_LIBCLANG_PATH='D:\\cygwin\\lib\\libclang.dll.a'
-# export EXTERNAL_LIBCLANG_PATH
-# export RUST_SRC_PATH='D:/cygwin/usr/local/rust/rustc-1.19.0/src'
