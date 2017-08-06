@@ -215,3 +215,10 @@ alias la='ls -la -F --color=tty --show-control-chars'
 
 # Environment variable
 # echo $PATH to check whole path
+
+# PS1 setting
+# PS1="\[\e]0;\w\a\]\n\[\e[32m\]\u@\h \[\e[33m\]\w\[\e[0m\]\n\$ "
+git_branch() {
+  git branch 2>/dev/null | grep '^*' | colrm 1 2
+}
+PS1='\n\[\e[0;32m\]aben20807 \[\e[0;33m\]\w\[\e[0m\]\n\$ '
