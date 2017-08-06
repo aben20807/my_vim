@@ -188,7 +188,7 @@ Plugin 'aben20807/completor.vim'
 " " racer 尚有錯誤
 let g:completor_completion_delay=40
 let g:completor_auto_close_doc=0
-let g:completor_auto_trigger=1
+let g:completor_auto_trigger=0
 let g:completor_min_chars=1
 let g:completor_filesize_limit=4096
 function! CompletorToggle()

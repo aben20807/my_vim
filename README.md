@@ -7,16 +7,17 @@ Vim Configuration
 - Ref: https://superuser.com/questions/487603/abbreviations-override-in-comments-and-quoted-text
 - Use CodeAbbr() function to check if be able to enable abbreviations
 - Use Eatchar() function to eat last input when triggering abbrevation
-- e.g. type "if" in .vim
+- e.g. type "function" in .vim
 
 ```vim
-:iab <buffer> <expr> if CodeAbbr("if", "if
+:iab <buffer> <expr> function CodeAbbr("function", "function
     \<CR>
-    \<CR>endif
+    \<CR>endfunction
     \<UP><TAB>
     \<UP><ESC>$li <C-R>=Eatchar(\'\\m\\s\\<bar>\\r\')<CR>
     \")
 ```
+![Demo](http://imgur.com/t9AjraP)
 
 ## Airline-theme
 - File: .vim/bundle/vim-airline-themes/autoload/airline/themes/ouo.vim
@@ -26,6 +27,7 @@ Vim Configuration
 let g:airline#themes#ouo#palette.normal.airline_warning = s:W
 let g:airline#themes#ouo#palette.normal.airline_error = s:E
 ```
+![Demo](http://imgur.com/XcWYhUQ)
 
 ## Alt key map
 - File: .keymap.vim
@@ -49,6 +51,7 @@ function! AddTitle()
     call append(4,"")
 endfunction
 ```
+![Demo](http://imgur.com/m8vj8V7)
 
 ## Brackets
 - File: .brackets.vim
@@ -60,8 +63,10 @@ endfunction
 
 ## Comment
 - File: .comment.vim
+- Must set call CommentFormat("") in .vim/after/ftplugin/******\*.vim first
 - Can use `<M-/>` to map comment and uncomment at the same time
 - Use visual mode can comment multiple lines
+![Demo](http://imgur.com/Dwwii0W)
 
 ## Compile and Run
 - File: .vimrc
@@ -106,12 +111,14 @@ function! CompileAndRun()
     exec "ALEEnable"
 endfunc
 ```
+![Demo](http://imgur.com/qiUjtiF)
 
 ## Completion (Plugin)
 - File: .bundles.vim
 - Plugin: [maralla/completor.vim](https://github.com/maralla/completor.vim)
 - Plugin(forked): [aben20807/completor.vim](https://github.com/aben20807/completor.vim)
 - Press `<F7>` in insert mode to toggle
+![Demo](http://imgur.com/RClIhwr)
 
 ## Indent highlight (Plugin)
 - File: .bundles.vim
@@ -145,6 +152,7 @@ nnoremap <F2> :set norelativenumber!<CR>:set nonumber!<CR>
 let g:mkdp_path_to_chrome = "cygstart /chrome.lnk"
 let g:mkdp_auto_start = 0
 ```
+![Demo](http://imgur.com/Wyp2qvv)
 
 ## Remove trailing white space
 - File: .vimrc
@@ -181,7 +189,9 @@ autocmd BufWritePre * call RemoveTrailingWhitespace()
 ```vim
 nnoremap <C-t> :ConqueTermVSplit bash<CR>
 ```
+![Demo](http://imgur.com/qsSb7Mh)
 
 ## Time
 - File: .keymap.vim
 - Press `<M-t>`in normal mode to show what time it is
+![Demo](http://imgur.com/bWHdrLr)
