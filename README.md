@@ -23,16 +23,12 @@ Vim 配置整理
 - 檔案: .vim/bundle/vim-airline-themes/autoload/airline/themes/ouo.vim
 - 修改了警告、錯誤區塊的顏色
 
-```vim
-let g:airline#themes#ouo#palette.normal.airline_warning = s:W
-let g:airline#themes#ouo#palette.normal.airline_error = s:E
-```
 ![Demo](http://imgur.com/XcWYhUQ.png)
 
 ## Alt key map (Alt鍵的mapping)
 - 檔案: .keymap.vim
 - 貼文: [106.07.19 vim map alt(meta) key](http://aben20807.blogspot.tw/2017/07/1060719-vim-map-altmeta-key.html)
-- 設定後可用 `<M-x>` 來map, x = a\~z, A\~Z, 0\~9, 還有一些特殊符號像.和/
+- 設定後可用 `<M-x>` 來map Alt+x, 其中x 為 a\~z, A\~Z, 0\~9, 還有一些特殊符號像.和/
 
 ## Author Information (添加作者資訊)
 - 檔案: .author.vim, .vim/after/ftplugin/\*.vim
@@ -73,7 +69,7 @@ endfunction
 - 檔案: .vimrc
 - 參考: http://www.edbiji.com/doccenter/showdoc/24/nav/284.html
 - 跳出之前會先關閉 ale
-- 也可以達成 markdown 預覽
+- 也可以切換 markdown 預覽
 
 ```vim
 map <F5> :call CompileAndRun()<CR>
@@ -177,7 +173,7 @@ autocmd BufWritePre * call RemoveTrailingWhitespace()
 ## Surround (加上括號)
 - 檔案: .surround.vim
 - 如果輸入字元不支援會顯示  ❖  不支援字元 ❖
-- `<M-s>x`: 在光標所在的單字左右加入x, x = ' , " , \( , \[ , \{ , <
+- `<M-s>x`: 在光標所在的單字左右加入x, 其中x 為 ' , " , \( , \[ , \{ , <
 - `<M-s>x`: 在 visual mode 則在選取的左右加入
 - `n<M-s>x`: 加在包含光標以後 n 個單字, n 為整數
 - `<M-d>x`: 若有包在 x 裡面則刪除字元 x
@@ -196,5 +192,15 @@ nnoremap <C-t> :ConqueTermVSplit bash<CR>
 ## Time (顯示時間)
 - 檔案: .keymap.vim
 - 在 normal mode 按 `<M-t>` 就會顯示現在時間
+
+```vim
+function! DateAndTime()
+    redraw
+    echohl WarningMsg
+        echo strftime("   ❖  現在時間 %H:%M ❖ ")
+    echohl NONE
+endfunction
+nnoremap <M-t> :call DateAndTime()<CR>
+```
 
 ![Demo](http://imgur.com/bWHdrLr.png)
