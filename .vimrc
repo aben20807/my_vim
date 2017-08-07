@@ -109,8 +109,8 @@ function! CompileAndRun()
             " Stop before starting and handle exception
             execute "MarkdownPreviewStop"
         catch /^Vim:E492:/
+            execute "MarkdownPreview"
         endtry
-        execute "MarkdownPreview"
     else
         redraw
         echohl WarningMsg
