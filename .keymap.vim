@@ -67,7 +67,7 @@ vmap <TAB> >gv
 vmap <S-TAB> <gv
 
 " 讓=移到最後再後
-nnoremap = $l
+" nnoremap = $l
 
 " normal下新增行
 nnoremap t o<ESC>
