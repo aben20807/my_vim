@@ -208,6 +208,7 @@ alias new='cygstart /cygdrive/c/ProgramData/Microsoft/Windows/Start\ Menu/Progra
 alias n=new
 # path
 alias ct='cd ~/pro/test/'
+alias cs='cd ~/pro/selfpro/'
 alias cl='cd ~/pro/selfpro/learn_rust'
 # list
 alias ls='ls -F --color=tty --show-control-chars'
@@ -221,7 +222,7 @@ alias la='ls -la -F --color=tty --show-control-chars'
 git_branch() {
   git branch 2>/dev/null | grep '^*' | colrm 1 2
 }
-PS1='\n\[\e[0;32m\]aben20807 \[\e[0;33m\]\w\[\e[0m\]\n\$ '
+PS1='\n\[\e[0;32m\]ouo \[\e[0;33m\]\w\[\e[0m\]\n\$ '
 
 # Git branch in prompt.
 # git_branch() {

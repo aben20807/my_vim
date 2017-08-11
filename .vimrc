@@ -85,11 +85,17 @@ augroup END
 "編譯並執行http://www.edbiji.com/doccenter/showdoc/24/nav/284.html
 map <F5> :call CompileAndRun()<CR>
 " map <M-r> :call CompileAndRun()<CR>
-" save -> close ALE -> execute -> open ALE
+" save -> close ALE -> print date -> [execute] run -> open ALE
 function! CompileAndRun()
     " save only when changed
-    exec "up"
-    exec "ALEDisable"
+    execute "up"
+    execute "ALEDisable"
+    silent execute "!echo"
+    silent execute "!echo -e '\033[31m ╔══════════════════════════════╗' "
+    silent execute "!echo -n ' ║ '"
+    silent execute "!echo -n `date`"
+    silent execute "!echo    ' ║ '"
+    silent execute "!echo -e '\033[31m ╚══════════════════════════════╝' \033[37m"
     if &filetype == 'rust'
         execute "!rustc % && time ./%< && rm %<"
     elseif &filetype == 'c'
@@ -117,7 +123,7 @@ function! CompileAndRun()
             echo strftime("   ❖  不支援  ❖ ")
         echohl NONE
     endif
-    exec "ALEEnable"
+    execute "ALEEnable"
 endfunc
 
 " Remove trailing whitespace when writing a buffer, but not for diff files.
