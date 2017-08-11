@@ -69,29 +69,17 @@ endfunction
 - 檔案: .vimrc
 - 參考: http://www.edbiji.com/doccenter/showdoc/24/nav/284.html
 - 跳出之前會先關閉 ale
+- 輸出現在時間避免搞混
 - 也可以切換 markdown 預覽
 
 ```vim
 map <F5> :call CompileAndRun()<CR>
-" save -> close ALE -> execute -> open ALE
+" save -> close ALE -> print date -> [execute] run -> open ALE
 function! CompileAndRun()
     " save only when changed
-    exec "up"
-    exec "ALEDisable"
-    if &filetype == 'rust'
-        exec "!rustc % && time ./%< && rm %<"
-    elseif &filetype == 'c'
-        exec "!gcc -std=c11 % -o /tmp/a.out && time /tmp/a.out"
-    elseif &filetype == 'cpp'
-        exec "!g++ -std=c++11 % -o /tmp/a.out && time /tmp/a.out"
-    elseif &filetype == 'java'
-        exec "!javac -encoding utf-8 %"
-        exec "!time java %<"
-    elseif &filetype == 'sh'
-        :!%
-    elseif &filetype == 'python'
-        exec "!time python3 %"
-    elseif &filetype == 'markdown'
+    execute "up"
+    execute "ALEDisable"
+    if &filetype == 'markdown'
         " markdown preview
         try
             " Stop before starting and handle exception
@@ -100,15 +88,39 @@ function! CompileAndRun()
             execute "MarkdownPreview"
         endtry
     else
-        redraw
-        echohl WarningMsg
-            echo strftime("   ❖  不支援  ❖ ")
-        echohl NONE
+        " echo date time
+        silent execute "!echo"
+        silent execute "!echo -e '\033[31m ╔══════════════════════════════╗' "
+        silent execute "!echo -n ' ║ '"
+        silent execute "!echo -n `date`"
+        silent execute "!echo    ' ║ '"
+        silent execute "!echo -e '\033[31m ╚══════════════════════════════╝' \033[37m"
+        " detect file type
+        if &filetype == 'rust'
+            execute "!rustc % && time ./%< && rm %<"
+        elseif &filetype == 'c'
+            execute "!gcc -std=c11 % -o /tmp/a.out && time /tmp/a.out"
+        elseif &filetype == 'cpp'
+            execute "!g++ -std=c++11 % -o /tmp/a.out && time /tmp/a.out"
+        elseif &filetype == 'java'
+            execute "!javac -encoding utf-8 %"
+            execute "!time java %<"
+        elseif &filetype == 'sh'
+            :!%
+        elseif &filetype == 'python'
+            execute "!time python3 %"
+        else
+            redraw
+            echohl WarningMsg
+                echo strftime("   ❖  不支援  ❖ ")
+            echohl NONE
+        endif
     endif
-    exec "ALEEnable"
-endfunc
+    execute "ALEEnable"
+endfunction
 ```
 ![Demo](http://imgur.com/qiUjtiF.gif)
+![Demo](http://imgur.com/vVX7bKN.png)
 
 ## Completion (補全插件)
 - 檔案: .bundles.vim

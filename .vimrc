@@ -84,32 +84,12 @@ augroup END
 
 "編譯並執行http://www.edbiji.com/doccenter/showdoc/24/nav/284.html
 map <F5> :call CompileAndRun()<CR>
-" map <M-r> :call CompileAndRun()<CR>
 " save -> close ALE -> print date -> [execute] run -> open ALE
 function! CompileAndRun()
     " save only when changed
     execute "up"
     execute "ALEDisable"
-    silent execute "!echo"
-    silent execute "!echo -e '\033[31m ╔══════════════════════════════╗' "
-    silent execute "!echo -n ' ║ '"
-    silent execute "!echo -n `date`"
-    silent execute "!echo    ' ║ '"
-    silent execute "!echo -e '\033[31m ╚══════════════════════════════╝' \033[37m"
-    if &filetype == 'rust'
-        execute "!rustc % && time ./%< && rm %<"
-    elseif &filetype == 'c'
-        execute "!gcc -std=c11 % -o /tmp/a.out && time /tmp/a.out"
-    elseif &filetype == 'cpp'
-        execute "!g++ -std=c++11 % -o /tmp/a.out && time /tmp/a.out"
-    elseif &filetype == 'java'
-        execute "!javac -encoding utf-8 %"
-        execute "!time java %<"
-    elseif &filetype == 'sh'
-        :!%
-    elseif &filetype == 'python'
-        execute "!time python3 %"
-    elseif &filetype == 'markdown'
+    if &filetype == 'markdown'
         " markdown preview
         try
             " Stop before starting and handle exception
@@ -118,13 +98,36 @@ function! CompileAndRun()
             execute "MarkdownPreview"
         endtry
     else
-        redraw
-        echohl WarningMsg
-            echo strftime("   ❖  不支援  ❖ ")
-        echohl NONE
+        " echo date time
+        silent execute "!echo"
+        silent execute "!echo -e '\033[31m ╔══════════════════════════════╗' "
+        silent execute "!echo -n ' ║ '"
+        silent execute "!echo -n `date`"
+        silent execute "!echo    ' ║ '"
+        silent execute "!echo -e '\033[31m ╚══════════════════════════════╝' \033[37m"
+        " detect file type
+        if &filetype == 'rust'
+            execute "!rustc % && time ./%< && rm %<"
+        elseif &filetype == 'c'
+            execute "!gcc -std=c11 % -o /tmp/a.out && time /tmp/a.out"
+        elseif &filetype == 'cpp'
+            execute "!g++ -std=c++11 % -o /tmp/a.out && time /tmp/a.out"
+        elseif &filetype == 'java'
+            execute "!javac -encoding utf-8 %"
+            execute "!time java %<"
+        elseif &filetype == 'sh'
+            :!%
+        elseif &filetype == 'python'
+            execute "!time python3 %"
+        else
+            redraw
+            echohl WarningMsg
+                echo strftime("   ❖  不支援  ❖ ")
+            echohl NONE
+        endif
     endif
     execute "ALEEnable"
-endfunc
+endfunction
 
 " Remove trailing whitespace when writing a buffer, but not for diff files.
 " From: Vigil <vim5632@rainslide.net>
