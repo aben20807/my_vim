@@ -107,7 +107,8 @@ function! CompileAndRun()
         silent execute "!echo -e '\033[31m ╚══════════════════════════════╝' \033[37m"
         " detect file type
         if &filetype == 'rust'
-            execute "!rustc % && time ./%< && rm %<"
+            " execute "!rustc % && time ./%< && rm %<"
+            execute "!time cargo run"
         elseif &filetype == 'c'
             execute "!gcc -std=c11 % -o /tmp/a.out && time /tmp/a.out"
         elseif &filetype == 'cpp'
