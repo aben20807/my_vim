@@ -95,18 +95,19 @@ let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
 "寬度
 let NERDTreeWinSize=25
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified" : "✹",
-    \ "Staged" : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed" : "➜",
-    \ "Unmerged" : "═",
-    \ "Deleted" : "✖",
-    \ "Dirty" : "✗",
-    \ "Clean" : "✔︎",
-    \ "Unknown" : "?"
-    \ }
+
+" Plugin 'Xuyuanp/nerdtree-git-plugin'
+" let g:NERDTreeIndicatorMapCustom = {
+    " \ "Modified" : "✹",
+    " \ "Staged" : "✚",
+    " \ "Untracked" : "✭",
+    " \ "Renamed" : "➜",
+    " \ "Unmerged" : "═",
+    " \ "Deleted" : "✖",
+    " \ "Dirty" : "✗",
+    " \ "Clean" : "✔︎",
+    " \ "Unknown" : "?"
+    " \ }
 function! s:ShowFilename()
     redraw | echohl Debug |
         \ echom index(["\" Press ? for help", "", ".. (up a dir)"], getline(".")) < 0 ?
@@ -128,6 +129,7 @@ let g:multi_cursor_quit_key='<Esc>' "退出
 Plugin 'Yggdroot/indentLine'
 let g:indentLine_setColors = 0
 let g:indentLine_char = '┊'
+let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*']
 nnoremap <F3> :IndentLinesToggle<CR>
 
 " 括號刪除取代
@@ -138,8 +140,8 @@ nnoremap <F3> :IndentLinesToggle<CR>
 " nnoremap <M-g> :HJKL<CR>
 
 "內部終端機
-Plugin 'wkentaro/conque.vim'
-nnoremap <C-t> :ConqueTermVSplit bash<CR>
+" Plugin 'wkentaro/conque.vim'
+" nnoremap <C-t> :ConqueTermVSplit bash<CR>
 
 "語法檢查
 Plugin 'w0rp/ale'
@@ -155,12 +157,14 @@ let g:ale_linters = {
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_lint_on_enter = 0
+let g:ale_lint_on_enter = 1
 let g:ale_set_signs = 1
 let g:ale_sign_error = '◈'
 let g:ale_sign_warning = '◈'
 " check only after savind
 let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_text_changed = 'always'
+let g:ale_lint_delay = 50
 nnoremap <M-a> :ALEToggle<CR>
 nmap <M-w> <Plug>(ale_previous_wrap)
 nmap <M-e> <Plug>(ale_next_wrap)
@@ -171,22 +175,12 @@ autocmd VimEnter,Colorscheme * :hi ALEError         cterm=NONE ctermfg=251 cterm
 autocmd VimEnter,Colorscheme * :hi ALEWarning       cterm=NONE ctermfg=251 ctermbg=166
 
 Plugin 'rust-lang/rust.vim'
-" Plugin 'racer-rust/vim-racer'
-" set hidden
-" let RUST_SRC_PATH="C:\\Users\\user\\.rustup\\toolchains\\stable-x86_64-pc-windows-gnu\\lib\\rustlib\\src\\rust\\src"
-" let $RUST_SRC_PATH="C:\\Users\\user\\.rustup\\toolchains\\stable-x86_64-pc-windows-gnu\\lib\\rustlib\\src\\rust\\src"
-" let g:racer_cmd = "/bin/racer.exe"
-" let g:racer_experimental_completer = 1
-" au FileType rust nmap <buffer> gd <Plug>(rust-def)
-" au FileType rust nmap <buffer> gs <Plug>(rust-def-split)
-" au FileType rust nmap <buffer> gx <Plug>(rust-def-vertical)
-" au FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
 
 " 簡單補全
-" Plugin 'maralla/completor.vim'
-Plugin 'aben20807/completor.vim'
+Plugin 'maralla/completor.vim'
+" Plugin 'aben20807/completor.vim'
 " " racer 尚有錯誤
-let g:completor_completion_delay=40
+let g:completor_completion_delay=10
 let g:completor_auto_close_doc=0
 let g:completor_auto_trigger=0
 let g:completor_min_chars=1

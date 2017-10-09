@@ -206,10 +206,13 @@ alias music='cygstart /cygdrive/d/hsuan/hsuan/音樂/a.xspf'
 alias m=music
 alias new='cygstart /cygdrive/c/ProgramData/Microsoft/Windows/Start\ Menu/Programs/Cygwin/Cygwin64\ Terminal.lnk'
 alias n=new
+alias play=cygstart
 # path
 alias ct='cd ~/pro/test/'
 alias cs='cd ~/pro/selfpro/'
 alias cl='cd ~/pro/selfpro/learn_rust'
+alias cr='cd ~/pro/selfpro/re-bridgechat'
+alias cx='cd d:/hsuan/acg/影/x'
 # list
 alias ls='ls -F --color=tty --show-control-chars'
 alias la='ls -la -F --color=tty --show-control-chars'

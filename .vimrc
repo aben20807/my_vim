@@ -108,7 +108,7 @@ function! CompileAndRun()
         " detect file type
         if &filetype == 'rust'
             " execute "!rustc % && time ./%< && rm %<"
-            execute "!time cargo run"
+            execute "!time RUST_BACKTRACE=1 cargo run"
         elseif &filetype == 'c'
             execute "!gcc -std=c11 % -o /tmp/a.out && time /tmp/a.out"
         elseif &filetype == 'cpp'
@@ -207,10 +207,10 @@ set ic
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " 簡易自動補全http://vim.wikia.com/wiki/Omni_completion
-set omnifunc=syntaxcomplete#Complete
-inoremap <M-x> <C-x><C-o>
-inoremap <expr> <TAB> pumvisible() ?"\<C-n>": "\<TAB>"
-inoremap <expr> <S-TAB> pumvisible() ?"\<C-p>": "\<S-TAB>"
+" set omnifunc=syntaxcomplete#Complete
+" inoremap <M-x> <C-x><C-o>
+" inoremap <expr> <TAB> pumvisible() ?"\<C-n>": "\<TAB>"
+" inoremap <expr> <S-TAB> pumvisible() ?"\<C-p>": "\<S-TAB>"
 
 " 設定文字編碼
 set enc=utf8
